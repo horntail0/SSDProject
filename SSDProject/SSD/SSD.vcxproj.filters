@@ -21,6 +21,7 @@
     <ClCompile Include="File.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SSDInterface.cpp">
     <ClCompile Include="SSD.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
