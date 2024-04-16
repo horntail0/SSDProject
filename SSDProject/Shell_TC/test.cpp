@@ -111,3 +111,16 @@ TEST_F(TestShell, TestWriteAbnormalValue) {
 
 	EXPECT_THROW(shell.write(0, "0xFFFF"), invalid_argument);
 }
+
+TEST_F(TestShell, TestApp1) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mssd, write(_, "0x12345678"))
+		.Times(100);
+
+	EXPECT_CALL(mssd, read(_))
+		.Times(100);
+
+	shell.testApp1("0x12345678");
+}

@@ -1,4 +1,4 @@
-﻿#include <string>
+#include <string>
 #include "../SSD/SSDInterface.cpp"
 #include <iostream>
 
@@ -47,6 +47,11 @@ public:
 
 	void selectSsd(SSDInterface* SsdInterfacePtr) {
 		SsdDriver = SsdInterfacePtr;
+	};
+
+	void testApp1(string data) {
+		fullWrite(data);
+		fullRead();
 	};
 
 private:
