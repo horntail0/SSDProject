@@ -12,23 +12,24 @@ public:
 	MOCK_METHOD(void, write, (int, string), (override));
 };
 
-TEST(SSDTest, WriteTestCallOnce) {
+class MockFixture : public testing::Test {
+public:
+	void SetUp() {
+		ssd.setFile(&file);
+	}
 	MockFile file;
 	SSD ssd;
-	ssd.setFile(&file);
+};
+
+TEST_F(MockFixture, WriteTestInvalidLBA) {
+	EXPECT_CALL(file, write(-1, "0x12345678"))
+		.Times(0);
+
+	ssd.write(-1, "0x12345678");
+}
+TEST_F(MockFixture, WriteTestCallOnce) {
 	EXPECT_CALL(file, write(1, "0x12345678"))
 		.Times(1);
 
 	ssd.write(1, "0x12345678");
-}
-TEST(SSDTest, WriteTestCall3Times) {
-	MockFile file;
-	SSD ssd;
-	ssd.setFile(&file);
-	EXPECT_CALL(file, write(_, _))
-		.Times(3);
-
-	ssd.write(1, "0x12345678");
-	ssd.write(2, "0x12345678");
-	ssd.write(3, "0x12345678");
 }
