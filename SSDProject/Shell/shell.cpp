@@ -1,5 +1,6 @@
 #include <string>
 #include "../SSD/SSDInterface.cpp"
+#include <iostream>
 
 using namespace std;
 
@@ -21,7 +22,14 @@ public:
 
 	void exit() {}
 
-	void help() {}
+	void help() {
+		cout << "1. Read data from LBA : read {LBA}" << endl
+			<< "2. Write data to LBA : write {LBA} {Data}" << endl
+			<< "3. Exit program : exit" << endl
+			<< "4. Print help description : help" << endl
+			<< "5. Write data to all LBA : fullwrite {Data}" << endl
+			<< "6. Read full data from all LBA : fullread" << endl;
+	}
 
 	void fullWrite(string data) {}
 
