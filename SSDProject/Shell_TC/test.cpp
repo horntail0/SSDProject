@@ -1,9 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-<<<<<<< HEAD
-#include "../Shell/shell.cpp"
-=======
 #include <string>
+#include "../Shell/shell.cpp"
 #include "../SSD/SSDInterface.cpp"
 
 using namespace std;
@@ -13,7 +11,6 @@ public:
 	MOCK_METHOD(string, read, (int LBA), (override));
 	MOCK_METHOD(void, write, (int LBA, string data), (override));
 };
->>>>>>> 49574dd91d598661781678c94895b075612a3329
 
 class TestShell : public testing::Test {
 public:
