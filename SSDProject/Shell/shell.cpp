@@ -7,9 +7,9 @@ public:
 		// m = new MockSSD();
 	}
 
-	void read(string LBA) {}
+	void read(int LBA) {}
 
-	void write(string LBA, string data) {}
+	void write(int LBA, string data) {}
 
 	void exit() {}
 
