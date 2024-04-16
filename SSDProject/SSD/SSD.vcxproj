@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="File.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SSDInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
