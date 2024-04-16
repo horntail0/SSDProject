@@ -1,4 +1,5 @@
-﻿#include <string>
+#pragma once
+#include <string>
 #include "../SSD/SSDInterface.cpp"
 #include <iostream>
 
