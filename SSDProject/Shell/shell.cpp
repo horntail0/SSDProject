@@ -50,6 +50,11 @@ public:
 		SsdDriver = SsdInterfacePtr;
 	};
 
+	void testApp1(string data) {
+		fullWrite(data);
+		fullRead();
+	};
+
 private:
 	SSDInterface* SsdDriver;
 };
