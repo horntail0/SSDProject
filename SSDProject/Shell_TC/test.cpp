@@ -70,6 +70,7 @@ TEST_F(TestShell, TestFullRead) {
 	shell.fullRead();
 }
 
+
 TEST_F(TestShell, TestFullWrite) {
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
@@ -78,4 +79,35 @@ TEST_F(TestShell, TestFullWrite) {
 		.Times(100);
 
 	shell.fullWrite("0x12345678");
+
+  
+TEST_F(TestShell, TestReadAbnormalAddress) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mssd, read(100))
+		.Times(1)
+		.WillOnce(Return("0xFFFFFFFF"));
+
+	EXPECT_THROW(shell.read(100), invalid_argument);
+}
+
+TEST_F(TestShell, TestWriteAbnormalAddress) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mssd, write(100, "0xFFFFFFFF"))
+		.Times(1);
+
+	EXPECT_THROW(shell.write(100, "0xFFFFFFFF"), invalid_argument);
+}
+
+TEST_F(TestShell, TestWriteAbnormalValue) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mssd, write(0, "0xFFFF"))
+		.Times(1);
+
+	EXPECT_THROW(shell.write(0, "0xFFFF"), invalid_argument);
 }
