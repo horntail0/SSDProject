@@ -49,5 +49,13 @@ TEST_F(TestShell, TestExit) {
 	shell.selectSsd(&mssd);
 
 	shell.exit();
+  SUCCEED();
+}
+
+TEST_F(TestShell, TestHelp) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	shell.help();
 	SUCCEED();
 }
