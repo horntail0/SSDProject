@@ -11,6 +11,10 @@ public:
 		file = file_;
 	}
 
+	void write(int lba, string data)
+	{
+		file->write(lba, data);
+	}
 private:
 	IFile* file;
 };
