@@ -60,6 +60,27 @@ public:
 		fullRead();
 	};
 
+	bool testApp2() {
+		string data = "0xAAAABBBB";
+		for (int i = 0; i < 30; i++) {
+			for (int j = 0; j <= 5; j++) {
+				SsdDriver->write(j, data);
+			}
+		}
+
+		data = "0x12345678";
+		for (int i = 0; i <= 5; i++) {
+			SsdDriver->write(i, data);
+		}
+
+		for (int i = 0; i <= 5; i++) {
+			string result = SsdDriver->read(i);
+			if (result != data) return false;
+		}
+
+		return true;
+	};
+
 private:
 	void checkAddressValidity(int LBA)
 	{
