@@ -24,6 +24,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gmock\gmock-all.cc">
       <Filter>소스 파일</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="shell.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+=======
+>>>>>>> 49574dd91d598661781678c94895b075612a3329
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

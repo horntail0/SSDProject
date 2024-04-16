@@ -1,4 +1,6 @@
 #include <string>
+#include "../SSD/SSDInterface.cpp"
+
 using namespace std;
 
 class Shell {
@@ -7,9 +9,15 @@ public:
 		// m = new MockSSD();
 	}
 
-	void read(int LBA) {}
+	string read(int LBA)
+	{
+		return SsdDriver->read(LBA);
+	}
 
-	void write(int LBA, string data) {}
+	void write(int LBA, string data)
+	{
+		SsdDriver->write(LBA, data);
+	}
 
 	void exit() {}
 
@@ -19,6 +27,10 @@ public:
 
 	void fullRead() {}
 
+	void selectSsd(SSDInterface* SsdInterfacePtr) {
+		SsdDriver = SsdInterfacePtr;
+	};
+
 private:
-	// ISSD* m;
+	SSDInterface* SsdDriver;
 };

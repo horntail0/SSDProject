@@ -12,27 +12,41 @@ public:
 	MOCK_METHOD(void, write, (int, string), (override));
 };
 
-TEST(SSDTest, WriteTest) {
-  EXPECT_EQ(1, 1);
-  EXPECT_TRUE(true);
+class MockFixture : public testing::Test {
+public:
+	void SetUp() {
+		ssd.setFile(&file);
+	}
+	MockFile file;
+	SSD ssd;
+};
+
+TEST_F(MockFixture, WriteTestInvalidLBA) {
+	EXPECT_CALL(file, write(-1, "0x12345678"))
+		.Times(0);
+
+	ssd.write(-1, "0x12345678");
+}
+TEST_F(MockFixture, WriteTestCallOnce) {
+	EXPECT_CALL(file, write(1, "0x12345678"))
+		.Times(1);
+
+	ssd.write(1, "0x12345678");
 }
 
-TEST(SSDTest, ReadTest) { //일반적인 read
-	MockFile file;
-	EXPECT_CALL(file, read(1)).Times(1);
-	
-	SSD ssd;
-	ssd.setFile(&file);
+TEST_F(MockFixture, ReadTest) { //일반적인 read
+	EXPECT_CALL(file, read(1))
+		.Times(1);
+
 	ssd.read(1);
 }
 
-TEST(SSDTest, ReadTestInvalidLba) { //0~99 아닌 위치에 read
-	MockFile file;
-	EXPECT_CALL(file, read(-1)).Times(0);
-	EXPECT_CALL(file, read(100)).Times(0);
+TEST_F(MockFixture, ReadTestInvalidLba) { //0~99 아닌 위치에 read
+	EXPECT_CALL(file, read(-1))
+		.Times(0);
+	EXPECT_CALL(file, read(100))
+		.Times(0);
 
-	SSD ssd;
-	ssd.setFile(&file);
 	ssd.read(-1);
 	ssd.read(100);
 }
