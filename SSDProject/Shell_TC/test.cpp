@@ -33,3 +33,21 @@ TEST_F(TestShell, TestRead) {
 
 	EXPECT_EQ(input, result);
 }
+
+TEST_F(TestShell, TestWrite) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mssd, write(0, "0xABCD1234"))
+		.Times(1);
+
+	shell.write(0, "0xABCD1234");
+}
+
+TEST_F(TestShell, TestExit) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	shell.exit();
+	SUCCEED();
+}
