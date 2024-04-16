@@ -26,14 +26,17 @@ public:
 
 TEST_F(MockFixture, WriteTestInvalidData)
 {
-	EXPECT_CALL(file, write(_, "0x1234"))
+	EXPECT_CALL(file, write(_, "1234567890"))
+		.Times(0);
+	EXPECT_CALL(file, write(_, "0x1234567"))
 		.Times(0);
 	EXPECT_CALL(file, write(_, "0x123456789"))
 		.Times(0);
 	EXPECT_CALL(file, write(_, "0x1234ABCG"))
 		.Times(0);
 
-	ssd.write(1, "0x1234");
+	ssd.write(1, "1234567890");
+	ssd.write(1, "0x1234567");
 	ssd.write(1, "0x123456789");
 	ssd.write(1, "0x1234ABCG");
 }
