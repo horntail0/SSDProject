@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{e57ee512-3dc5-4c93-887d-9e0891a0bc5c}</ProjectGuid>
-    <RootNamespace>Project1</RootNamespace>
+    <ProjectGuid>{3ec12cc6-fc9e-439d-9041-14347c8d66c9}</ProjectGuid>
+    <RootNamespace>Shell</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Shell</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -128,10 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

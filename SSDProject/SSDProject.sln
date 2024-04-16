@@ -11,6 +11,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shell_TC", "Shell_TC\Shell_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SSD_TC", "SSD_TC\SSD_TC.vcxproj", "{2D9A83A7-B75E-42B5-A536-1B59987CA0F6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{FD1DABE0-B112-47F6-96B5-9A2C809497F1}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
