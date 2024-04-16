@@ -5,6 +5,7 @@
 #include "../SSD/SSDInterface.cpp"
 
 using namespace std;
+using namespace testing;
 
 class MockSSD : public SSDInterface {
 public:
@@ -14,13 +15,21 @@ public:
 
 class TestShell : public testing::Test {
 public:
-	Shell s;
-
+	Shell shell;
 private:
 
 };
 
-TEST_F(TestShell, Test1) {
-	s.read(0);
-	SUCCEED();
+TEST_F(TestShell, TestRead) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mssd, read(0))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+	
+	string input = shell.read(0);
+	string result = "0x12345678";
+
+	EXPECT_EQ(input, result);
 }
