@@ -33,3 +33,11 @@ TEST_F(TestShell, TestRead) {
 
 	EXPECT_EQ(input, result);
 }
+
+TEST_F(TestShell, TestHelp) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	shell.help();
+	SUCCEED();
+}
