@@ -1,4 +1,4 @@
-﻿#include <gtest/gtest.h>
+#include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include <string>
 #include "../Shell/shell.cpp"
@@ -79,7 +79,7 @@ TEST_F(TestShell, TestFullWrite) {
 		.Times(100);
 
 	shell.fullWrite("0x12345678");
-
+}
   
 TEST_F(TestShell, TestReadAbnormalAddress) {
 	MockSSD mssd;
