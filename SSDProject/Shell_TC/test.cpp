@@ -60,6 +60,16 @@ TEST_F(TestShell, TestHelp) {
 	SUCCEED();
 }
 
+TEST_F(TestShell, TestFullRead) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mssd, read(_))
+		.Times(100);
+
+	shell.fullRead();
+}
+
 TEST_F(TestShell, TestReadAbnormalAddress) {
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
