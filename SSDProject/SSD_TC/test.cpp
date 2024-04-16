@@ -24,6 +24,20 @@ public:
 	SSD ssd;
 };
 
+TEST_F(MockFixture, WriteTestInvalidData)
+{
+	EXPECT_CALL(file, write(_, "0x1234"))
+		.Times(0);
+	EXPECT_CALL(file, write(_, "0x123456789"))
+		.Times(0);
+	EXPECT_CALL(file, write(_, "0x1234ABCG"))
+		.Times(0);
+
+	ssd.write(1, "0x1234");
+	ssd.write(1, "0x123456789");
+	ssd.write(1, "0x1234ABCG");
+}
+
 TEST_F(MockFixture, WriteTestInvalidLBA) 
 {
 	EXPECT_CALL(file, write(-1, _))
