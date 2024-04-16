@@ -44,5 +44,10 @@ int main()
 			cin >> param1;
 			shell.fullWrite(param1);
 		}
+		else
+		{
+			cout << "Please refer to the following help message as the entered command is invalid." << endl;
+			shell.help();
+		}
 	}
 }
