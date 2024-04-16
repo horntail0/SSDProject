@@ -9,9 +9,9 @@ public:
 		// m = new MockSSD();
 	}
 
-	void read(int LBA)
+	string read(int LBA)
 	{
-		SsdDriver->read(LBA);
+		return SsdDriver->read(LBA);
 	}
 
 	void write(int LBA, string data)
