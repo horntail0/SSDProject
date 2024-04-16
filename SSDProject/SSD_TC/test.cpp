@@ -6,28 +6,37 @@
 using namespace std;
 using namespace testing;
 
-class MockFile : public IFile {
+class MockFile : public IFile 
+{
 public:
 	MOCK_METHOD(void, read, (int), (override));
 	MOCK_METHOD(void, write, (int, string), (override));
 };
 
-class MockFixture : public testing::Test {
+class MockFixture : public testing::Test 
+{
 public:
-	void SetUp() {
+	void SetUp() 
+	{
 		ssd.setFile(&file);
 	}
 	MockFile file;
 	SSD ssd;
 };
 
-TEST_F(MockFixture, WriteTestInvalidLBA) {
-	EXPECT_CALL(file, write(-1, "0x12345678"))
+TEST_F(MockFixture, WriteTestInvalidLBA) 
+{
+	EXPECT_CALL(file, write(-1, _))
+		.Times(0);
+	EXPECT_CALL(file, write(100, _))
 		.Times(0);
 
 	ssd.write(-1, "0x12345678");
+	ssd.write(100, "0x12345678");
 }
-TEST_F(MockFixture, WriteTestCallOnce) {
+
+TEST_F(MockFixture, WriteTestCallOnce) 
+{
 	EXPECT_CALL(file, write(1, "0x12345678"))
 		.Times(1);
 
