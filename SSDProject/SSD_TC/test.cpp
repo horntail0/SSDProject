@@ -34,14 +34,14 @@ TEST_F(MockFixture, WriteTestCallOnce) {
 	ssd.write(1, "0x12345678");
 }
 
-TEST_F(MockFixture, ReadTest) { //ÀÏ¹ÝÀûÀÎ read
+TEST_F(MockFixture, ReadTest) { //ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ read
 	EXPECT_CALL(file, read(1))
 		.Times(1);
 
 	ssd.read(1);
 }
 
-TEST_F(MockFixture, ReadTestInvalidLba) { //0~99 ¾Æ´Ñ À§Ä¡¿¡ read
+TEST_F(MockFixture, ReadTestInvalidLba) { //0~99 ï¿½Æ´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ read
 	EXPECT_CALL(file, read(-1))
 		.Times(0);
 	EXPECT_CALL(file, read(100))
@@ -51,4 +51,4 @@ TEST_F(MockFixture, ReadTestInvalidLba) { //0~99 ¾Æ´Ñ À§Ä¡¿¡ read
 	ssd.read(100);
 }
 
-//¾È½áÁø °÷¿¡ read
+//ï¿½È½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ read
