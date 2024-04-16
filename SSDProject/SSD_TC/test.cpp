@@ -6,15 +6,18 @@
 using namespace std;
 using namespace testing;
 
-class MockFile : public IFile {
+class MockFile : public IFile 
+{
 public:
 	MOCK_METHOD(void, read, (int), (override));
 	MOCK_METHOD(void, write, (int, string), (override));
 };
 
-class MockFixture : public testing::Test {
+class MockFixture : public testing::Test 
+{
 public:
-	void SetUp() {
+	void SetUp() 
+	{
 		ssd.setFile(&file);
 	}
 	MockFile file;
@@ -30,13 +33,36 @@ public:
 	SSD ssd;
 };
 
-TEST_F(MockFixture, WriteTestInvalidLBA) {
-	EXPECT_CALL(file, write(-1, "0x12345678"))
+TEST_F(MockFixture, WriteTestInvalidData)
+{
+	EXPECT_CALL(file, write(_, "1234567890"))
+		.Times(0);
+	EXPECT_CALL(file, write(_, "0x1234567"))
+		.Times(0);
+	EXPECT_CALL(file, write(_, "0x123456789"))
+		.Times(0);
+	EXPECT_CALL(file, write(_, "0x1234ABCG"))
+		.Times(0);
+
+	ssd.write(1, "1234567890");
+	ssd.write(1, "0x1234567");
+	ssd.write(1, "0x123456789");
+	ssd.write(1, "0x1234ABCG");
+}
+
+TEST_F(MockFixture, WriteTestInvalidLBA) 
+{
+	EXPECT_CALL(file, write(-1, _))
+		.Times(0);
+	EXPECT_CALL(file, write(100, _))
 		.Times(0);
 
 	ssd.write(-1, "0x12345678");
+	ssd.write(100, "0x12345678");
 }
-TEST_F(MockFixture, WriteTestCallOnce) {
+
+TEST_F(MockFixture, WriteTestCallOnce) 
+{
 	EXPECT_CALL(file, write(1, "0x12345678"))
 		.Times(1);
 
@@ -62,8 +88,8 @@ TEST_F(MockFixture, ReadTestInvalidLba) { //0~99 아닌 위치에 read
 
 TEST_F(SSDFixture, DISABLED_writeFileTest) {
 	string data = "0x12345678";
-	file.writeFile("test.txt", data);
-	EXPECT_EQ(data, file.getData("test.txt", 0));
+	//file.writeFile("test.txt", data);
+	//EXPECT_EQ(data, file.getData("test.txt", 0));
 }
 
 //안써진 곳에 read
