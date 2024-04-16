@@ -13,7 +13,6 @@ public:
 class SSDFile : public IFile 
 {
 public:
-	// IFile을(를) 통해 상속됨
 	void read(int lba) override
 	{
 	}
@@ -21,5 +20,4 @@ public:
 	void write(int lba, string data) override
 	{
 	}
-
 };

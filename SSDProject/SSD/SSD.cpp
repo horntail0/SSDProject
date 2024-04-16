@@ -11,6 +11,16 @@ public:
 		file = file_;
 	}
 
+	void read(int lba) 
+	{
+		if (lba < 0 || lba > 99)
+		{
+			//error
+			return;
+		}
+		file->read(lba);
+	}
+
 	void write(int lba, string data)
 	{
 		if (lba < 0 || lba > 99)
@@ -18,6 +28,7 @@ public:
 
 		file->write(lba, data);
 	}
+
 private:
 	IFile* file;
 };
