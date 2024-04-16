@@ -34,7 +34,6 @@ TEST_F(MockFixture, WriteTestCallOnce) {
 	ssd.write(1, "0x12345678");
 }
 
-
 TEST_F(MockFixture, ReadTest) { //일반적인 read
 	EXPECT_CALL(file, read(1))
 		.Times(1);
@@ -42,8 +41,7 @@ TEST_F(MockFixture, ReadTest) { //일반적인 read
 	ssd.read(1);
 }
 
-
-TEST_F(MockFixture, ReadTestInvalidLba) { //0~99 žĆ´Ń Ŕ§ÄĄżĄ read
+TEST_F(MockFixture, ReadTestInvalidLba) { //0~99 아닌 위치에 read
 	EXPECT_CALL(file, read(-1))
 		.Times(0);
 	EXPECT_CALL(file, read(100))
@@ -52,7 +50,5 @@ TEST_F(MockFixture, ReadTestInvalidLba) { //0~99 žĆ´Ń Ŕ§ÄĄżĄ read
 	ssd.read(-1);
 	ssd.read(100);
 }
-
-
 
 //안써진 곳에 read
