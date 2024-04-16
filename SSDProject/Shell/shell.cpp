@@ -33,7 +33,11 @@ public:
 
 	void fullWrite(string data) {}
 
-	void fullRead() {}
+	void fullRead() {
+		for (int i = 0; i < 100; i++) {
+			SsdDriver->read(i);
+		}
+	}
 
 	void selectSsd(SSDInterface* SsdInterfacePtr) {
 		SsdDriver = SsdInterfacePtr;
