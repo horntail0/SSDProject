@@ -4,6 +4,8 @@
 
 using namespace std;
 
+constexpr int MAX_NUM = 100;
+
 class Shell {
 public:
 	Shell() {
@@ -34,7 +36,7 @@ public:
 	void fullWrite(string data) {}
 
 	void fullRead() {
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < MAX_NUM; i++) {
 			SsdDriver->read(i);
 		}
 	}
