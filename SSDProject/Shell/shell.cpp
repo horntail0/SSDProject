@@ -1,19 +1,23 @@
+#include <string>
+using namespace std;
 
 class Shell {
 public:
-	Shell() {}
+	Shell() {
+		// m = new MockSSD();
+	}
 
-	void read() {}
+	void read(string LBA) {}
 
-	void write() {}
+	void write(string LBA, string data) {}
 
 	void exit() {}
 
 	void help() {}
 
-	void fullwrite() {}
+	void fullWrite(string data) {}
 
-	void fullread() {}
+	void fullRead() {}
 
 private:
 	// ISSD* m;
