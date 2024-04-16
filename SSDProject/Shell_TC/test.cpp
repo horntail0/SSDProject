@@ -70,6 +70,17 @@ TEST_F(TestShell, TestFullRead) {
 	shell.fullRead();
 }
 
+
+TEST_F(TestShell, TestFullWrite) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mssd, write(_, "0x12345678"))
+		.Times(100);
+
+	shell.fullWrite("0x12345678");
+
+  
 TEST_F(TestShell, TestReadAbnormalAddress) {
 	MockSSD mssd;
 	shell.selectSsd(&mssd);

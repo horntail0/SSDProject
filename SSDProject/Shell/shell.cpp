@@ -33,7 +33,11 @@ public:
 			<< "6. Read full data from all LBA : fullread" << endl;
 	}
 
-	void fullWrite(string data) {}
+	void fullWrite(string data) {
+		for (int i = 0; i < MAX_NUM; i++) {
+			SsdDriver->write(i, data);
+		}
+	}
 
 	void fullRead() {
 		for (int i = 0; i < MAX_NUM; i++) {
