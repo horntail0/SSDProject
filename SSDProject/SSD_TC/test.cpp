@@ -24,6 +24,15 @@ public:
 	SSD ssd;
 };
 
+class SSDFixture : public testing::Test {
+public:
+	void SetUp() {
+		ssd.setFile(&file);
+	}
+	SSDFile file;
+	SSD ssd;
+};
+
 TEST_F(MockFixture, WriteTestInvalidData)
 {
 	EXPECT_CALL(file, write(_, "1234567890"))
@@ -75,6 +84,12 @@ TEST_F(MockFixture, ReadTestInvalidLba) { //0~99 아닌 위치에 read
 
 	ssd.read(-1);
 	ssd.read(100);
+}
+
+TEST_F(SSDFixture, DISABLED_writeFileTest) {
+	string data = "0x12345678";
+	//file.writeFile("test.txt", data);
+	//EXPECT_EQ(data, file.getData("test.txt", 0));
 }
 
 //안써진 곳에 read
