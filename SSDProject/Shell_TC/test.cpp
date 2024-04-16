@@ -85,19 +85,12 @@ TEST_F(TestShell, TestReadAbnormalAddress) {
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
-	EXPECT_CALL(mssd, read(100))
-		.Times(1)
-		.WillOnce(Return("0xFFFFFFFF"));
-
 	EXPECT_THROW(shell.read(100), invalid_argument);
 }
 
 TEST_F(TestShell, TestWriteAbnormalAddress) {
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
-
-	EXPECT_CALL(mssd, write(100, "0xFFFFFFFF"))
-		.Times(1);
 
 	EXPECT_THROW(shell.write(100, "0xFFFFFFFF"), invalid_argument);
 }
@@ -106,10 +99,18 @@ TEST_F(TestShell, TestWriteAbnormalValue) {
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
-	EXPECT_CALL(mssd, write(0, "0xFFFF"))
-		.Times(1);
-
+	EXPECT_THROW(shell.write(0, "0xABCDEFGH"), invalid_argument);
+	EXPECT_THROW(shell.write(0, "0xABCDABCDABCD"), invalid_argument);
 	EXPECT_THROW(shell.write(0, "0xFFFF"), invalid_argument);
+}
+
+TEST_F(TestShell, TestFullWriteAbnormalValue) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	EXPECT_THROW(shell.fullWrite("0xABCDEFGH"), invalid_argument);
+	EXPECT_THROW(shell.fullWrite("0xABCDABCDABCD"), invalid_argument);
+	EXPECT_THROW(shell.fullWrite("0xFFFF"), invalid_argument);
 }
 
 TEST_F(TestShell, TestApp1) {
