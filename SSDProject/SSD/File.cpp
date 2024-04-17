@@ -7,6 +7,8 @@
 using namespace std;
 
 const string NAND_FILE = "nand.txt";
+const string RESULT_FILE = "result.txt";
+const string DEFAULT_DATA = "0x00000000";
 
 class IFile
 {
@@ -20,7 +22,7 @@ class SSDFile : public IFile
 public:
 	void read(int lba) override
 	{
-		writeFile("result.txt", getData("nand.txt", lba));
+		writeFile(RESULT_FILE, getData(NAND_FILE, lba));
 	}
 
 	void write(int lba, string data) override
@@ -43,7 +45,7 @@ public:
 		else
 		{
 			for (int i = 0; i < 100; i++)
-				buf.push_back("0x00000000");
+				buf.push_back(DEFAULT_DATA);
 
 			buf[lba] = data;
 			writeFileTotal(NAND_FILE, buf);
@@ -68,7 +70,7 @@ private:
 			file.close();
 		}
 
-		return "0x00000000";
+		return DEFAULT_DATA;
 	}
 
 
