@@ -8,20 +8,12 @@
 using namespace std;
 using namespace testing;
 
-class MockSSD : public SSDInterface
-{
-public:
-	MOCK_METHOD(bool, read, (int LBA), (override));
-	MOCK_METHOD(bool, write, (int LBA, string data), (override));
-};
-
 class MockFile : public IFile
 {
 public:
 	MOCK_METHOD(void, read, (int LBA), (override));
 	MOCK_METHOD(void, write, (int LBA, string data), (override));
 };
-
 
 class MockSSDAdapter : public SSDInterface
 {
@@ -55,14 +47,15 @@ public:
 	MockFile mfile;
 	MockSSDAdapter mssd;
 private:
-
+	void SetUp() override
+	{
+		mssd.selectMockFile(&mfile);
+		shell.selectSsd(&mssd);
+	}
 };
 
 TEST_F(TestShell, TestMockAdapterRead)
 {
-	mssd.selectMockFile(&mfile);
-	shell.selectSsd(&mssd);
-
 	EXPECT_CALL(mfile, read(0))
 		.Times(1);
 
@@ -71,9 +64,6 @@ TEST_F(TestShell, TestMockAdapterRead)
 
 TEST_F(TestShell, TestMockAdapterWrite)
 {
-	mssd.selectMockFile(&mfile);
-	shell.selectSsd(&mssd);
-
 	EXPECT_CALL(mfile, write(0, "0x12345678"))
 		.Times(1);
 
@@ -109,9 +99,6 @@ TEST_F(TestShell, TestMockAdapterHelp)
 
 TEST_F(TestShell, TestMockAdapterFullRead)
 {
-	mssd.selectMockFile(&mfile);
-	shell.selectSsd(&mssd);
-
 	EXPECT_CALL(mfile, read(_))
 		.Times(100);
 
@@ -120,9 +107,6 @@ TEST_F(TestShell, TestMockAdapterFullRead)
 
 TEST_F(TestShell, TestMockAdapterFullWrite)
 {
-	mssd.selectMockFile(&mfile);
-	shell.selectSsd(&mssd);
-
 	EXPECT_CALL(mfile, write(_, "0x12345678"))
 		.Times(100);
 
@@ -131,9 +115,6 @@ TEST_F(TestShell, TestMockAdapterFullWrite)
 
 TEST_F(TestShell, TestMockAdapterApp1) 
 {
-	mssd.selectMockFile(&mfile);
-	shell.selectSsd(&mssd);
-
 	EXPECT_CALL(mfile, write(_, "0x12345678"))
 		.Times(100);
 
@@ -145,9 +126,6 @@ TEST_F(TestShell, TestMockAdapterApp1)
 
 TEST_F(TestShell, TestMockAdapterApp2)
 {
-	mssd.selectMockFile(&mfile);
-	shell.selectSsd(&mssd);
-
 	EXPECT_CALL(mfile, write(0, "0xAAAABBBB"))
 		.Times(30);
 	EXPECT_CALL(mfile, write(1, "0xAAAABBBB"))
@@ -190,12 +168,8 @@ TEST_F(TestShell, TestMockAdapterApp2)
 	EXPECT_EQ(shell.testApp2(), true);
 }
 
-#if 0
 TEST_F(TestShell, TestReadAbnormalAddress)
 {
-	MockSSD mssd;
-	shell.selectSsd(&mssd);
-
 	std::ostringstream oss;
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
@@ -210,9 +184,6 @@ TEST_F(TestShell, TestReadAbnormalAddress)
 
 TEST_F(TestShell, TestWriteAbnormalAddress)
 {
-	MockSSD mssd;
-	shell.selectSsd(&mssd);
-
 	std::ostringstream oss;
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
@@ -227,9 +198,6 @@ TEST_F(TestShell, TestWriteAbnormalAddress)
 
 TEST_F(TestShell, TestWriteAbnormalValue)
 {
-	MockSSD mssd;
-	shell.selectSsd(&mssd);
-
 	std::ostringstream oss;
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
@@ -244,9 +212,6 @@ TEST_F(TestShell, TestWriteAbnormalValue)
 
 TEST_F(TestShell, TestFullWriteAbnormalValue)
 {
-	MockSSD mssd;
-	shell.selectSsd(&mssd);
-
 	std::ostringstream oss;
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
@@ -258,4 +223,3 @@ TEST_F(TestShell, TestFullWriteAbnormalValue)
 
 	EXPECT_EQ(result, "INVALID COMMAND\n");
 }
-#endif
