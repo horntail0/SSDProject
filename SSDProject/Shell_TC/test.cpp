@@ -104,6 +104,17 @@ TEST_F(TestShell, TestMockAdapterFullWrite)
 	EXPECT_EQ(shell.fullWrite("0x12345678"), true);
 }
 
+TEST_F(TestShell, TestMockAdapterApp1) 
+{
+	EXPECT_CALL(mfile, write(_, "0x12345678"))
+		.Times(100);
+
+	EXPECT_CALL(mfile, read(_))
+		.Times(100);
+
+	EXPECT_EQ(shell.testApp1("0x12345678"), true);
+}
+
 TEST_F(TestShell, TestMockAdapterApp2)
 {
 	mssd.selectMockFile(&mfile);
@@ -264,4 +275,54 @@ TEST_F(TestShell, TestApp1)
 	EXPECT_EQ(shell.testApp1("0x12345678"), true);
 }
 
+
+TEST_F(TestShell, TestApp2)
+{
+	EXPECT_CALL(mssd, write(0, "0xAAAABBBB"))
+		.Times(30);
+	EXPECT_CALL(mssd, write(1, "0xAAAABBBB"))
+		.Times(30);
+	EXPECT_CALL(mssd, write(2, "0xAAAABBBB"))
+		.Times(30);
+	EXPECT_CALL(mssd, write(3, "0xAAAABBBB"))
+		.Times(30);
+	EXPECT_CALL(mssd, write(4, "0xAAAABBBB"))
+		.Times(30);
+	EXPECT_CALL(mssd, write(5, "0xAAAABBBB"))
+		.Times(30);
+
+	EXPECT_CALL(mssd, write(0, "0x12345678"))
+		.Times(1);
+	EXPECT_CALL(mssd, write(1, "0x12345678"))
+		.Times(1);
+	EXPECT_CALL(mssd, write(2, "0x12345678"))
+		.Times(1);
+	EXPECT_CALL(mssd, write(3, "0x12345678"))
+		.Times(1);
+	EXPECT_CALL(mssd, write(4, "0x12345678"))
+		.Times(1);
+	EXPECT_CALL(mssd, write(5, "0x12345678"))
+		.Times(1);
+
+	EXPECT_CALL(mssd, read(0))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+	EXPECT_CALL(mssd, read(1))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+	EXPECT_CALL(mssd, read(2))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+	EXPECT_CALL(mssd, read(3))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+	EXPECT_CALL(mssd, read(4))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+	EXPECT_CALL(mssd, read(5))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+
+	EXPECT_EQ(shell.testApp2(), true);
+}
 #endif
