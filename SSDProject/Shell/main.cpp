@@ -1,16 +1,9 @@
 #include "../Shell/shell.cpp"
-#include "../SSD/SSD.cpp"
-#include "../SSD/SSDInterface.cpp"
+#include "SSDInterface.cpp"
 
 int main()
 {
-	//SSDFile file;
-
-	//SSD ssd;
-	//ssd.setFile(&file);
-
 	Shell shell;
-	//shell.selectSsd(&ssd);
 
 	while (true)
 	{

@@ -2,7 +2,7 @@
 #include <gmock/gmock.h>
 #include <string>
 #include "../Shell/shell.cpp"
-#include "../SSD/SSDInterface.cpp"
+#include "../Shell/SSDInterface.cpp"
 
 using namespace std;
 using namespace testing;
