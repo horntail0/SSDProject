@@ -7,6 +7,12 @@
 using namespace std;
 using namespace testing;
 
+const string NORMAL_DATA = "0x12345678";
+const string LONG_DATA = "0x123456789";
+const string SHORT_DATA = "0x1234567";
+const string NOT_HEXA_DATA = "0x1234ABCG";
+const string DECIMAL_DATA = "1234567890";
+
 class MockFile : public IFile
 {
 public:
@@ -49,7 +55,7 @@ public:
 			file.close();
 		}
 
-		return "0x00000000";
+		return DEFAULT_DATA;
 	}
 	SSDFile file;
 	SSD ssd;
@@ -57,19 +63,19 @@ public:
 
 TEST_F(MockFixture, WriteTestInvalidData)
 {
-	EXPECT_CALL(file, write(_, "1234567890"))
+	EXPECT_CALL(file, write(_, DECIMAL_DATA))
 		.Times(0);
-	EXPECT_CALL(file, write(_, "0x1234567"))
+	EXPECT_CALL(file, write(_, SHORT_DATA))
 		.Times(0);
-	EXPECT_CALL(file, write(_, "0x123456789"))
+	EXPECT_CALL(file, write(_, LONG_DATA))
 		.Times(0);
-	EXPECT_CALL(file, write(_, "0x1234ABCG"))
+	EXPECT_CALL(file, write(_, NOT_HEXA_DATA))
 		.Times(0);
 
-	ssd.write(1, "1234567890");
-	ssd.write(1, "0x1234567");
-	ssd.write(1, "0x123456789");
-	ssd.write(1, "0x1234ABCG");
+	ssd.write(1, DECIMAL_DATA);
+	ssd.write(1, SHORT_DATA);
+	ssd.write(1, LONG_DATA);
+	ssd.write(1, NOT_HEXA_DATA);
 }
 
 TEST_F(MockFixture, WriteTestInvalidLBA)
@@ -79,16 +85,16 @@ TEST_F(MockFixture, WriteTestInvalidLBA)
 	EXPECT_CALL(file, write(100, _))
 		.Times(0);
 
-	ssd.write(-1, "0x12345678");
-	ssd.write(100, "0x12345678");
+	ssd.write(-1, NORMAL_DATA);
+	ssd.write(100, NORMAL_DATA);
 }
 
 TEST_F(MockFixture, WriteTestCallOnce)
 {
-	EXPECT_CALL(file, write(1, "0x12345678"))
+	EXPECT_CALL(file, write(1, NORMAL_DATA))
 		.Times(1);
 
-	ssd.write(1, "0x12345678");
+	ssd.write(1, NORMAL_DATA);
 }
 
 TEST_F(MockFixture, ReadTest)
@@ -119,13 +125,8 @@ TEST_F(SSDFixture, DISABLED_writeFileTest)
 
 TEST_F(SSDFixture, WriteTestFileNormal)
 {
-	string data = "0x12345678";
-
-	ssd.write(0, data);
-
-	string read = getData("nand.txt", 0);
-
-	EXPECT_EQ(read, data);
+	ssd.write(0, NORMAL_DATA);
+	EXPECT_EQ(getData("nand.txt", 0), NORMAL_DATA);
 }
 
 //안써진 곳에 read
