@@ -70,6 +70,18 @@ TEST_F(TestShell, TestMockAdapter)
 	EXPECT_EQ(shell.read(0), true);
 }
 
+TEST_F(TestShell, TestMockAdapterExit)
+{
+	shell.exit();
+	SUCCEED();
+}
+
+TEST_F(TestShell, TestMockAdapterHelp)
+{
+	shell.help();
+	SUCCEED();
+}
+
 #if 0
 TEST_F(TestShell, TestRead)
 {
@@ -97,23 +109,7 @@ TEST_F(TestShell, TestWrite)
 	shell.write(0, "0xABCD1234");
 }
 
-TEST_F(TestShell, TestExit)
-{
-	MockSSD mssd;
-	shell.selectSsd(&mssd);
 
-	shell.exit();
-	SUCCEED();
-}
-
-TEST_F(TestShell, TestHelp)
-{
-	MockSSD mssd;
-	shell.selectSsd(&mssd);
-
-	shell.help();
-	SUCCEED();
-}
 
 TEST_F(TestShell, TestFullRead)
 {
