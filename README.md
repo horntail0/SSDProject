@@ -1,20 +1,19 @@
 Refer to following link for project discussion 
 https://docs.google.com/spreadsheets/d/1C4wgnd7N1jhjAJzDQxLApnpnB-jsfAwERMy3Vl8z0XE/edit#gid=0
 
-Commit 생성 시 
-말머리: 제목 꼭 지켜주세요!
+# Commit 생성 시 
+
+# 말머리: 제목 꼭 지켜주세요!
 
 **- 말머리 목록**
-################
-# feat : 새로운 기능 추가
-# fix : 버그 수정
-# docs : 문서 수정
-# test : 테스트 코드 추가
-# refact : 코드 리팩토링
-# style : 코드 의미에 영향을 주지 않는 변경사항
-# chore : 빌드 부분 혹은 패키지 매니저 수정사항
-# rename : 파일 혹은 폴더명 수정 혹은 이동
-################
+feat : 새로운 기능 추가
+fix : 버그 수정
+docs : 문서 수정
+test : 테스트 코드 추가
+refact : 코드 리팩토링
+style : 코드 의미에 영향을 주지 않는 변경사항
+chore : 빌드 부분 혹은 패키지 매니저 수정사항
+rename : 파일 혹은 폴더명 수정 혹은 이동
 
 PR 원칙 :  
 - Master branch 에는 Pull Request 없이 push 할 수 없습니다.
