@@ -54,10 +54,11 @@ public:
 			while (getline(file, data))
 			{
 				if (currentLine == targetLine)
-					return data;
+					break;
 				++currentLine;
 			}
 			file.close();
+			return data;
 		}
 		return "FAIL";
 	}
@@ -209,7 +210,7 @@ TEST_F(SSDFixture, ReadTestBeforeWrite)
 	EXPECT_EQ(getData(RESULT_FILE, 0), DEFAULT_DATA);
 }
 
-TEST_F(SSDFixture, SSDReadTestInvalidLBA)
+TEST_F(SSDFixture, ReadTestInvalidLBA)
 {
 	ssd.read(-1);
 	EXPECT_EQ(getData(RESULT_FILE, 0), "FAIL");
