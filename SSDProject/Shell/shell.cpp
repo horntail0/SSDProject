@@ -19,7 +19,7 @@ public:
 
 	bool read(int LBA)
 	{
-		if (isAddressValid(LBA) == false) return "";
+		if (isAddressValid(LBA) == false) return false;
 		return SsdDriver->read(LBA);
 	}
 
@@ -40,7 +40,6 @@ public:
 			<< "5. Write data to all LBA : fullwrite {Data}" << endl
 			<< "6. Read full data from all LBA : fullread" << endl;
 	}
-
 
 	bool fullWrite(string data)
 	{
@@ -159,11 +158,11 @@ private:
 		for (int i = 2; i < LENGTH_OF_INPUT_DATA; i++)
 		{
 			if ((data[i] >= '0' && data[i] <= '9') || (data[i] >= 'A' && data[i] <= 'F')) continue;
-			{
-				cout << "INVALID COMMAND" << endl;
-				return false;
-			}
+			cout << "INVALID COMMAND" << endl;
+			return false;
 		}
+
+		return true;
 	}
 
 	SSDInterface* SsdDriver;
