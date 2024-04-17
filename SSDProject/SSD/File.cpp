@@ -6,6 +6,8 @@
 
 using namespace std;
 
+const string NAND_FILE = "nand.txt";
+
 class IFile
 {
 public:
@@ -24,7 +26,7 @@ public:
 	void write(int lba, string data) override
 	{
 		vector<string> buf;
-		ifstream file("nand.txt");
+		ifstream file(NAND_FILE);
 		string temp;
 
 		if (file.is_open())
@@ -36,7 +38,7 @@ public:
 			file.close();
 
 			buf[lba] = data;
-			writeFileTotal("nand.txt", buf);
+			writeFileTotal(NAND_FILE, buf);
 		}
 		else
 		{
@@ -44,7 +46,7 @@ public:
 				buf.push_back("0x00000000");
 
 			buf[lba] = data;
-			writeFileTotal("nand.txt", buf);
+			writeFileTotal(NAND_FILE, buf);
 		}
 
 	}
