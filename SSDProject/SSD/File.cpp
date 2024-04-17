@@ -67,24 +67,21 @@ private:
 		return "0x00000000";
 	}
 
-	void writeFile(string fileName, string data) 
+	void writeFileTotal(string fileName, vector<string> buf)
+	{
+		string data = "";
+		for (int i = 0; i < 100; i++) {
+			data = data + buf[i] + "\n";
+		}
+		writeFile(fileName, data);
+	}
+
+	void writeFile(string fileName, string data)
 	{
 		string line;
 		ofstream file(fileName);
 		if (file.is_open()) {
 			file << data << endl;
-			file.close();
-		}
-	}
-
-	void writeFileTotal(string fileName, vector<string> buf)
-	{
-		string line;
-		ofstream file(fileName);
-		if (file.is_open()) {
-			for (int i = 0; i < 100; i++) {
-				file << buf[i] << endl;
-			}
 			file.close();
 		}
 	}
