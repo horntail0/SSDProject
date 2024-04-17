@@ -15,7 +15,7 @@ public:
 	MOCK_METHOD(bool, write, (int LBA, string data), (override));
 };
 
-class MockFile : public IFile 
+class MockFile : public IFile
 {
 public:
 	MOCK_METHOD(void, read, (int LBA), (override));
@@ -29,18 +29,18 @@ public:
 	MockSSDAdapter() : mfile_(nullptr) {}
 
 	void selectMockFile(MockFile* mfile)
-  {
+	{
 		mfile_ = mfile;
 	}
 
 	bool read(int LBA) override
-  {
+	{
 		mfile_->read(LBA);
 		return true;
 	}
 
 	bool write(int LBA, string data) override
-  {
+	{
 		mfile_->write(LBA, data);
 		return true;
 	}
@@ -59,7 +59,7 @@ private:
 };
 
 
-TEST_F(TestShell, TestMockAdapter) 
+TEST_F(TestShell, TestMockAdapter)
 {
 	mssd.selectMockFile(&mfile);
 	shell.selectSsd(&mssd);
@@ -71,7 +71,7 @@ TEST_F(TestShell, TestMockAdapter)
 }
 
 #if 0
-TEST_F(TestShell, TestRead) 
+TEST_F(TestShell, TestRead)
 {
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
@@ -163,9 +163,9 @@ TEST_F(TestShell, TestWriteAbnormalAddress)
 	std::ostringstream oss;
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
-	
+
 	shell.write(100, "0xFFFFFFFF");
-	
+
 	string result = oss.str();
 	std::cout.rdbuf(oldCoutStreamBuf); // 복원
 
