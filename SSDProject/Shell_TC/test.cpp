@@ -7,20 +7,23 @@
 using namespace std;
 using namespace testing;
 
-class MockSSD : public SSDInterface {
+class MockSSD : public SSDInterface
+{
 public:
 	MOCK_METHOD(string, read, (int LBA), (override));
 	MOCK_METHOD(void, write, (int LBA, string data), (override));
 };
 
-class TestShell : public testing::Test {
+class TestShell : public testing::Test
+{
 public:
 	Shell shell;
 private:
 
 };
 
-TEST_F(TestShell, TestRead) {
+TEST_F(TestShell, TestRead)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
@@ -34,7 +37,8 @@ TEST_F(TestShell, TestRead) {
 	EXPECT_EQ(input, result);
 }
 
-TEST_F(TestShell, TestWrite) {
+TEST_F(TestShell, TestWrite)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
@@ -44,7 +48,8 @@ TEST_F(TestShell, TestWrite) {
 	shell.write(0, "0xABCD1234");
 }
 
-TEST_F(TestShell, TestExit) {
+TEST_F(TestShell, TestExit)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
@@ -52,7 +57,8 @@ TEST_F(TestShell, TestExit) {
 	SUCCEED();
 }
 
-TEST_F(TestShell, TestHelp) {
+TEST_F(TestShell, TestHelp)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
@@ -60,7 +66,8 @@ TEST_F(TestShell, TestHelp) {
 	SUCCEED();
 }
 
-TEST_F(TestShell, TestFullRead) {
+TEST_F(TestShell, TestFullRead)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
@@ -71,7 +78,8 @@ TEST_F(TestShell, TestFullRead) {
 }
 
 
-TEST_F(TestShell, TestFullWrite) {
+TEST_F(TestShell, TestFullWrite)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
@@ -81,21 +89,24 @@ TEST_F(TestShell, TestFullWrite) {
 	shell.fullWrite("0x12345678");
 }
 
-TEST_F(TestShell, TestReadAbnormalAddress) {
+TEST_F(TestShell, TestReadAbnormalAddress)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
 	EXPECT_THROW(shell.read(100), invalid_argument);
 }
 
-TEST_F(TestShell, TestWriteAbnormalAddress) {
+TEST_F(TestShell, TestWriteAbnormalAddress)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
 	EXPECT_THROW(shell.write(100, "0xFFFFFFFF"), invalid_argument);
 }
 
-TEST_F(TestShell, TestWriteAbnormalValue) {
+TEST_F(TestShell, TestWriteAbnormalValue)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
@@ -104,7 +115,8 @@ TEST_F(TestShell, TestWriteAbnormalValue) {
 	EXPECT_THROW(shell.write(0, "0xFFFF"), invalid_argument);
 }
 
-TEST_F(TestShell, TestFullWriteAbnormalValue) {
+TEST_F(TestShell, TestFullWriteAbnormalValue)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
@@ -113,7 +125,8 @@ TEST_F(TestShell, TestFullWriteAbnormalValue) {
 	EXPECT_THROW(shell.fullWrite("0xFFFF"), invalid_argument);
 }
 
-TEST_F(TestShell, TestApp1) {
+TEST_F(TestShell, TestApp1)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
@@ -126,7 +139,8 @@ TEST_F(TestShell, TestApp1) {
 	EXPECT_EQ(shell.testApp1("0x12345678"), true);
 }
 
-TEST_F(TestShell, TestApp2) {
+TEST_F(TestShell, TestApp2)
+{
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 

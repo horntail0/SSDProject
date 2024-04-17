@@ -6,14 +6,14 @@
 
 using namespace std;
 
-class IFile 
+class IFile
 {
 public:
 	virtual void read(int lba) = 0;
 	virtual void write(int lba, string data) = 0;
 };
 
-class SSDFile : public IFile 
+class SSDFile : public IFile
 {
 public:
 	void read(int lba) override
@@ -27,7 +27,8 @@ public:
 		ifstream file("nand.txt");
 		string temp;
 
-		if (file.is_open()) {
+		if (file.is_open())
+		{
 			while (getline(file, temp))
 			{
 				buf.push_back(temp);
@@ -37,17 +38,18 @@ public:
 			buf[lba] = data;
 			writeFileTotal("nand.txt", buf);
 		}
-		else {
+		else
+		{
 			for (int i = 0; i < 100; i++)
 				buf.push_back("0x00000000");
 
 			buf[lba] = data;
 			writeFileTotal("nand.txt", buf);
 		}
-		
+
 	}
 private:
-	string getData(string fileName, int targetLine) 
+	string getData(string fileName, int targetLine)
 	{
 		int currentLine = 0;
 		string data;
@@ -67,11 +69,12 @@ private:
 		return "0x00000000";
 	}
 
-	void writeFile(string fileName, string data) 
+	void writeFile(string fileName, string data)
 	{
 		string line;
 		ofstream file(fileName);
-		if (file.is_open()) {
+		if (file.is_open())
+		{
 			file << data << endl;
 			file.close();
 		}
@@ -81,8 +84,10 @@ private:
 	{
 		string line;
 		ofstream file(fileName);
-		if (file.is_open()) {
-			for (int i = 0; i < 100; i++) {
+		if (file.is_open())
+		{
+			for (int i = 0; i < 100; i++)
+			{
 				file << buf[i] << endl;
 			}
 			file.close();
