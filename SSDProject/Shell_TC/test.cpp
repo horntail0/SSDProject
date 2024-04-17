@@ -82,6 +82,28 @@ TEST_F(TestShell, TestMockAdapterHelp)
 	SUCCEED();
 }
 
+TEST_F(TestShell, TestMockAdapterFullRead)
+{
+	mssd.selectMockFile(&mfile);
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mfile, read(_))
+		.Times(100);
+
+	EXPECT_EQ(shell.fullRead(), true);
+}
+
+TEST_F(TestShell, TestMockAdapterFullWrite)
+{
+	mssd.selectMockFile(&mfile);
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mfile, write(_, "0x12345678"))
+		.Times(100);
+
+	EXPECT_EQ(shell.fullWrite("0x12345678"), true);
+}
+
 #if 0
 TEST_F(TestShell, TestRead)
 {
@@ -111,28 +133,7 @@ TEST_F(TestShell, TestWrite)
 
 
 
-TEST_F(TestShell, TestFullRead)
-{
-	MockSSD mssd;
-	shell.selectSsd(&mssd);
 
-	EXPECT_CALL(mssd, read(_))
-		.Times(100);
-
-	shell.fullRead();
-}
-
-
-TEST_F(TestShell, TestFullWrite)
-{
-	MockSSD mssd;
-	shell.selectSsd(&mssd);
-
-	EXPECT_CALL(mssd, write(_, "0x12345678"))
-		.Times(100);
-
-	shell.fullWrite("0x12345678");
-}
 
 TEST_F(TestShell, TestReadAbnormalAddress)
 {
