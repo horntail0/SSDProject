@@ -1,4 +1,4 @@
-Refer to following link for project discussion 
+# Google docs link
 
 https://docs.google.com/spreadsheets/d/1C4wgnd7N1jhjAJzDQxLApnpnB-jsfAwERMy3Vl8z0XE/edit#gid=0
 
@@ -24,13 +24,13 @@ chore : 빌드 부분 혹은 패키지 매니저 수정사항
 
 rename : 파일 혹은 폴더명 수정 혹은 이동
 
-#PR 원칙
+# PR 원칙
 
 - Master branch 에는 Pull Request 없이 push 할 수 없습니다.
 
 - Pull Request 통과 시 적어도 한명의 review가 필요합니다.
 
-#Coding Standard
+# Coding Standard
 
  - 기본은 도구->옵션->텍스트편집기->C/C++->코드스타일->서식->일반->기본서식스타일->Visual Studio
    
@@ -45,7 +45,7 @@ rename : 파일 혹은 폴더명 수정 혹은 이동
  - 자세한 사항은 본 프로젝트의 .editorconfig 를 참조하세요.
 
 
-#Coding Convention : 
+# Coding Convention
 
 Camel Usage 를 기본으로 합니다.
 
