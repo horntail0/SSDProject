@@ -175,6 +175,20 @@ TEST_F(SSDFixture, WriteTestInvalidData)
 	EXPECT_EQ(fileBefore, fileAfter);
 }
 
+TEST_F(SSDFixture, WriteTestInvalidLBA)
+{
+	ssd.write(0, NORMAL_DATA);
+	string fileBefore = getFile(NAND_FILE);
+
+	ssd.write(-1, NORMAL_DATA);
+	string fileAfter = getFile(NAND_FILE);
+	EXPECT_EQ(fileBefore, fileAfter);
+
+	ssd.write(100, NORMAL_DATA);
+	fileAfter = getFile(NAND_FILE);
+	EXPECT_EQ(fileBefore, fileAfter);
+}
+
 TEST_F(SSDFixture, ReadTestNormalData)
 {
 	ssd.write(1, NORMAL_DATA);
