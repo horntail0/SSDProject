@@ -196,7 +196,7 @@ TEST_F(TestShell, TestWriteAbnormalAddress)
 	EXPECT_EQ(result, "INVALID COMMAND\n");
 }
 
-TEST_F(TestShell, TestWriteAbnormalValue)
+TEST_F(TestShell, TestWriteDataWithInvalidHexa)
 {
 	std::ostringstream oss;
 	auto oldCoutStreamBuf = std::cout.rdbuf();
@@ -206,7 +206,45 @@ TEST_F(TestShell, TestWriteAbnormalValue)
 	string result = oss.str();
 
 	std::cout.rdbuf(oldCoutStreamBuf); // 복원
+	EXPECT_EQ(result, "INVALID COMMAND\n");
+}
 
+TEST_F(TestShell, TestWriteDataWithInvalidPrefix1)
+{
+	std::ostringstream oss;
+	auto oldCoutStreamBuf = std::cout.rdbuf();
+	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
+
+	shell.write(0, "00ABCDEFGH");
+	string result = oss.str();
+
+	std::cout.rdbuf(oldCoutStreamBuf); // 복원
+	EXPECT_EQ(result, "INVALID COMMAND\n");
+}
+
+TEST_F(TestShell, TestWriteDataWithInvalidPrefix2)
+{
+	std::ostringstream oss;
+	auto oldCoutStreamBuf = std::cout.rdbuf();
+	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
+
+	shell.write(0, "XxABCDEFGH");
+	string result = oss.str();
+
+	std::cout.rdbuf(oldCoutStreamBuf); // 복원
+	EXPECT_EQ(result, "INVALID COMMAND\n");
+}
+
+TEST_F(TestShell, TestWriteDataWithInvalidLength)
+{
+	std::ostringstream oss;
+	auto oldCoutStreamBuf = std::cout.rdbuf();
+	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
+
+	shell.write(0, "FFFF");
+	string result = oss.str();
+
+	std::cout.rdbuf(oldCoutStreamBuf); // 복원
 	EXPECT_EQ(result, "INVALID COMMAND\n");
 }
 
