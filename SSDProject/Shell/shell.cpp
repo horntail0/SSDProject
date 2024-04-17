@@ -44,32 +44,22 @@ public:
 	bool fullWrite(string data)
 	{
 		if (isDataValid(data) == false) return false;
-		try
+
+		for (int i = 0; i < MAX_NUM; i++)
 		{
-			for (int i = 0; i < MAX_NUM; i++)
-			{
-				SsdDriver->write(i, data);
-			}
+			bool result = SsdDriver->write(i, data);
+			if (!result) return false;
 		}
-		catch (exception& e)
-		{
-			return false;
-		}
+
 		return true;
 	}
 
 	bool fullRead()
 	{
-		try
+		for (int i = 0; i < MAX_NUM; i++)
 		{
-			for (int i = 0; i < MAX_NUM; i++)
-			{
-				SsdDriver->read(i);
-			}
-		}
-		catch (exception& e)
-		{
-			return false;
+			bool result = SsdDriver->read(i);
+			if (!result) return false;
 		}
 		return true;
 	}
@@ -81,20 +71,11 @@ public:
 
 	bool testApp1(string data)
 	{
-		bool writeOk, readOk;
-		try
-		{
-			writeOk = fullWrite(data);
-			readOk = fullRead();
-		}
-		catch (exception& e)
-		{
-			return false;
-		}
+		bool writeOk = fullWrite(data);
+		bool readOk = fullRead();
 
 		if (writeOk && readOk) return true;
 		else return false;
-
 	};
 
 	bool testApp2()
