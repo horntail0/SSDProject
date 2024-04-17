@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
+
 using namespace std;
 
 class IFile 
@@ -21,6 +23,28 @@ public:
 
 	void write(int lba, string data) override
 	{
+		vector<string> buf;
+		ifstream file("nand.txt");
+		string temp;
+
+		if (file.is_open()) {
+			while (getline(file, temp))
+			{
+				buf.push_back(temp);
+			}
+			file.close();
+
+			buf[lba] = data;
+			writeFileTotal("nand.txt", buf);
+		}
+		else {
+			for (int i = 0; i < 100; i++)
+				buf.push_back("0x00000000");
+
+			buf[lba] = data;
+			writeFileTotal("nand.txt", buf);
+		}
+		
 	}
 private:
 	string getData(string fileName, int targetLine) 
@@ -49,6 +73,18 @@ private:
 		ofstream file(fileName);
 		if (file.is_open()) {
 			file << data << endl;
+			file.close();
+		}
+	}
+
+	void writeFileTotal(string fileName, vector<string> buf)
+	{
+		string line;
+		ofstream file(fileName);
+		if (file.is_open()) {
+			for (int i = 0; i < 100; i++) {
+				file << buf[i] << endl;
+			}
 			file.close();
 		}
 	}

@@ -92,4 +92,10 @@ TEST_F(SSDFixture, DISABLED_writeFileTest) {
 	//EXPECT_EQ(data, file.getData("test.txt", 0));
 }
 
+TEST_F(SSDFixture, WriteTestFileNormal) {
+	string data = "0x12345678";
+
+	ssd.write(0, data);
+}
+
 //안써진 곳에 read
