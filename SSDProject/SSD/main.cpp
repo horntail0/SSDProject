@@ -10,17 +10,16 @@ int main(int argc, char* argv[])
 	string index = argv[2];
 	int lba = stoi(index);
 
+	SSDFile file;
+	SSD ssd;
+	ssd.setFile(&file);
+
 	if (cmd == "R") {
-		// read
-		cout << "read" << endl;
+		ssd.read(lba);
 	}
 	if (cmd == "W") {
 		// write
 		string data = argv[3];
-
-		SSDFile file;
-		SSD ssd;
-		ssd.setFile(&file);
 
 		ssd.write(lba, data);
 
