@@ -64,7 +64,7 @@ public:
 		{
 			for (int i = 0; i < MAX_NUM; i++)
 			{
-				cout << SsdDriver->read(i) << endl;
+				SsdDriver->read(i);
 			}
 		}
 		catch (exception& e)
