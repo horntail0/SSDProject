@@ -6,17 +6,17 @@
 using namespace std;
 using namespace testing;
 
-class MockFile : public IFile 
+class MockFile : public IFile
 {
 public:
 	MOCK_METHOD(void, read, (int), (override));
 	MOCK_METHOD(void, write, (int, string), (override));
 };
 
-class MockFixture : public testing::Test 
+class MockFixture : public testing::Test
 {
 public:
-	void SetUp() 
+	void SetUp()
 	{
 		ssd.setFile(&file);
 	}
@@ -24,9 +24,11 @@ public:
 	SSD ssd;
 };
 
-class SSDFixture : public testing::Test {
+class SSDFixture : public testing::Test
+{
 public:
-	void SetUp() {
+	void SetUp()
+	{
 		ssd.setFile(&file);
 	}
 	SSDFile file;
@@ -50,7 +52,7 @@ TEST_F(MockFixture, WriteTestInvalidData)
 	ssd.write(1, "0x1234ABCG");
 }
 
-TEST_F(MockFixture, WriteTestInvalidLBA) 
+TEST_F(MockFixture, WriteTestInvalidLBA)
 {
 	EXPECT_CALL(file, write(-1, _))
 		.Times(0);
@@ -61,7 +63,7 @@ TEST_F(MockFixture, WriteTestInvalidLBA)
 	ssd.write(100, "0x12345678");
 }
 
-TEST_F(MockFixture, WriteTestCallOnce) 
+TEST_F(MockFixture, WriteTestCallOnce)
 {
 	EXPECT_CALL(file, write(1, "0x12345678"))
 		.Times(1);
@@ -69,14 +71,16 @@ TEST_F(MockFixture, WriteTestCallOnce)
 	ssd.write(1, "0x12345678");
 }
 
-TEST_F(MockFixture, ReadTest) { //일반적인 read
+TEST_F(MockFixture, ReadTest)
+{
 	EXPECT_CALL(file, read(1))
 		.Times(1);
 
 	ssd.read(1);
 }
 
-TEST_F(MockFixture, ReadTestInvalidLba) { //0~99 아닌 위치에 read
+TEST_F(MockFixture, ReadTestInvalidLba)
+{
 	EXPECT_CALL(file, read(-1))
 		.Times(0);
 	EXPECT_CALL(file, read(100))
@@ -86,13 +90,15 @@ TEST_F(MockFixture, ReadTestInvalidLba) { //0~99 아닌 위치에 read
 	ssd.read(100);
 }
 
-TEST_F(SSDFixture, DISABLED_writeFileTest) {
+TEST_F(SSDFixture, DISABLED_writeFileTest)
+{
 	string data = "0x12345678";
 	//file.writeFile("test.txt", data);
 	//EXPECT_EQ(data, file.getData("test.txt", 0));
 }
 
-TEST_F(SSDFixture, WriteTestFileNormal) {
+TEST_F(SSDFixture, WriteTestFileNormal)
+{
 	string data = "0x12345678";
 
 	ssd.write(0, data);

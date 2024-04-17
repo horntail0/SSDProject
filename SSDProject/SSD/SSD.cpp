@@ -3,15 +3,15 @@
 
 using namespace std;
 
-class SSD 
+class SSD
 {
 public:
-	void setFile(IFile* file_) 
+	void setFile(IFile* file_)
 	{
 		file = file_;
 	}
 
-	void read(int lba) 
+	void read(int lba)
 	{
 		if (lba < 0 || lba > 99)
 			return;
@@ -32,7 +32,7 @@ public:
 
 		for (int i = 2; i < 10; i++)
 		{
-			if (data[i] >= '0' && data[i] <= '9')  
+			if (data[i] >= '0' && data[i] <= '9')
 				continue;
 			if (data[i] >= 'A' && data[i] <= 'F')
 				continue;
