@@ -54,13 +54,13 @@ public:
 			while (getline(file, data))
 			{
 				if (currentLine == targetLine)
-					return data;
+					break;
 				++currentLine;
 			}
 			file.close();
+			return data;
 		}
-
-		return DEFAULT_DATA;
+		return "FAIL";
 	}
 	string getFile(string fileName)
 	{
@@ -119,7 +119,7 @@ TEST_F(MockFixture, WriteTestCallOnce)
 	ssd.write(1, NORMAL_DATA);
 }
 
-TEST_F(MockFixture, ReadTestInvalidLba)
+TEST_F(MockFixture, ReadTestInvalidLBA)
 {
 	EXPECT_CALL(file, read(-1))
 		.Times(0);
@@ -222,4 +222,12 @@ TEST_F(SSDFixture, ReadTestBeforeWrite)
 {
 	ssd.read(50);
 	EXPECT_EQ(getData(RESULT_FILE, 0), DEFAULT_DATA);
+}
+
+TEST_F(SSDFixture, ReadTestInvalidLBA)
+{
+	ssd.read(-1);
+	EXPECT_EQ(getData(RESULT_FILE, 0), "FAIL");
+	ssd.read(1000);
+	EXPECT_EQ(getData(RESULT_FILE, 0), "FAIL");
 }

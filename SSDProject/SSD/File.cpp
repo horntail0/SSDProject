@@ -64,10 +64,11 @@ private:
 			while (getline(file, data))
 			{
 				if (currentLine == targetLine)
-					return data;
+					break;
 				++currentLine;
 			}
 			file.close();
+			return data;
 		}
 
 		return DEFAULT_DATA;
