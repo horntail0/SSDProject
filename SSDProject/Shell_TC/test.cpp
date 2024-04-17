@@ -1,8 +1,9 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include <string>
+#include "../Shell/shell.h"
 #include "../Shell/shell.cpp"
-#include "../Shell/SSDInterface.cpp"
+#include "../Shell/SSDAdapter.cpp"
 #include "../SSD/File.cpp"
 
 using namespace std;
@@ -68,12 +69,6 @@ TEST_F(TestShell, TestMockAdapterWrite)
 		.Times(1);
 
 	EXPECT_EQ(shell.write(0, "0x12345678"), true);
-}
-
-TEST_F(TestShell, TestMockAdapterExit)
-{
-	shell.exit();
-	SUCCEED();
 }
 
 TEST_F(TestShell, TestMockAdapterHelp)

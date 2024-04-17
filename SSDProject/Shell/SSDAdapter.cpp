@@ -1,40 +1,33 @@
-#include "SSDInterface.cpp"
+#include "SSDAdapter.h"
 
-#include<iostream>
-#include<fstream>
-using namespace std;
 
-class SSDAdapter : public SSDInterface
+SSDAdapter::SSDAdapter() {}
+
+bool SSDAdapter::read(int LBA)
 {
-public:
-	SSDAdapter() {}
+	string cmd = "SSD.exe R " + to_string(LBA);
+	int result = system(cmd.c_str());
 
-	bool read(int LBA) override
+	string filePath = "result.txt";
+	ifstream inputFile(filePath);
+
+	if (inputFile.is_open())
 	{
-		string cmd = "SSD.exe R " + to_string(LBA);
-		int result = system(cmd.c_str());
-
-		string filePath = "result.txt";
-		ifstream inputFile(filePath);
-
-		if (inputFile.is_open())
+		string line;
+		while (getline(inputFile, line))
 		{
-			string line;
-			while (getline(inputFile, line))
-			{
-				cout << line << endl;
-			}
-			inputFile.close();
-			return true;
+			cout << line << endl;
 		}
-
-		return false;
+		inputFile.close();
+		return true;
 	}
 
-	bool write(int LBA, string data) override
-	{
-		string cmd = "SSD.exe W " + to_string(LBA) + " " + data;
-		int result = system(cmd.c_str());
-		return result == 0 ? true : false;
-	}
-};
+	return false;
+}
+
+bool SSDAdapter::write(int LBA, string data)
+{
+	string cmd = "SSD.exe W " + to_string(LBA) + " " + data;
+	int result = system(cmd.c_str());
+	return result == 0 ? true : false;
+}
