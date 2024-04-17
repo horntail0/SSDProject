@@ -27,7 +27,7 @@ TEST_F(TestShell, TestRead) {
 	EXPECT_CALL(mssd, read(0))
 		.Times(1)
 		.WillOnce(Return("0x12345678"));
-	
+
 	string input = shell.read(0);
 	string result = "0x12345678";
 
@@ -49,7 +49,7 @@ TEST_F(TestShell, TestExit) {
 	shell.selectSsd(&mssd);
 
 	shell.exit();
-  SUCCEED();
+	SUCCEED();
 }
 
 TEST_F(TestShell, TestHelp) {
@@ -80,7 +80,7 @@ TEST_F(TestShell, TestFullWrite) {
 
 	shell.fullWrite("0x12345678");
 }
-  
+
 TEST_F(TestShell, TestReadAbnormalAddress) {
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
@@ -124,4 +124,56 @@ TEST_F(TestShell, TestApp1) {
 		.Times(100);
 
 	shell.testApp1("0x12345678");
+}
+
+TEST_F(TestShell, TestApp2) {
+	MockSSD mssd;
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mssd, write(0, "0xAAAABBBB"))
+		.Times(30);
+	EXPECT_CALL(mssd, write(1, "0xAAAABBBB"))
+		.Times(30);
+	EXPECT_CALL(mssd, write(2, "0xAAAABBBB"))
+		.Times(30);
+	EXPECT_CALL(mssd, write(3, "0xAAAABBBB"))
+		.Times(30);
+	EXPECT_CALL(mssd, write(4, "0xAAAABBBB"))
+		.Times(30);
+	EXPECT_CALL(mssd, write(5, "0xAAAABBBB"))
+		.Times(30);
+
+	EXPECT_CALL(mssd, write(0, "0x12345678"))
+		.Times(1);
+	EXPECT_CALL(mssd, write(1, "0x12345678"))
+		.Times(1);
+	EXPECT_CALL(mssd, write(2, "0x12345678"))
+		.Times(1);
+	EXPECT_CALL(mssd, write(3, "0x12345678"))
+		.Times(1);
+	EXPECT_CALL(mssd, write(4, "0x12345678"))
+		.Times(1);
+	EXPECT_CALL(mssd, write(5, "0x12345678"))
+		.Times(1);
+
+	EXPECT_CALL(mssd, read(0))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+	EXPECT_CALL(mssd, read(1))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+	EXPECT_CALL(mssd, read(2))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+	EXPECT_CALL(mssd, read(3))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+	EXPECT_CALL(mssd, read(4))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+	EXPECT_CALL(mssd, read(5))
+		.Times(1)
+		.WillOnce(Return("0x12345678"));
+
+	EXPECT_EQ(shell.testApp2(), true);
 }
