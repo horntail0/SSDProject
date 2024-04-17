@@ -14,6 +14,14 @@ public:
 		file = file_;
 	}
 
+	int isHex(char ch)
+	{
+		if ((ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'F'))
+			return SUCCESS;
+
+		return FAIL;
+	}
+
 	int checkInvalidHexData(string data)
 	{
 		if (data.length() != 10)
@@ -24,11 +32,8 @@ public:
 
 		for (int i = 2; i < 10; i++)
 		{
-			if (data[i] >= '0' && data[i] <= '9')
-				continue;
-			if (data[i] >= 'A' && data[i] <= 'F')
-				continue;
-			return FAIL;
+			if (isHex(data[i]) == FAIL)
+				return FAIL;
 		}
 
 		return SUCCESS;
