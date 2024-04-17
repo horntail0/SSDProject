@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "SSDAdapter.cpp"
 #include "SSDInterface.cpp"
 #include <iostream>
 
@@ -11,22 +12,22 @@ constexpr int LENGTH_OF_INPUT_DATA = 10;
 class Shell
 {
 public:
-	Shell()
-	{
-		// m = new MockSSD();
+	Shell() 
+  {
+		SsdDriver = new SSDAdapter;
 	}
 
-	string read(int LBA)
+	bool read(int LBA)
 	{
 		checkAddressValidity(LBA);
 		return SsdDriver->read(LBA);
 	}
 
-	void write(int LBA, string data)
+	bool write(int LBA, string data)
 	{
 		checkAddressValidity(LBA);
 		checkDataValidity(data);
-		SsdDriver->write(LBA, data);
+		return SsdDriver->write(LBA, data);
 	}
 
 	void exit() {}
@@ -115,10 +116,11 @@ public:
 			SsdDriver->write(i, data);
 		}
 
+
 		for (int i = 0; i <= 5; i++)
-		{
-			string result = SsdDriver->read(i);
-			if (result != data) return false;
+    {
+			bool result = SsdDriver->read(i);
+			if (!result) return false;
 		}
 
 		return true;

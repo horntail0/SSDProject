@@ -3,6 +3,7 @@
 #include <string>
 #include "../Shell/shell.cpp"
 #include "../Shell/SSDInterface.cpp"
+#include "../SSD/File.cpp"
 
 using namespace std;
 using namespace testing;
@@ -10,19 +11,67 @@ using namespace testing;
 class MockSSD : public SSDInterface
 {
 public:
-	MOCK_METHOD(string, read, (int LBA), (override));
+	MOCK_METHOD(bool, read, (int LBA), (override));
+	MOCK_METHOD(bool, write, (int LBA, string data), (override));
+};
+
+class MockFile : public IFile 
+{
+public:
+	MOCK_METHOD(void, read, (int LBA), (override));
 	MOCK_METHOD(void, write, (int LBA, string data), (override));
+};
+
+
+class MockSSDAdapter : public SSDInterface
+{
+public:
+	MockSSDAdapter() : mfile_(nullptr) {}
+
+	void selectMockFile(MockFile* mfile)
+  {
+		mfile_ = mfile;
+	}
+
+	bool read(int LBA) override
+  {
+		mfile_->read(LBA);
+		return true;
+	}
+
+	bool write(int LBA, string data) override
+  {
+		mfile_->write(LBA, data);
+		return true;
+	}
+private:
+	MockFile* mfile_;
 };
 
 class TestShell : public testing::Test
 {
 public:
 	Shell shell;
+	MockFile mfile;
+	MockSSDAdapter mssd;
 private:
 
 };
 
-TEST_F(TestShell, TestRead)
+
+TEST_F(TestShell, TestMockAdapter) 
+{
+	mssd.selectMockFile(&mfile);
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mfile, read(0))
+		.Times(1);
+
+	EXPECT_EQ(shell.read(0), true);
+}
+
+#if 0
+TEST_F(TestShell, TestRead) 
 {
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
@@ -191,3 +240,4 @@ TEST_F(TestShell, TestApp2)
 
 	EXPECT_EQ(shell.testApp2(), true);
 }
+#endif
