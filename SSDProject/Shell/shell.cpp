@@ -17,14 +17,13 @@ public:
 
 	bool read(int LBA)
 	{
-		checkAddressValidity(LBA);
+		if (isAddressValid(LBA) == false) return "";
 		return SsdDriver->read(LBA);
 	}
 
 	bool write(int LBA, string data)
 	{
-		checkAddressValidity(LBA);
-		checkDataValidity(data);
+		if (isAddressValid(LBA) == false || isDataValid(data) == false) return;
 		return SsdDriver->write(LBA, data);
 	}
 
@@ -40,7 +39,7 @@ public:
 	}
 
 	bool fullWrite(string data) {
-		checkDataValidity(data);
+		if (isDataValid(data) == false) return false;
 
 		try {
 			for (int i = 0; i < MAX_NUM; i++) {
@@ -106,27 +105,43 @@ public:
 	};
 
 private:
-	void checkAddressValidity(int LBA)
+	bool isAddressValid(int LBA)
 	{
 		if (LBA < 0 || LBA >= MAX_NUM)
-			throw invalid_argument("Invalid Address");
+		{
+			cout << "INVALID COMMAND" << endl;
+			return false;
+		}
+		return true;
 	}
 
-	void checkDataValidity(string data)
+	bool isDataValid(string data)
 	{
 		if (data.length() != LENGTH_OF_INPUT_DATA)
-			throw invalid_argument("Invalid Data");
+		{
+			cout << "INVALID COMMAND" << endl;
+			return false;
+		}
 
 		if (data[0] != '0')
-			throw invalid_argument("Invalid Data");
+		{
+			cout << "INVALID COMMAND" << endl;
+			return false;
+		}
 
 		if (data[1] != 'x')
-			throw invalid_argument("Invalid Data");
+		{
+			cout << "INVALID COMMAND" << endl;
+			return false;
+		}
 
 		for (int i = 2; i < LENGTH_OF_INPUT_DATA; i++)
 		{
 			if ((data[i] >= '0' && data[i] <= '9') || (data[i] >= 'A' && data[i] <= 'F')) continue;
-			throw invalid_argument("Invalid Data");
+			{
+				cout << "INVALID COMMAND" << endl;
+				return false;
+			}
 		}
 	}
 
