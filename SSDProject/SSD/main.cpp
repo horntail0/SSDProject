@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "SSD.cpp"
 
 using namespace std;
 
@@ -15,6 +16,14 @@ int main(int argc, char* argv[])
 	}
 	if (cmd == "W") {
 		// write
+		string data = argv[3];
+
+		SSDFile file;
+		SSD ssd;
+		ssd.setFile(&file);
+
+		ssd.write(lba, data);
+
 		cout << "write" << endl;
 	}
 
