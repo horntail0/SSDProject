@@ -143,7 +143,16 @@ TEST_F(TestShell, TestReadAbnormalAddress)
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
-	EXPECT_THROW(shell.read(100), invalid_argument);
+	std::ostringstream oss;
+	auto oldCoutStreamBuf = std::cout.rdbuf();
+	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
+
+	shell.read(100);
+	string result = oss.str();
+
+	std::cout.rdbuf(oldCoutStreamBuf); // 복원
+
+	EXPECT_EQ(result, "INVALID COMMAND\n");
 }
 
 TEST_F(TestShell, TestWriteAbnormalAddress)
@@ -151,7 +160,16 @@ TEST_F(TestShell, TestWriteAbnormalAddress)
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
-	EXPECT_THROW(shell.write(100, "0xFFFFFFFF"), invalid_argument);
+	std::ostringstream oss;
+	auto oldCoutStreamBuf = std::cout.rdbuf();
+	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
+	
+	shell.write(100, "0xFFFFFFFF");
+	
+	string result = oss.str();
+	std::cout.rdbuf(oldCoutStreamBuf); // 복원
+
+	EXPECT_EQ(result, "INVALID COMMAND\n");
 }
 
 TEST_F(TestShell, TestWriteAbnormalValue)
@@ -159,9 +177,16 @@ TEST_F(TestShell, TestWriteAbnormalValue)
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
-	EXPECT_THROW(shell.write(0, "0xABCDEFGH"), invalid_argument);
-	EXPECT_THROW(shell.write(0, "0xABCDABCDABCD"), invalid_argument);
-	EXPECT_THROW(shell.write(0, "0xFFFF"), invalid_argument);
+	std::ostringstream oss;
+	auto oldCoutStreamBuf = std::cout.rdbuf();
+	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
+
+	shell.write(0, "0xABCDEFGH");
+	string result = oss.str();
+
+	std::cout.rdbuf(oldCoutStreamBuf); // 복원
+
+	EXPECT_EQ(result, "INVALID COMMAND\n");
 }
 
 TEST_F(TestShell, TestFullWriteAbnormalValue)
@@ -169,9 +194,16 @@ TEST_F(TestShell, TestFullWriteAbnormalValue)
 	MockSSD mssd;
 	shell.selectSsd(&mssd);
 
-	EXPECT_THROW(shell.fullWrite("0xABCDEFGH"), invalid_argument);
-	EXPECT_THROW(shell.fullWrite("0xABCDABCDABCD"), invalid_argument);
-	EXPECT_THROW(shell.fullWrite("0xFFFF"), invalid_argument);
+	std::ostringstream oss;
+	auto oldCoutStreamBuf = std::cout.rdbuf();
+	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
+
+	shell.fullWrite("0xABCDEFGH");
+	string result = oss.str();
+
+	std::cout.rdbuf(oldCoutStreamBuf); // 복원
+
+	EXPECT_EQ(result, "INVALID COMMAND\n");
 }
 
 TEST_F(TestShell, TestApp1)
