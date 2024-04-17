@@ -104,6 +104,20 @@ TEST_F(TestShell, TestMockAdapterFullWrite)
 	EXPECT_EQ(shell.fullWrite("0x12345678"), true);
 }
 
+TEST_F(TestShell, TestMockAdapterApp1)
+{
+	mssd.selectMockFile(&mfile);
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mfile, write(_, "0x12345678"))
+		.Times(100);
+
+	EXPECT_CALL(mfile, read(_))
+		.Times(100);
+
+	EXPECT_EQ(shell.testApp1("0x12345678"), true);
+}
+
 #if 0
 TEST_F(TestShell, TestRead)
 {
@@ -201,20 +215,6 @@ TEST_F(TestShell, TestFullWriteAbnormalValue)
 	std::cout.rdbuf(oldCoutStreamBuf); // 복원
 
 	EXPECT_EQ(result, "INVALID COMMAND\n");
-}
-
-TEST_F(TestShell, TestApp1)
-{
-	MockSSD mssd;
-	shell.selectSsd(&mssd);
-
-	EXPECT_CALL(mssd, write(_, "0x12345678"))
-		.Times(100);
-
-	EXPECT_CALL(mssd, read(_))
-		.Times(100);
-
-	EXPECT_EQ(shell.testApp1("0x12345678"), true);
 }
 
 TEST_F(TestShell, TestApp2)
