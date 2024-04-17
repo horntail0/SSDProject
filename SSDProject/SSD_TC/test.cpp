@@ -123,10 +123,30 @@ TEST_F(SSDFixture, DISABLED_writeFileTest)
 	//EXPECT_EQ(data, file.getData("test.txt", 0));
 }
 
-TEST_F(SSDFixture, WriteTestFileNormal)
+TEST_F(SSDFixture, WriteTestNormalDataInit)
+{
+	string buf = "del " + NAND_FILE;
+	system(buf.c_str());
+	ssd.write(0, NORMAL_DATA);
+	EXPECT_EQ(getData(NAND_FILE, 0), NORMAL_DATA);
+}
+
+TEST_F(SSDFixture, WriteTestNormalData)
 {
 	ssd.write(0, NORMAL_DATA);
-	EXPECT_EQ(getData("nand.txt", 0), NORMAL_DATA);
+	EXPECT_EQ(getData(NAND_FILE, 0), NORMAL_DATA);
+}
+
+TEST_F(SSDFixture, WriteTestInvalidData)
+{
+	ssd.write(0, LONG_DATA);
+	EXPECT_NE(getData(NAND_FILE, 0), LONG_DATA);
+	ssd.write(1, SHORT_DATA);
+	EXPECT_NE(getData(NAND_FILE, 1), SHORT_DATA);
+	ssd.write(2, NOT_HEXA_DATA);
+	EXPECT_NE(getData(NAND_FILE, 2), NOT_HEXA_DATA);
+	ssd.write(3, DECIMAL_DATA);
+	EXPECT_NE(getData(NAND_FILE, 3), DECIMAL_DATA);
 }
 
 //안써진 곳에 read
