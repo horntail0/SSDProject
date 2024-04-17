@@ -123,7 +123,7 @@ TEST_F(TestShell, TestApp1) {
 	EXPECT_CALL(mssd, read(_))
 		.Times(100);
 
-	shell.testApp1("0x12345678");
+	EXPECT_EQ(shell.testApp1("0x12345678"), true);
 }
 
 TEST_F(TestShell, TestApp2) {

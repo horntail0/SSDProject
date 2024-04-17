@@ -38,26 +38,49 @@ public:
 			<< "6. Read full data from all LBA : fullread" << endl;
 	}
 
-	void fullWrite(string data) {
+	bool fullWrite(string data) {
 		checkDataValidity(data);
-		for (int i = 0; i < MAX_NUM; i++) {
-			SsdDriver->write(i, data);
+
+		try {
+			for (int i = 0; i < MAX_NUM; i++) {
+				SsdDriver->write(i, data);
+			}
 		}
+		catch (exception& e) {
+			return false;
+		}
+		return true;
 	}
 
-	void fullRead() {
-		for (int i = 0; i < MAX_NUM; i++) {
-			SsdDriver->read(i);
+	bool fullRead() {
+		try {
+			for (int i = 0; i < MAX_NUM; i++) {
+				cout << SsdDriver->read(i) << endl;
+			}
 		}
+		catch (exception& e) {
+			return false;
+		}
+		return true;
 	}
 
 	void selectSsd(SSDInterface* SsdInterfacePtr) {
 		SsdDriver = SsdInterfacePtr;
 	};
 
-	void testApp1(string data) {
-		fullWrite(data);
-		fullRead();
+	bool testApp1(string data) {
+		bool writeOk, readOk;
+		try {
+			writeOk = fullWrite(data);
+			readOk = fullRead();
+		}
+		catch (exception& e) {
+			return false;
+		}
+
+		if (writeOk && readOk) return true;
+		else return false;
+		
 	};
 
 	bool testApp2() {
