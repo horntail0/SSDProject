@@ -1,6 +1,7 @@
 #include "SSDInterface.cpp"
 
 #include<iostream>
+#include<fstream>
 using namespace std;
 
 class SSDAdapter : public SSDInterface {
@@ -10,7 +11,20 @@ public:
 	bool read(int LBA) override {
 		string cmd = "SSD.exe R " + to_string(LBA);
 		int result = system(cmd.c_str());
-		return result == 0 ? true : false;
+
+		string filePath = "result.txt";
+		ifstream inputFile(filePath);
+
+		if (inputFile.is_open()) {
+			string line;
+			while (getline(inputFile, line)) {
+				cout << line << endl;
+			}
+			inputFile.close();
+			return true;
+		}
+
+		return false;
 	}
 
 	bool write(int LBA, string data) override {
