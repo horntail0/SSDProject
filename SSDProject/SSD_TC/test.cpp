@@ -21,6 +21,11 @@ public:
 	{
 		ssd.setFile(&file);
 	}
+	void TeadDown()
+	{
+		string buf = "del " + NAND_FILE;
+		system(buf.c_str());
+	}
 	MockFile file;
 	SSD ssd;
 };
@@ -91,7 +96,7 @@ TEST_F(MockFixture, WriteTestCallOnce)
 	ssd.write(1, "0x12345678");
 }
 
-TEST_F(MockFixture, ReadTest)
+TEST_F(MockFixture, ReadTestCallOnce)
 {
 	EXPECT_CALL(file, read(1))
 		.Times(1);
@@ -128,4 +133,13 @@ TEST_F(SSDFixture, WriteTestFileNormal)
 	EXPECT_EQ(read, data);
 }
 
-//안써진 곳에 read
+TEST_F(SSDFixture, ReadTestFileNormal)
+{
+	string data = "0x12345678";
+	ssd.write(1, data);
+	ssd.read(1);
+
+	string read = getData("result.txt", 1);
+
+	EXPECT_EQ(read, data);
+}
