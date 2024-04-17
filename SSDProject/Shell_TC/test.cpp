@@ -58,7 +58,6 @@ private:
 
 };
 
-
 TEST_F(TestShell, TestMockAdapter)
 {
 	mssd.selectMockFile(&mfile);
@@ -78,8 +77,23 @@ TEST_F(TestShell, TestMockAdapterExit)
 
 TEST_F(TestShell, TestMockAdapterHelp)
 {
+	string helpString = "1. Read data from LBA : read { LBA }\n";
+	helpString += "2. Write data to LBA : write { LBA } { Data }\n";
+	helpString += "3. Exit program : exit\n";
+	helpString += "4. Print help description : help\n";
+	helpString += "5. Write data to all LBA : fullwrite { Data }\n";
+	helpString += "6. Read full data from all LBA : fullread\n";
+
+	std::ostringstream oss;
+	auto oldCoutStreamBuf = std::cout.rdbuf();
+	std::cout.rdbuf(oss.rdbuf()); 
+
 	shell.help();
-	SUCCEED();
+	string result = oss.str();
+
+	std::cout.rdbuf(oldCoutStreamBuf); 
+
+	EXPECT_EQ(result, helpString);
 }
 
 TEST_F(TestShell, TestMockAdapterFullRead)
