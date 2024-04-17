@@ -40,6 +40,7 @@ rename : 파일 혹은 폴더명 수정 혹은 이동
    
    while (true)
    {
+   
    }
    
  - 자세한 사항은 본 프로젝트의 .editorconfig 를 참조하세요.
