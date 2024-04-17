@@ -2,6 +2,7 @@
 #include <gmock/gmock.h>
 #include "../SSD/File.cpp"
 #include "../SSD/SSD.cpp"
+#include <fstream>
 
 using namespace std;
 using namespace testing;
@@ -30,6 +31,25 @@ public:
 	void SetUp()
 	{
 		ssd.setFile(&file);
+	}
+	string getData(string fileName, int targetLine)
+	{
+		int currentLine = 0;
+		string data;
+
+		ifstream file(fileName);
+		if (file.is_open())
+		{
+			while (getline(file, data))
+			{
+				if (currentLine == targetLine)
+					return data;
+				++currentLine;
+			}
+			file.close();
+		}
+
+		return "0x00000000";
 	}
 	SSDFile file;
 	SSD ssd;
@@ -102,6 +122,10 @@ TEST_F(SSDFixture, WriteTestFileNormal)
 	string data = "0x12345678";
 
 	ssd.write(0, data);
+
+	string read = getData("nand.txt", 0);
+
+	EXPECT_EQ(read, data);
 }
 
 //안써진 곳에 read
