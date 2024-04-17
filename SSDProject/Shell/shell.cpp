@@ -12,8 +12,8 @@ constexpr int LENGTH_OF_INPUT_DATA = 10;
 class Shell
 {
 public:
-	Shell() 
-  {
+	Shell()
+	{
 		SsdDriver = new SSDAdapter;
 	}
 
@@ -42,8 +42,8 @@ public:
 	}
 
 
-	bool fullWrite(string data) 
-  {
+	bool fullWrite(string data)
+	{
 		if (isDataValid(data) == false) return false;
 		try
 		{
@@ -117,7 +117,7 @@ public:
 
 
 		for (int i = 0; i <= 5; i++)
-    {
+		{
 			bool result = SsdDriver->read(i);
 			if (!result) return false;
 		}
