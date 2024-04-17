@@ -38,19 +38,14 @@ public:
 				buf.push_back(temp);
 			}
 			file.close();
-
-			buf[lba] = data;
-			writeFileTotal(NAND_FILE, buf);
 		}
 		else
 		{
 			for (int i = 0; i < 100; i++)
 				buf.push_back(DEFAULT_DATA);
-
-			buf[lba] = data;
-			writeFileTotal(NAND_FILE, buf);
 		}
-
+		buf[lba] = data;
+		writeFileTotal(NAND_FILE, buf);
 	}
 private:
 	string getData(string fileName, int targetLine)
