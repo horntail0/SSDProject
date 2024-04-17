@@ -1,5 +1,5 @@
-#include "../Shell/shell.cpp"
-#include "SSDInterface.cpp"
+#include "shell.h"
+#include "SSDAdapter.h"
 
 int main()
 {
