@@ -58,7 +58,7 @@ private:
 
 };
 
-TEST_F(TestShell, TestMockAdapter)
+TEST_F(TestShell, TestMockAdapterRead)
 {
 	mssd.selectMockFile(&mfile);
 	shell.selectSsd(&mssd);
@@ -67,6 +67,17 @@ TEST_F(TestShell, TestMockAdapter)
 		.Times(1);
 
 	EXPECT_EQ(shell.read(0), true);
+}
+
+TEST_F(TestShell, TestMockAdapterWrite)
+{
+	mssd.selectMockFile(&mfile);
+	shell.selectSsd(&mssd);
+
+	EXPECT_CALL(mfile, write(0, "0x12345678"))
+		.Times(1);
+
+	EXPECT_EQ(shell.write(0, "0x12345678"), true);
 }
 
 TEST_F(TestShell, TestMockAdapterExit)
