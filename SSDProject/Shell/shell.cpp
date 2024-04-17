@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "../SSD/SSDInterface.cpp"
+#include "SSDInterface.cpp"
 #include <iostream>
 
 using namespace std;
