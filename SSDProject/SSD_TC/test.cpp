@@ -72,7 +72,7 @@ TEST_F(MockFixture, WriteTestCallOnce)
 }
 
 TEST_F(MockFixture, ReadTest)
-{ //일반적인 read
+{
 	EXPECT_CALL(file, read(1))
 		.Times(1);
 
@@ -80,7 +80,7 @@ TEST_F(MockFixture, ReadTest)
 }
 
 TEST_F(MockFixture, ReadTestInvalidLba)
-{ //0~99 아닌 위치에 read
+{
 	EXPECT_CALL(file, read(-1))
 		.Times(0);
 	EXPECT_CALL(file, read(100))
