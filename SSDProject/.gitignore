@@ -6,6 +6,8 @@
 result.txt
 nand.txt
 
+coverage/
+
 # User-specific files
 *.rsuser
 *.suo

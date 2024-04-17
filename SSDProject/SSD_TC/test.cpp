@@ -61,6 +61,23 @@ public:
 		}
 		return "FAIL";
 	}
+	string getFile(string fileName)
+	{
+		string ret = "";
+
+		ifstream file(fileName);
+		if (file.is_open())
+		{
+			string data = "";
+			while (getline(file, data))
+			{
+				ret += data;
+			}
+			file.close();
+		}
+
+		return ret;
+	}
 	SSDFile file;
 	SSD ssd;
 };
@@ -120,29 +137,41 @@ TEST_F(MockFixture, ReadTestCallOnce)
 	ssd.read(1);
 }
 
-TEST_F(SSDFixture, DISABLED_writeFileTest)
-{
-	string data = NORMAL_DATA;
-	//file.writeFile("test.txt", data);
-	//EXPECT_EQ(data, file.getData("test.txt", 0));
-}
-
 TEST_F(SSDFixture, WriteTestNormalData)
 {
 	ssd.write(0, NORMAL_DATA);
+	ssd.read(0);
 	EXPECT_EQ(getData(NAND_FILE, 0), NORMAL_DATA);
+
+	ssd.write(1, NORMAL_DATA);
+	ssd.read(1);
+	EXPECT_EQ(getData(NAND_FILE, 1), NORMAL_DATA);
+
+	ssd.write(99, NORMAL_DATA);
+	ssd.read(99);
+	EXPECT_EQ(getData(NAND_FILE, 99), NORMAL_DATA);
 }
 
 TEST_F(SSDFixture, WriteTestInvalidData)
 {
+	ssd.write(0, NORMAL_DATA);
+	string fileBefore = getFile(NAND_FILE);
+
 	ssd.write(0, LONG_DATA);
-	EXPECT_NE(getData(NAND_FILE, 0), LONG_DATA);
+	string fileAfter = getFile(NAND_FILE);
+	EXPECT_EQ(fileBefore, fileAfter);
+
 	ssd.write(1, SHORT_DATA);
-	EXPECT_NE(getData(NAND_FILE, 1), SHORT_DATA);
+	fileAfter = getFile(NAND_FILE);
+	EXPECT_EQ(fileBefore, fileAfter);
+
 	ssd.write(2, NOT_HEXA_DATA);
-	EXPECT_NE(getData(NAND_FILE, 2), NOT_HEXA_DATA);
+	fileAfter = getFile(NAND_FILE);
+	EXPECT_EQ(fileBefore, fileAfter);
+
 	ssd.write(3, DECIMAL_DATA);
-	EXPECT_NE(getData(NAND_FILE, 3), DECIMAL_DATA);
+	fileAfter = getFile(NAND_FILE);
+	EXPECT_EQ(fileBefore, fileAfter);
 }
 
 TEST_F(SSDFixture, ReadTestNormalData)
@@ -154,6 +183,9 @@ TEST_F(SSDFixture, ReadTestNormalData)
 
 TEST_F(SSDFixture, ReadTestInvalidData)
 {
+	ssd.write(0, NORMAL_DATA);
+	ssd.read(0);
+
 	ssd.write(0, LONG_DATA);
 	ssd.read(0);
 	EXPECT_NE(getData(RESULT_FILE, 0), LONG_DATA);
