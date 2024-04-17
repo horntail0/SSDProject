@@ -18,12 +18,9 @@ int main(int argc, char* argv[])
 		ssd.read(lba);
 	}
 	if (cmd == "W") {
-		// write
 		string data = argv[3];
 
 		ssd.write(lba, data);
-
-		cout << "write" << endl;
 	}
 
 	return 0;
