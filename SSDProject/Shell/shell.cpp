@@ -25,7 +25,7 @@ public:
 
 	bool write(int LBA, string data)
 	{
-		if (isAddressValid(LBA) == false || isDataValid(data) == false) return;
+		if (isAddressValid(LBA) == false || isDataValid(data) == false) return false;
 		return SsdDriver->write(LBA, data);
 	}
 
