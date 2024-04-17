@@ -78,7 +78,7 @@ private:
 	{
 		string data = "";
 		for (int i = 0; i < 100; i++) 
-    {
+		{
 			data = data + buf[i] + "\n";
 		}
 		writeFile(fileName, data);
@@ -86,10 +86,9 @@ private:
 
 	void writeFile(string fileName, string data)
 	{
-		string line;
 		ofstream file(fileName);
 		if (file.is_open()) 
-    {
+		{
 			file << data << endl;
 			file.close();
 		}
