@@ -1,15 +1,17 @@
 #include "shell.h"
 
+Shell* Shell::instance = nullptr;
+
 Shell::Shell()
 {
 	SsdDriver = new SSDAdapter;
 }
 
-bool Shell::read(int LBA, bool printout)
+bool Shell::read(int LBA, bool printOut)
 {
 	if (isAddressValid(LBA) == false) return false;
 	shellLogger.recordLog(__func__, "LBA:" + to_string(LBA));
-	return SsdDriver->read(LBA, printout);
+	return SsdDriver->read(LBA, printOut);
 }
 
 bool Shell::write(int LBA, string data)
@@ -61,13 +63,13 @@ bool Shell::fullWrite(string data)
 	return true;
 }
 
-bool Shell::fullRead(bool printout)
+bool Shell::fullRead(bool printOut)
 {
 	shellLogger.recordLog(__func__, "");
 
 	for (int i = 0; i < MAX_NUM; i++)
 	{
-		bool result = SsdDriver->read(i, printout);
+		bool result = SsdDriver->read(i, printOut);
 		if (!result) return false;
 	}
 	return true;
@@ -78,19 +80,19 @@ void Shell::selectSsd(SSDInterface* SsdInterfacePtr)
 	SsdDriver = SsdInterfacePtr;
 };
 
-bool Shell::testApp1(bool printout)
+bool Shell::testApp1(bool printOut)
 {
 	shellLogger.recordLog(__func__, "");
 
 	string data = "0x12345678";
 	bool writeOk = fullWrite(data);
-	bool readOk = fullRead(printout);
+	bool readOk = fullRead(printOut);
 
 	if (writeOk && readOk) return true;
 	else return false;
 };
 
-bool Shell::testApp2(bool printout)
+bool Shell::testApp2(bool printOut)
 {
 	shellLogger.recordLog(__func__, "");
 
@@ -112,14 +114,14 @@ bool Shell::testApp2(bool printout)
 
 	for (int i = 0; i <= 5; i++)
 	{
-		bool result = SsdDriver->read(i, printout);
+		bool result = SsdDriver->read(i, printOut);
 		if (!result) return false;
 	}
 
 	return true;
 };
 
-bool Shell::testWrite10AndCompare(bool printout)
+bool Shell::testWrite10AndCompare(bool printOut)
 {
 	shellLogger.recordLog(__func__, "");
 
@@ -129,14 +131,14 @@ bool Shell::testWrite10AndCompare(bool printout)
 	for (int i = 0; i < 10; i++)
 	{
 		writeOk = write(0, data);  // 같은 주소에 10번 쓰기, 읽기 테스트
-		readOk = read(0, printout);
+		readOk = read(0, printOut);
 	}
 
 	if (writeOk && readOk) return true;
 	else return false;
 };
 
-bool Shell::testLoopWriteAndReadCompare(bool printout)
+bool Shell::testLoopWriteAndReadCompare(bool printOut)
 {
 	shellLogger.recordLog(__func__, "");
 
@@ -146,7 +148,7 @@ bool Shell::testLoopWriteAndReadCompare(bool printout)
 	for (int i = 0; i < MAX_NUM; i++)
 	{
 		writeOk = write(i, data);  // 같은 주소에 10번 쓰기, 읽기 테스트
-		readOk = read(i, printout);
+		readOk = read(i, printOut);
 	}
 
 	if (writeOk && readOk) return true;
