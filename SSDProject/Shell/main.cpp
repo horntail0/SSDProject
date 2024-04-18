@@ -14,8 +14,7 @@ int main()
 		if (command == "read")
 		{
 			cin >> param1;
-			bool printout = true;
-			shell.read(stoi(param1), printout);
+			shell.read(stoi(param1));
 		}
 		else if (command == "write")
 		{
@@ -43,8 +42,7 @@ int main()
 		}
 		else if (command == "fullread")
 		{
-			bool printout = true;
-			shell.fullRead(printout);
+			shell.fullRead();
 		}
 		else if (command == "fullwrite")
 		{
@@ -53,13 +51,11 @@ int main()
 		}
 		else if (command == "testapp1")
 		{
-			bool printout = true;
-			shell.testApp1(printout);
+			shell.testApp1();
 		}
 		else if (command == "testapp2")
 		{
-			bool printout = true;
-			shell.testApp2(printout);
+			shell.testApp2();
 		}
 		else
 		{
