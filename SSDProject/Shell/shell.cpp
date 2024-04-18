@@ -21,6 +21,7 @@ bool Shell::write(int LBA, string data)
 bool Shell::erase(int LBA, int size)
 {
 	bool result;
+	if (size <= 0) return false;
 	while (size > ERASE_MAX_NUM)
 	{
 		if (isAddressValid(LBA) == false) return false;
