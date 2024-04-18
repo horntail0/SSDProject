@@ -1,5 +1,6 @@
 #include "shell.h"
 #include "SSDAdapter.h"
+#include "Runner.h"
 
 int main()
 {
@@ -56,6 +57,12 @@ int main()
 
 			for (int i = 0; i <= 5; i++)
 				shell.read(i);
+		}
+		else if (command == "run_list.lst")
+		{
+			Runner runner;
+			runner.setRunList(command);
+			runner.run();
 		}
 		else
 		{

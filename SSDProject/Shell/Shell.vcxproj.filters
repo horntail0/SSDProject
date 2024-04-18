@@ -2,10 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="shell.cpp" />
+    <ClCompile Include="Shell.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gtest\gtest-all.cc" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gmock\gmock-all.cc" />
     <ClCompile Include="SSDAdapter.cpp" />
+    <ClCompile Include="Runner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -13,6 +14,7 @@
   <ItemGroup>
     <ClInclude Include="SSDInterface.h" />
     <ClInclude Include="SSDAdapter.h" />
-    <ClInclude Include="shell.h" />
+    <ClInclude Include="Shell.h" />
+    <ClInclude Include="Runner.h" />
   </ItemGroup>
 </Project>
