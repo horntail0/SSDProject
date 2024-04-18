@@ -1,46 +1,65 @@
 #include "ShellLogger.h"
 
-bool ShellLogger::recordLog(string functionName, string log)
+void ShellLogger::recordLog(string functionName, string log)
 {
-	string logStr = getFormattedLog(functionName, log);
+	string logToRecord = getFormattedLog(functionName, log);
 
-	if ((getSizeOfLatestLog() + logStr.length() * 2) > 10 * 1024)
+	if (shouldAddNewLog(logToRecord))
 	{
-		string fileNameToCompress = getLastLineOfFile(nameOfLogList);
-		if (!fileNameToCompress.empty())
-		{
-			string newNameOfOldLogs = fileNameToCompress.substr(0, fileNameToCompress.size() - 4) + ".zip";
-			if (rename(fileNameToCompress.c_str(), newNameOfOldLogs.c_str()) != 0)
-			{
-				cout << "rename failure" << endl;
-			}
-		}
-
-		string newName = "until_" + getCurrentTimeString(timeFormatForFileName) + ".log";
-		if (rename(nameOfLatestLog.c_str(), newName.c_str()) != 0)
-		{
-			cout << "Fail to Rename file (from:" << nameOfLatestLog << " to:" << newName << endl;
-		}
-
-		ofstream outFile(nameOfLogList, std::ios::app);
-		if (outFile.is_open())
-		{
-			outFile << newName << endl;
-			outFile.close();
-		}
+		compressOldLogs();
+		changeLatestLogNameToCurrentTime();
 	}
 
+	recordLogToLatestLog(logToRecord);
+}
+
+bool ShellLogger::shouldAddNewLog(const string& logToRecord)
+{
+	return ((getSizeOfLatestLog() + logToRecord.length() * 2) > MAX_LOG_FILE_SIZE);
+}
+
+void ShellLogger::compressOldLogs()
+{
+	string fileNameToCompress = getLastLineOfFile(nameOfLogList);
+	if (!fileNameToCompress.empty())
+	{
+		string newNameOfOldLogs = fileNameToCompress.substr(0, fileNameToCompress.size() - 4) + ".zip";
+		if (rename(fileNameToCompress.c_str(), newNameOfOldLogs.c_str()) != 0)
+		{
+			cout << "rename failure" << endl;
+		}
+	}
+}
+
+void ShellLogger::recordLogToLatestLog(const string& logToRecord)
+{
 	ofstream outFile(nameOfLatestLog, std::ios::app);
 	if (outFile.is_open())
 	{
-		outFile << getCurrentTimeString(timeFormatForLogging) << " " << logStr << endl;
+		outFile << getCurrentTimeString(timeFormatForLogging) << " " << logToRecord << endl;
 		outFile.close();
 	}
-	else
+}
+
+void ShellLogger::changeLatestLogNameToCurrentTime()
+{
+	string newName = "until_" + getCurrentTimeString(timeFormatForFileName) + ".log";
+	if (rename(nameOfLatestLog.c_str(), newName.c_str()) != 0)
 	{
-		return false;
+		cout << "Fail to Rename file (from:" << nameOfLatestLog << " to:" << newName << endl;
 	}
-	return true;
+
+	updateLogList(newName);
+}
+
+void ShellLogger::updateLogList(const string& newName)
+{
+	ofstream outFile(nameOfLogList, std::ios::app);
+	if (outFile.is_open())
+	{
+		outFile << newName << endl;
+		outFile.close();
+	}
 }
 
 string ShellLogger::getLastLineOfFile(const string& filePath)
@@ -59,7 +78,6 @@ string ShellLogger::getLastLineOfFile(const string& filePath)
 	file.close();
 	return lastLine;
 }
-
 
 string ShellLogger::getFormattedLog(const string& functionName, const string& log)
 {
