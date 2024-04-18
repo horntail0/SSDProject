@@ -35,7 +35,7 @@ void Runner::run()
 			else
 			{
 				cout << "FAIL!" << endl;
-				return;
+				exit(0);
 			}
 		}
 		else if (toLower(line) == "testapp2")
@@ -46,7 +46,7 @@ void Runner::run()
 			else
 			{
 				cout << "FAIL!" << endl;
-				return;
+				exit(0);
 			}
 		}
 	}
