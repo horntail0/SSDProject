@@ -108,6 +108,36 @@ bool Shell::testApp2(bool printout)
 	return true;
 };
 
+bool Shell::testWrite10AndCompare(bool printout)
+{
+	string data = "0x12345678";
+
+	bool writeOk, readOk;
+	for (int i = 0; i < 10; i++)
+	{
+		writeOk = write(0, data);  // 같은 주소에 10번 쓰기, 읽기 테스트
+		readOk = read(0, printout);
+	}
+
+	if (writeOk && readOk) return true;
+	else return false;
+};
+
+bool Shell::testLoopWriteAndReadCompare(bool printout)
+{
+	string data = "0x12345678";
+
+	bool writeOk, readOk;
+	for (int i = 0; i < MAX_NUM; i++)
+	{
+		writeOk = write(i, data);  // 같은 주소에 10번 쓰기, 읽기 테스트
+		readOk = read(i, printout);
+	}
+
+	if (writeOk && readOk) return true;
+	else return false;
+};
+
 
 bool Shell::isAddressValid(int LBA)
 {
