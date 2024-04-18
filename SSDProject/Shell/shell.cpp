@@ -24,10 +24,7 @@ bool Shell::erase(int LBA, int size)
 	while (size > 10)
 	{
 		if (isAddressValid(LBA) == false) return false;
-		if (SsdDriver->erase(LBA, 10) == false)
-		{
-			return false;
-		}
+		if (SsdDriver->erase(LBA, 10) == false) return false;
 		LBA += 10;
 		size -= 10;
 	}
