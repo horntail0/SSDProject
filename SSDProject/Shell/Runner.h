@@ -12,5 +12,5 @@ public:
 
 private:
 	string filePath_;
-	Shell shell_;
+	Shell* shell_;
 };

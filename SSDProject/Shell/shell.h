@@ -12,10 +12,21 @@ constexpr int ERASE_MAX_NUM = 10;
 
 class Shell
 {
-public:
+private:
+	static Shell* instance;  // Singleton Pattern
 	Shell();
 
-	bool read(int LBA, bool printout=true);
+public:
+	static Shell* getInstance()
+	{
+		if (instance == nullptr)
+		{
+			instance = new Shell();
+		}
+		return instance;
+	}
+
+	bool read(int LBA, bool printOut = true);
 
 	bool write(int LBA, string data);
 
@@ -25,18 +36,18 @@ public:
 
 	bool fullWrite(string data);
 
-	bool fullRead(bool printout=true);
+	bool fullRead(bool printOut = true);
 
 	void selectSsd(SSDInterface* SsdInterfacePtr);
 
 public://test
-	bool testApp1(bool printout = true);
+	bool testApp1(bool printOut = true);
 
-	bool testApp2(bool printout = true);
+	bool testApp2(bool printOut = true);
 
-	bool testWrite10AndCompare(bool printout = true);
+	bool testWrite10AndCompare(bool printOut = true);
 
-	bool testLoopWriteAndReadCompare(bool printout = true);
+	bool testLoopWriteAndReadCompare(bool printOut = true);
 private:
 	bool isAddressValid(int LBA);
 

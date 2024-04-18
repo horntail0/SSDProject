@@ -24,6 +24,7 @@ void Runner::run()
 		if (toLower(line) == "testapp1")
 		{
 			cout << line << "\t---\tRun...";
+
 			bool printOut = false;
 			if (shell_.testApp1(printOut)) cout << "PASS" << endl;
 			else
@@ -35,6 +36,7 @@ void Runner::run()
 		else if (toLower(line) == "testapp2")
 		{
 			cout << line << "\t---\tRun...";
+
 			bool printOut = false;
 			if (shell_.testApp2(printOut)) cout << "PASS" << endl;
 			else
@@ -46,6 +48,7 @@ void Runner::run()
 		else if (toLower(line) == "write10andcompare")
 		{
 			cout << line << "\t---\tRun...";
+
 			bool printOut = false;
 			if (shell_.testWrite10AndCompare(printOut)) cout << "PASS" << endl;
 			else
