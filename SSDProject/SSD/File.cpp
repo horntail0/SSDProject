@@ -15,6 +15,7 @@ class IFile
 public:
 	virtual void read(int lba) = 0;
 	virtual void write(int lba, string data) = 0;
+	virtual void erase(int lba, int size) = 0;
 };
 
 class SSDFile : public IFile
@@ -47,6 +48,15 @@ public:
 		buf[lba] = data;
 		writeFileTotal(NAND_FILE, buf);
 	}
+
+	void erase(int lba, int size) override
+	{
+		for (int i = lba; i < lba + size && i < 100; ++i)
+		{
+			write(i, DEFAULT_DATA);
+		}
+	}
+
 private:
 	string getData(string fileName, int targetLine)
 	{

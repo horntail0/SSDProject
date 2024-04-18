@@ -66,6 +66,10 @@ public:
 		file->write(lba, data);
 	}
 
+	void erase(int lba, int size)
+	{
+		file->erase(lba, size);
+	}
 private:
 	IFile* file;
 };
