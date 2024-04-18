@@ -21,12 +21,12 @@ bool Shell::write(int LBA, string data)
 bool Shell::erase(int LBA, int size)
 {
 	bool result;
-	while (size > 10)
+	while (size > ERASE_MAX_NUM)
 	{
 		if (isAddressValid(LBA) == false) return false;
-		if (SsdDriver->erase(LBA, 10) == false) return false;
-		LBA += 10;
-		size -= 10;
+		if (SsdDriver->erase(LBA, ERASE_MAX_NUM) == false) return false;
+		LBA += ERASE_MAX_NUM;
+		size -= ERASE_MAX_NUM;
 	}
 	return SsdDriver->erase(LBA, size);
 }

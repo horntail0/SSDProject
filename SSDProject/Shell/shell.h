@@ -7,6 +7,7 @@ using namespace std;
 
 constexpr int MAX_NUM = 100;
 constexpr int LENGTH_OF_INPUT_DATA = 10;
+constexpr int ERASE_MAX_NUM = 10;
 
 class Shell
 {
