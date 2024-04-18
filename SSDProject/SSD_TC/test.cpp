@@ -18,6 +18,7 @@ class MockFile : public IFile
 public:
 	MOCK_METHOD(void, read, (int), (override));
 	MOCK_METHOD(void, write, (int, string), (override));
+	MOCK_METHOD(void, erase, (int, int), (override));
 };
 
 class MockFixture : public testing::Test
@@ -230,4 +231,27 @@ TEST_F(SSDFixture, ReadTestInvalidLBA)
 	EXPECT_EQ(getData(RESULT_FILE, 0), "FAIL");
 	ssd.read(1000);
 	EXPECT_EQ(getData(RESULT_FILE, 0), "FAIL");
+}
+
+TEST_F(SSDFixture, EraseTestInvalidLBA)
+{
+	for (int i = 0; i < 10; ++i)
+	{
+		ssd.write(i, NORMAL_DATA);
+	}
+	ssd.erase(1,5);
+
+	ssd.read(0);
+	EXPECT_EQ(getData(RESULT_FILE, 0), NORMAL_DATA);
+
+	for (int i = 1; i < 6; ++i)
+	{
+		ssd.read(i);
+		EXPECT_EQ(getData(RESULT_FILE, 0), DEFAULT_DATA);
+	}
+	for (int i = 6; i < 10; ++i)
+	{
+		ssd.read(i);
+		EXPECT_EQ(getData(RESULT_FILE, 0), NORMAL_DATA);
+	}
 }
