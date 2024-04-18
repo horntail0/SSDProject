@@ -33,10 +33,7 @@ int main(int argc, char* argv[])
 			return 0;
 
 		int size = stoi(string(argv[3]));
-
-		cout << "size = " << size << endl;
-
-//		ssd.write(lba, data);
+		ssd.erase(lba, size);
 	}
 
 	return 0;
