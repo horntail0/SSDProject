@@ -233,7 +233,7 @@ TEST_F(SSDFixture, ReadTestInvalidLBA)
 	EXPECT_EQ(getData(RESULT_FILE, 0), "FAIL");
 }
 
-TEST_F(SSDFixture, EraseTestInvalidLBA)
+TEST_F(SSDFixture, EraseTest)
 {
 	for (int i = 0; i < 10; ++i)
 	{
