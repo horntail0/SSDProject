@@ -71,7 +71,25 @@ public:
 
 	vector<string> readFileToBuf(string fileName)
 	{
-		vector<string> ret = {};
+		vector<string> ret;
+
+		ifstream file(NAND_FILE);
+		string temp;
+
+		if (file.is_open())
+		{
+			while (getline(file, temp))
+			{
+				ret.push_back(temp);
+			}
+			file.close();
+		}
+		else
+		{
+			for (int i = 0; i < 100; i++)
+				ret.push_back(DEFAULT_DATA);
+		}
+
 		return ret;
 	}
 private:

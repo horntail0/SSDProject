@@ -199,7 +199,19 @@ TEST_F(SSDFixture, WriteBufferTestNormalData)
 	ssd.writeBuffer(0, NORMAL_DATA);
 	ssd.flush();
 
+	ssd.writeBuffer(1, NORMAL_DATA);
+	ssd.flush();
 
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
 
 
 }

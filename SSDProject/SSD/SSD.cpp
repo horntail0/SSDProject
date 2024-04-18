@@ -96,7 +96,7 @@ public:
 		// Do optimize cmd buf
 
 		if (cmdCnt >= 10)
-			; //do flush
+			flush(); //do flush
 
 
 	}
@@ -107,7 +107,7 @@ public:
 		cmdCnt++;
 
 		if (cmdCnt >= 10)
-			; //do flush
+			flush(); //do flush
 
 	}
 
@@ -131,9 +131,7 @@ private:
 	{
 		vector<string> ret;
 
-		//ret = file->readFileToBuf(NAND_FILE);
-		for (int i = 0; i < 100; i++)
-			ret.push_back(DEFAULT_DATA);
+		ret = file->readFileToBuf(NAND_FILE);
 
 		for (int j = 0; j < cmdBuf.size(); j++)
 		{
