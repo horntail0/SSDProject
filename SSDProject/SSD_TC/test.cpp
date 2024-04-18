@@ -255,3 +255,27 @@ TEST_F(SSDFixture, EraseTest)
 		EXPECT_EQ(getData(RESULT_FILE, 0), NORMAL_DATA);
 	}
 }
+
+TEST_F(SSDFixture, FastWriteTest)
+{
+	ssd.fastWrite(Buffer{ 0, 0, "aaa" });
+	EXPECT_EQ(ssd.buf.size(), 1);
+
+	ssd.fastWrite(Buffer{ 1, 1, "bbb" });
+	EXPECT_EQ(ssd.buf.size(), 2);
+
+	ssd.fastWrite(Buffer{ 1, 5, "000" });
+	EXPECT_EQ(ssd.buf.size(), 2);
+
+	ssd.fastWrite(Buffer{ 2, 2, "ccc" });
+	EXPECT_EQ(ssd.buf.size(), 3);
+
+	ssd.fastWrite(Buffer{ 7, 7, "ddd" });
+	EXPECT_EQ(ssd.buf.size(), 4);
+
+	ssd.fastWrite(Buffer{ 6, 9, "000" });
+	EXPECT_EQ(ssd.buf.size(), 4);
+
+	ssd.fastWrite(Buffer{ 4, 5, "000" });
+	EXPECT_EQ(ssd.buf.size(), 4);
+}

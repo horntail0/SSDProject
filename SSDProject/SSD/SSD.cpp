@@ -101,7 +101,61 @@ public:
 	{
 	}
 
-private:
+//private:
 	IFile* file;
 	vector<Buffer> buf;
+	
+	void fastWrite(Buffer now)
+	{
+		buf.push_back(now);
+
+		if (buf.size() == 1)
+			return;
+
+		const int DELETE = -1;
+		int prev = buf.size() - 2;
+		int last = buf.size() -1;
+
+		if(isConsecutive(buf[prev], buf[last]))
+			buf[prev].start = DELETE;
+		for (int i = prev; i >= 0; --i)
+		{
+			if (isDuplicated(buf[i], buf[last]))
+				buf[i].start = DELETE;
+		}
+
+		vector<Buffer> tmp;
+		for (int i = 0; i < buf.size(); ++i)
+		{
+			if (buf[i].start != DELETE)
+				tmp.push_back(buf[i]);
+		}
+		swap(tmp, buf);
+	}
+
+	bool isDuplicated(Buffer prev, Buffer last)
+	{
+		if (last.start <= prev.start && prev.end <= last.end)
+			return true;
+		return false;
+	}
+
+	bool isConsecutive(Buffer &prev, Buffer &last)
+	{
+		if (prev.data != last.data)
+			return false;
+
+		if (prev.end + 1 == last.start)
+		{
+			last.start = prev.start;
+			return true;
+		}
+		if (last.end + 1 == prev.start)
+		{
+			last.end = prev.end;
+			return true;
+		}
+
+		return false;
+	}
 };
