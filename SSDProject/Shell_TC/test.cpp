@@ -4,6 +4,7 @@
 #include "../Shell/shell.h"
 #include "../Shell/shell.cpp"
 #include "../Shell/SSDAdapter.cpp"
+#include "../Shell/ShellLogger.cpp"
 #include "../SSD/File.cpp"
 
 using namespace std;

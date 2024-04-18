@@ -2,6 +2,7 @@
 #include "SSDAdapter.h"
 #include <string>
 #include <iostream>
+#include "ShellLogger.h"
 
 using namespace std;
 
@@ -42,4 +43,5 @@ private:
 	bool isDataValid(string data);
 
 	SSDInterface* SsdDriver;
+	ShellLogger shellLogger;
 };
