@@ -5,6 +5,14 @@ using namespace std;
 
 const int SUCCESS = 1;
 const int FAIL = -1;
+const string DEFAULT = "0x00000000";
+
+struct Buffer
+{
+	int start;
+	int end;
+	string data;
+};
 
 class SSD
 {
@@ -81,12 +89,12 @@ public:
 		if (checkInvalidWriteArg(lba, data) == FAIL)
 			return;
 
-
+		buf.push_back(Buffer{ lba, lba, data });
 	}
 
 	void eraseBuffer(int lba, int size)
 	{
-
+		buf.push_back(Buffer{ lba, size, DEFAULT });
 	}
 
 	void flush()
@@ -95,4 +103,5 @@ public:
 
 private:
 	IFile* file;
+	vector<Buffer> buf;
 };
