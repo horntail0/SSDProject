@@ -49,13 +49,9 @@ int main()
 			cin >> param1;
 			shell.fullWrite(param1);
 		}
-		else if (command == "testapp1")
+		else if (command == "testapp1" || command == "testapp2")
 		{
-			shell.testApp1();
-		}
-		else if (command == "testapp2")
-		{
-			shell.testApp2();
+			shell.customTest(command);
 		}
 		else
 		{

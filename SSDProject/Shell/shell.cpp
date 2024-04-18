@@ -7,7 +7,7 @@ Shell::Shell()
 	TestApp1 *TestApp1Runner = new TestApp1(this);
 	testlist[0] = reinterpret_cast<TestScenario*>(TestApp1Runner);
 	TestApp2* TestApp2Runner = new TestApp2(this);
-	testlist[1] = reinterpret_cast<TestScenario*>(&TestApp2Runner);
+	testlist[1] = reinterpret_cast<TestScenario*>(TestApp2Runner);
 }
 
 bool Shell::read(int LBA, bool printout)
@@ -185,11 +185,11 @@ bool Shell::isDataValid(string data)
 
 bool Shell::customTest(string testname, bool printout)
 {
-	if (testname == "testApp1")
+	if (testname == "testapp1")
 	{
 		if (testlist[0]->run(printout)) return true;
 	}
-	else if (testname == "testApp2")
+	else if (testname == "testapp2")
 	{
 		if (testlist[1]->run(printout)) return true;
 	}
