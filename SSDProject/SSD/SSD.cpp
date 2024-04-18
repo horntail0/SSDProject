@@ -6,7 +6,6 @@ using namespace std;
 
 const int SUCCESS = 1;
 const int FAIL = -1;
-const string DEFAULT = "0x00000000";
 
 struct Buffer
 {
@@ -98,7 +97,7 @@ public:
 
 	void eraseBuffer(int lba, int size)
 	{
-		fastWrite(Buffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT });
+		fastWrite(Buffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT_DATA });
 		cmdCnt++;
 
 		if (cmdCnt >= 10)
@@ -117,7 +116,6 @@ public:
 		buf.clear();
 	}
 
-private:
 	IFile* file;
 	vector<Buffer> buf;
 	int cmdCnt = 0;
@@ -145,13 +143,13 @@ private:
 	{
 		for (int i = buf.size() - 1; i >= 0; --i)
 		{
-			if (buf[i].start <= i && i <= buf[i].end) //여기서 바로 읽기
+			if (buf[i].start <= lba && lba <= buf[i].end)
 			{
-				//return SUCCESS;
+				file->writeFile(RESULT_FILE, buf[i].data);
+				return SUCCESS;
 			}
 		}
 
-		//기존 read
 		return FAIL;
 	}
 
