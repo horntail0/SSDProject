@@ -27,6 +27,17 @@ int main(int argc, char* argv[])
 		string data = argv[3];
 		ssd.write(lba, data);
 	}
+	if (cmd == "E")
+	{
+		if (argc != 4)
+			return 0;
+
+		int size = stoi(string(argv[3]));
+
+		cout << "size = " << size << endl;
+
+//		ssd.write(lba, data);
+	}
 
 	return 0;
 }
