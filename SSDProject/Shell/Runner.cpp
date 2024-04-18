@@ -1,5 +1,4 @@
 #include "Runner.h"
-#include "Windows.h"
 
 string toLower(const string& str)
 {
