@@ -7,7 +7,8 @@ string toLower(const string& str)
 	return result;
 }
 
-Runner::Runner() {}
+Runner::Runner() {
+}
 
 void Runner::setRunList(string filePath)
 {
@@ -31,6 +32,8 @@ void Runner::run()
 		{
 			cout << line << "\t---\tRun...";
 			bool printout = false;
+
+			
 			if (shell_.testApp1(printout)) cout << "PASS" << endl;
 			else
 			{

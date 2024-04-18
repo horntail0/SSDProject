@@ -131,6 +131,9 @@
     <ClCompile Include="Runner.cpp" />
     <ClCompile Include="Shell.cpp" />
     <ClCompile Include="SSDAdapter.cpp" />
+    <ClCompile Include="TestApp1.cpp" />
+    <ClCompile Include="TestApp2.cpp" />
+    <ClCompile Include="TestScenario.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -140,6 +143,7 @@
     <ClInclude Include="Shell.h" />
     <ClInclude Include="SSDAdapter.h" />
     <ClInclude Include="SSDInterface.h" />
+    <ClInclude Include="TestCaseHeader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

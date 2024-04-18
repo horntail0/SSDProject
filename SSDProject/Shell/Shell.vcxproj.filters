@@ -7,6 +7,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gmock\gmock-all.cc" />
     <ClCompile Include="SSDAdapter.cpp" />
     <ClCompile Include="Runner.cpp" />
+    <ClCompile Include="TestApp1.cpp" />
+    <ClCompile Include="TestApp2.cpp" />
+    <ClCompile Include="TestScenario.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -16,5 +19,6 @@
     <ClInclude Include="SSDAdapter.h" />
     <ClInclude Include="Shell.h" />
     <ClInclude Include="Runner.h" />
+    <ClInclude Include="TestCaseHeader.h" />
   </ItemGroup>
 </Project>

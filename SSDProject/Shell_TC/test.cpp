@@ -121,7 +121,7 @@ TEST_F(TestShell, TestMockAdapterApp1)
 	EXPECT_CALL(mfile, read(_))
 		.Times(100);
 
-	EXPECT_EQ(shell.testApp1("0x12345678"), true);
+	EXPECT_EQ(shell.customTest("testApp1"), true);
 }
 
 TEST_F(TestShell, TestMockAdapterApp1Fail)
