@@ -7,8 +7,7 @@ using namespace std;
 class Runner
 {
 public:
-    Runner();
-    void setRunList(string filePath);
+    Runner(string filePath);
 	void run();
 
 private:
