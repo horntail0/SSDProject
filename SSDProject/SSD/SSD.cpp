@@ -1,5 +1,6 @@
 #include "File.cpp"
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -90,18 +91,58 @@ public:
 			return;
 
 		buf.push_back(Buffer{ lba, lba, data });
+		cmdCnt++;
+
+		// Do optimize cmd buf
+
+		if (cmdCnt >= 10)
+			flush(); //do flush
+
+
 	}
 
 	void eraseBuffer(int lba, int size)
 	{
-		buf.push_back(Buffer{ lba, size, DEFAULT });
+		buf.push_back(Buffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT });
+		cmdCnt++;
+
+		if (cmdCnt >= 10)
+			flush(); //do flush
+
 	}
 
 	void flush()
 	{
+		// do flush
+		vector<string> output = RunCmdBuf(buf);
+
+		file->writeBufToFile(NAND_FILE, output);
+		
+		cmdCnt = 0;
+		buf.clear();
 	}
 
 private:
 	IFile* file;
 	vector<Buffer> buf;
+	int cmdCnt = 0;
+
+	vector<string> RunCmdBuf(vector<Buffer> cmdBuf)
+	{
+		vector<string> ret;
+
+		ret = file->readFileToBuf(NAND_FILE);
+
+		for (int j = 0; j < cmdBuf.size(); j++)
+		{
+			int s = cmdBuf[j].start;
+			int e = cmdBuf[j].end;
+			for (int k = s; k <= e; k++)
+			{
+				ret[k] = cmdBuf[j].data;
+			}
+		}
+
+		return ret;
+	}
 };
