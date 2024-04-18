@@ -35,6 +35,26 @@ int main(int argc, char* argv[])
 		int size = stoi(string(argv[3]));
 		ssd.erase(lba, size);
 	}
+	if (cmd == "F")
+	{
+		ssd.flush();
+	}
+	if (cmd == "WB")
+	{
+		if (argc != 4)
+			return 0;
+
+		string data = argv[3];
+		ssd.writeBuffer(lba, data);
+	}
+	if (cmd == "EB")
+	{
+		if (argc != 4)
+			return 0;
+
+		int size = stoi(string(argv[3]));
+		ssd.eraseBuffer(lba, size);
+	}
 
 	return 0;
 }

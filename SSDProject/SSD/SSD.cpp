@@ -50,6 +50,11 @@ public:
 		return SUCCESS;
 	}
 
+	void fastRead(int lba)
+	{
+
+	}
+
 	void read(int lba)
 	{
 		if (lba < 0 || lba > 99)
@@ -70,6 +75,24 @@ public:
 	{
 		file->erase(lba, size);
 	}
+
+	void writeBuffer(int lba, string data)
+	{
+		if (checkInvalidWriteArg(lba, data) == FAIL)
+			return;
+
+
+	}
+
+	void eraseBuffer(int lba, int size)
+	{
+
+	}
+
+	void flush()
+	{
+	}
+
 private:
 	IFile* file;
 };
