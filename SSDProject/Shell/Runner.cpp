@@ -49,6 +49,28 @@ void Runner::run()
 				exit(0);
 			}
 		}
+		else if (toLower(line) == "write10andcompare")
+		{
+			cout << line << "\t---\tRun...";
+			bool printout = false;
+			if (shell_.testWrite10AndCompare(printout)) cout << "PASS" << endl;
+			else
+			{
+				cout << "FAIL!" << endl;
+				exit(0);
+			}
+		}
+		else if (toLower(line) == "loopwriteandreadcompare")
+		{
+			cout << line << "\t---\tRun...";
+			bool printout = false;
+			if (shell_.testLoopWriteAndReadCompare(printout)) cout << "PASS" << endl;
+			else
+			{
+				cout << "FAIL!" << endl;
+				exit(0);
+			}
+		}
 	}
 	file.close();
 }

@@ -27,10 +27,14 @@ public:
 
 	void selectSsd(SSDInterface* SsdInterfacePtr);
 
+public://test
 	bool testApp1(bool printout = true);
 
 	bool testApp2(bool printout = true);
 
+	bool testWrite10AndCompare(bool printout = true);
+
+	bool testLoopWriteAndReadCompare(bool printout = true);
 private:
 	bool isAddressValid(int LBA);
 
