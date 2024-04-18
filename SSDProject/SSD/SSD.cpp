@@ -85,20 +85,17 @@ public:
 		if (checkInvalidWriteArg(lba, data) == FAIL)
 			return;
 
-		buf.push_back(Buffer{ lba, lba, data });
+		fastWrite(Buffer{ lba, lba, data });
 		cmdCnt++;
-
-		// Do optimize cmd buf
 
 		if (cmdCnt >= 10)
 			flush(); //do flush
-
 
 	}
 
 	void eraseBuffer(int lba, int size)
 	{
-		buf.push_back(Buffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT });
+		fastWrite(Buffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT });
 		cmdCnt++;
 
 		if (cmdCnt >= 10)
