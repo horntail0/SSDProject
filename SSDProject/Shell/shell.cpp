@@ -6,10 +6,10 @@ Shell::Shell()
 	SsdDriver = new SSDAdapter;
 }
 
-bool Shell::read(int LBA)
+bool Shell::read(int LBA, bool printout)
 {
 	if (isAddressValid(LBA) == false) return false;
-	return SsdDriver->read(LBA);
+	return SsdDriver->read(LBA, printout);
 }
 
 bool Shell::write(int LBA, string data)
@@ -56,11 +56,11 @@ bool Shell::fullWrite(string data)
 	return true;
 }
 
-bool Shell::fullRead()
+bool Shell::fullRead(bool printout)
 {
 	for (int i = 0; i < MAX_NUM; i++)
 	{
-		bool result = SsdDriver->read(i);
+		bool result = SsdDriver->read(i, printout);
 		if (!result) return false;
 	}
 	return true;
@@ -71,16 +71,17 @@ void Shell::selectSsd(SSDInterface* SsdInterfacePtr)
 	SsdDriver = SsdInterfacePtr;
 };
 
-bool Shell::testApp1(string data)
+bool Shell::testApp1(bool printout)
 {
+	string data = "0x12345678";
 	bool writeOk = fullWrite(data);
-	bool readOk = fullRead();
+	bool readOk = fullRead(printout);
 
 	if (writeOk && readOk) return true;
 	else return false;
 };
 
-bool Shell::testApp2()
+bool Shell::testApp2(bool printout)
 {
 	string data = "0xAAAABBBB";
 	for (int i = 0; i < 30; i++)
@@ -100,7 +101,7 @@ bool Shell::testApp2()
 
 	for (int i = 0; i <= 5; i++)
 	{
-		bool result = SsdDriver->read(i);
+		bool result = SsdDriver->read(i, printout);
 		if (!result) return false;
 	}
 

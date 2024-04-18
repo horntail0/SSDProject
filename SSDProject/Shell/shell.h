@@ -14,7 +14,7 @@ class Shell
 public:
 	Shell();
 
-	bool read(int LBA);
+	bool read(int LBA, bool printout=true);
 
 	bool write(int LBA, string data);
 
@@ -24,13 +24,13 @@ public:
 
 	bool fullWrite(string data);
 
-	bool fullRead();
+	bool fullRead(bool printout=true);
 
 	void selectSsd(SSDInterface* SsdInterfacePtr);
 
-	bool testApp1(string data);
+	bool testApp1(bool printout = true);
 
-	bool testApp2();
+	bool testApp2(bool printout = true);
 
 private:
 	bool isAddressValid(int LBA);

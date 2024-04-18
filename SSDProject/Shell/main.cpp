@@ -51,34 +51,25 @@ int main()
 		}
 		else if (command == "testapp1")
 		{
-			string testData = "0x12345678";
-			shell.fullWrite(testData);
-			shell.fullRead();
+			shell.testApp1();
 		}
 		else if (command == "testapp2")
 		{
-			string testData = "0xAAAABBBB";
-			for (int i = 0; i < 30; i++)
-				for (int j = 0; j <= 5; j++)
-					shell.write(j, testData);
-
-			string testData2 = "0x12345678";
-			for (int i = 0; i <= 5; i++)
-				shell.write(i, testData2);
-
-			for (int i = 0; i <= 5; i++)
-				shell.read(i);
-		}
-		else if (command == "run_list.lst")
-		{
-			Runner runner;
-			runner.setRunList(command);
-			runner.run();
+			shell.testApp2();
 		}
 		else
 		{
-			cout << "INVALID COMMAND" << endl;
-			shell.help();
+			if (command.size() >= 4 && command.substr(command.size() - 4) == ".lst")
+			{
+				Runner runner;
+				runner.setRunList(command);
+				runner.run();
+			}
+			else
+			{
+				cout << "INVALID COMMAND" << endl;
+				shell.help();
+			}
 		}
 	}
 }
