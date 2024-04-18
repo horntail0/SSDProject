@@ -97,8 +97,7 @@ public:
 
 		if (cmdCnt >= 10)
 			; //do flush
-		cmdCnt = 0;
-		buf.clear();
+
 
 	}
 
@@ -109,8 +108,7 @@ public:
 
 		if (cmdCnt >= 10)
 			; //do flush
-		cmdCnt = 0;
-		buf.clear();
+
 	}
 
 	void flush()
@@ -133,7 +131,9 @@ private:
 	{
 		vector<string> ret;
 
-		ret = file->readFileToBuf(NAND_FILE);
+		//ret = file->readFileToBuf(NAND_FILE);
+		for (int i = 0; i < 100; i++)
+			ret.push_back(DEFAULT_DATA);
 
 		for (int j = 0; j < cmdBuf.size(); j++)
 		{

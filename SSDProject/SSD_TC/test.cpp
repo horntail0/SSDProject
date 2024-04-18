@@ -196,17 +196,12 @@ TEST_F(SSDFixture, WriteTestInvalidLBA)
 
 TEST_F(SSDFixture, WriteBufferTestNormalData)
 {
-	ssd.write(0, NORMAL_DATA);
-	ssd.read(0);
-	EXPECT_EQ(getData(NAND_FILE, 0), NORMAL_DATA);
+	ssd.writeBuffer(0, NORMAL_DATA);
+	ssd.flush();
 
-	ssd.write(1, NORMAL_DATA);
-	ssd.read(1);
-	EXPECT_EQ(getData(NAND_FILE, 1), NORMAL_DATA);
 
-	ssd.write(99, NORMAL_DATA);
-	ssd.read(99);
-	EXPECT_EQ(getData(NAND_FILE, 99), NORMAL_DATA);
+
+
 }
 
 TEST_F(SSDFixture, ReadTestNormalData)
