@@ -14,6 +14,7 @@ class MockFile : public IFile
 public:
 	MOCK_METHOD(void, read, (int LBA), (override));
 	MOCK_METHOD(void, write, (int LBA, string data), (override));
+	MOCK_METHOD(void, erase, (int LBA, int size), (override));
 };
 
 class MockSSDAdapter : public SSDInterface
@@ -26,7 +27,7 @@ public:
 		mfile_ = mfile;
 	}
 
-	bool read(int LBA) override
+	bool read(int LBA, bool printout) override
 	{
 		mfile_->read(LBA);
 		return true;
