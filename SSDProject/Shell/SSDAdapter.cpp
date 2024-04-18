@@ -3,7 +3,7 @@
 
 SSDAdapter::SSDAdapter() {}
 
-bool SSDAdapter::read(int LBA, bool printout)
+bool SSDAdapter::read(int LBA, bool printOut)
 {
 	string cmd = "SSD.exe R " + to_string(LBA);
 	int result = system(cmd.c_str());
@@ -13,7 +13,7 @@ bool SSDAdapter::read(int LBA, bool printout)
 
 	if (inputFile.is_open())
 	{
-		if (!printout) return true;
+		if (!printOut) return true;
 		
 		string line;
 		while (getline(inputFile, line))

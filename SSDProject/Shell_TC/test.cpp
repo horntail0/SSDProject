@@ -30,7 +30,7 @@ public:
 		mfile_ = mfile;
 	}
 
-	bool read(int LBA, bool printout) override
+	bool read(int LBA, bool printOut) override
 	{
 		mfile_->read(LBA);
 		return true;
@@ -52,14 +52,14 @@ private:
 class TestShell : public testing::Test
 {
 public:
-	Shell shell;
+	Shell *shell = Shell::getInstance();
 	MockFile mfile;
 	MockSSDAdapter mssd;
 private:
 	void SetUp() override
 	{
 		mssd.selectMockFile(&mfile);
-		shell.selectSsd(&mssd);
+		shell->selectSsd(&mssd);
 	}
 };
 
@@ -68,7 +68,7 @@ TEST_F(TestShell, TestMockAdapterRead)
 	EXPECT_CALL(mfile, read(0))
 		.Times(1);
 
-	EXPECT_EQ(shell.read(0), true);
+	EXPECT_EQ(shell->read(0), true);
 }
 
 TEST_F(TestShell, TestMockAdapterWrite)
@@ -76,7 +76,7 @@ TEST_F(TestShell, TestMockAdapterWrite)
 	EXPECT_CALL(mfile, write(0, "0x12345678"))
 		.Times(1);
 
-	EXPECT_EQ(shell.write(0, "0x12345678"), true);
+	EXPECT_EQ(shell->write(0, "0x12345678"), true);
 }
 
 TEST_F(TestShell, TestMockAdapterHelp)
@@ -92,7 +92,7 @@ TEST_F(TestShell, TestMockAdapterHelp)
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); 
 
-	shell.help();
+	shell->help();
 	string result = oss.str();
 
 	std::cout.rdbuf(oldCoutStreamBuf); 
@@ -105,7 +105,7 @@ TEST_F(TestShell, TestMockAdapterFullRead)
 	EXPECT_CALL(mfile, read(_))
 		.Times(100);
 
-	EXPECT_EQ(shell.fullRead(), true);
+	EXPECT_EQ(shell->fullRead(), true);
 }
 
 TEST_F(TestShell, TestMockAdapterFullWrite)
@@ -113,7 +113,7 @@ TEST_F(TestShell, TestMockAdapterFullWrite)
 	EXPECT_CALL(mfile, write(_, "0x12345678"))
 		.Times(100);
 
-	EXPECT_EQ(shell.fullWrite("0x12345678"), true);
+	EXPECT_EQ(shell->fullWrite("0x12345678"), true);
 }
 
 TEST_F(TestShell, TestMockAdapterApp1) 
@@ -124,7 +124,7 @@ TEST_F(TestShell, TestMockAdapterApp1)
 	EXPECT_CALL(mfile, read(_))
 		.Times(100);
 
-	EXPECT_EQ(shell.testApp1(true), true);
+	EXPECT_EQ(shell->testApp1(true), true);
 }
 
 TEST_F(TestShell, TestMockAdapterApp2)
@@ -168,7 +168,7 @@ TEST_F(TestShell, TestMockAdapterApp2)
 	EXPECT_CALL(mfile, read(5))
 		.Times(1);
 
-	EXPECT_EQ(shell.testApp2(), true);
+	EXPECT_EQ(shell->testApp2(), true);
 }
 
 TEST_F(TestShell, TestReadAbnormalAddress)
@@ -177,7 +177,7 @@ TEST_F(TestShell, TestReadAbnormalAddress)
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
 
-	shell.read(100);
+	shell->read(100);
 	string result = oss.str();
 
 	std::cout.rdbuf(oldCoutStreamBuf); // 복원
@@ -191,7 +191,7 @@ TEST_F(TestShell, TestWriteAbnormalAddress)
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
 
-	shell.write(100, "0xFFFFFFFF");
+	shell->write(100, "0xFFFFFFFF");
 
 	string result = oss.str();
 	std::cout.rdbuf(oldCoutStreamBuf); // 복원
@@ -205,7 +205,7 @@ TEST_F(TestShell, TestWriteDataWithInvalidHexa)
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
 
-	shell.write(0, "0xABCDEFGH");
+	shell->write(0, "0xABCDEFGH");
 	string result = oss.str();
 
 	std::cout.rdbuf(oldCoutStreamBuf); // 복원
@@ -218,7 +218,7 @@ TEST_F(TestShell, TestWriteDataWithInvalidPrefix1)
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
 
-	shell.write(0, "00ABCDEFGH");
+	shell->write(0, "00ABCDEFGH");
 	string result = oss.str();
 
 	std::cout.rdbuf(oldCoutStreamBuf); // 복원
@@ -231,7 +231,7 @@ TEST_F(TestShell, TestWriteDataWithInvalidPrefix2)
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
 
-	shell.write(0, "XxABCDEFGH");
+	shell->write(0, "XxABCDEFGH");
 	string result = oss.str();
 
 	std::cout.rdbuf(oldCoutStreamBuf); // 복원
@@ -244,7 +244,7 @@ TEST_F(TestShell, TestWriteDataWithInvalidLength)
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
 
-	shell.write(0, "FFFF");
+	shell->write(0, "FFFF");
 	string result = oss.str();
 
 	std::cout.rdbuf(oldCoutStreamBuf); // 복원
@@ -257,7 +257,7 @@ TEST_F(TestShell, TestFullWriteAbnormalValue)
 	auto oldCoutStreamBuf = std::cout.rdbuf();
 	std::cout.rdbuf(oss.rdbuf()); // 새로운 버퍼로 redirection
 
-	shell.fullWrite("0xABCDEFGH");
+	shell->fullWrite("0xABCDEFGH");
 	string result = oss.str();
 
 	std::cout.rdbuf(oldCoutStreamBuf); // 복원
