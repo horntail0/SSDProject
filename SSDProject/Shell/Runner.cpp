@@ -1,12 +1,16 @@
 #include "Runner.h"
 
-string toLower(const string& str)
+string toLower(string& str)
 {
 	transform(str.begin(), str.end(), str.begin(), ::tolower);
 	return str;
 }
 
-Runner::Runner(string filePath) : filePath_(filePath) {}
+Runner::Runner(string filePath) 
+	: filePath_(filePath) 
+{
+	shell_ = Shell::getInstance();
+}
 
 void Runner::run()
 {
@@ -26,7 +30,7 @@ void Runner::run()
 			cout << line << "\t---\tRun...";
 
 			bool printOut = false;
-			if (shell_.testApp1(printOut)) cout << "PASS" << endl;
+			if (shell_->testApp1(printOut)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;
@@ -38,7 +42,7 @@ void Runner::run()
 			cout << line << "\t---\tRun...";
 
 			bool printOut = false;
-			if (shell_.testApp2(printOut)) cout << "PASS" << endl;
+			if (shell_->testApp2(printOut)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;
@@ -50,7 +54,7 @@ void Runner::run()
 			cout << line << "\t---\tRun...";
 
 			bool printOut = false;
-			if (shell_.testWrite10AndCompare(printOut)) cout << "PASS" << endl;
+			if (shell_->testWrite10AndCompare(printOut)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;
@@ -61,7 +65,7 @@ void Runner::run()
 		{
 			cout << line << "\t---\tRun...";
 			bool printOut = false;
-			if (shell_.testLoopWriteAndReadCompare(printOut)) cout << "PASS" << endl;
+			if (shell_->testLoopWriteAndReadCompare(printOut)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;
