@@ -63,7 +63,7 @@ int main()
 		}
 		else
 		{
-			if (command == "run_list.lst")
+			if (command.size() >= 4 && command.substr(command.size() - 4) == ".lst")
 			{
 				Runner runner;
 				runner.setRunList(command);
