@@ -64,6 +64,9 @@ public:
 		if (lba < 0 || lba > 99)
 			return;
 
+		if (fastRead(lba) == SUCCESS)
+			return;
+
 		file->read(lba);
 	}
 
@@ -85,20 +88,17 @@ public:
 		if (checkInvalidWriteArg(lba, data) == FAIL)
 			return;
 
-		buf.push_back(Buffer{ lba, lba, data });
+		fastWrite(Buffer{ lba, lba, data });
 		cmdCnt++;
-
-		// Do optimize cmd buf
 
 		if (cmdCnt >= 10)
 			flush(); //do flush
-
 
 	}
 
 	void eraseBuffer(int lba, int size)
 	{
-		buf.push_back(Buffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT });
+		fastWrite(Buffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT });
 		cmdCnt++;
 
 		if (cmdCnt >= 10)
@@ -141,15 +141,18 @@ private:
 		return ret;
 	}
 
-	void fastRead(int lba)
+	int fastRead(int lba)
 	{
 		for (int i = buf.size() - 1; i >= 0; --i)
 		{
 			if (buf[i].start <= i && i <= buf[i].end) //여기서 바로 읽기
-				return;
+			{
+				//return SUCCESS;
+			}
 		}
 
 		//기존 read
+		return FAIL;
 	}
 
 	void fastWrite(Buffer buffer)
