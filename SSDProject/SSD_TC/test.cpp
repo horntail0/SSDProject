@@ -194,26 +194,75 @@ TEST_F(SSDFixture, WriteTestInvalidLBA)
 	EXPECT_EQ(fileBefore, fileAfter);
 }
 
-TEST_F(SSDFixture, WriteBufferTestNormalData)
+TEST_F(SSDFixture, WriteBufferTestNormalData1)
 {
-	ssd.writeBuffer(0, NORMAL_DATA);
-	ssd.flush();
+	ssd.write(0, NORMAL_DATA);
+	string fileBefore = getFile(NAND_FILE);
 
 	ssd.writeBuffer(1, NORMAL_DATA);
+	string fileAfter = getFile(NAND_FILE);
+	EXPECT_EQ(fileBefore, fileAfter);
+
 	ssd.flush();
+	fileAfter = getFile(NAND_FILE);
+	EXPECT_NE(fileBefore, fileAfter);
+}
 
-	ssd.writeBuffer(2, NORMAL_DATA);
-	ssd.writeBuffer(2, NORMAL_DATA);
-	ssd.writeBuffer(2, NORMAL_DATA);
-	ssd.writeBuffer(2, NORMAL_DATA);
-	ssd.writeBuffer(2, NORMAL_DATA);
-	ssd.writeBuffer(2, NORMAL_DATA);
-	ssd.writeBuffer(2, NORMAL_DATA);
-	ssd.writeBuffer(2, NORMAL_DATA);
-	ssd.writeBuffer(2, NORMAL_DATA);
-	ssd.writeBuffer(2, NORMAL_DATA);
+TEST_F(SSDFixture, WriteBufferTestNormalData9)
+{
+	ssd.write(0, NORMAL_DATA);
+	string fileBefore = getFile(NAND_FILE);
+
+	for (int i = 1; i <= 9; i++)
+		ssd.writeBuffer(i, NORMAL_DATA);
+	string fileAfter = getFile(NAND_FILE);
+	EXPECT_EQ(fileBefore, fileAfter);
+
+	ssd.flush();
+	fileAfter = getFile(NAND_FILE);
+	EXPECT_NE(fileBefore, fileAfter);
+}
 
 
+TEST_F(SSDFixture, WriteBufferTestNormalData10)
+{
+	ssd.write(0, NORMAL_DATA);
+	string fileBefore = getFile(NAND_FILE);
+
+	for (int i = 1; i <= 10; i++)
+		ssd.writeBuffer(i, NORMAL_DATA);
+	string fileAfter = getFile(NAND_FILE);
+	EXPECT_NE(fileBefore, fileAfter);
+}
+
+TEST_F(SSDFixture, EraseBufferTestSize1)
+{
+	for (int i = 0; i <= 10; i++)
+		ssd.write(i, NORMAL_DATA);
+	string fileBefore = getFile(NAND_FILE);
+
+	ssd.eraseBuffer(1,1);
+	string fileAfter = getFile(NAND_FILE);
+	EXPECT_EQ(fileBefore, fileAfter);
+
+	ssd.flush();
+	fileAfter = getFile(NAND_FILE);
+	EXPECT_NE(fileBefore, fileAfter);
+}
+
+TEST_F(SSDFixture, EraseBufferTestSize10)
+{
+	for (int i = 0; i <= 10; i++)
+		ssd.write(i, NORMAL_DATA);
+	string fileBefore = getFile(NAND_FILE);
+
+	ssd.eraseBuffer(1, 10);
+	string fileAfter = getFile(NAND_FILE);
+	EXPECT_EQ(fileBefore, fileAfter);
+
+	ssd.flush();
+	fileAfter = getFile(NAND_FILE);
+	EXPECT_NE(fileBefore, fileAfter);
 }
 
 TEST_F(SSDFixture, ReadTestNormalData)
