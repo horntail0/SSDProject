@@ -37,6 +37,10 @@ public:
 		mfile_->write(LBA, data);
 		return true;
 	}
+	bool erase(int LBA, int size) override
+	{
+		return true;
+	}
 private:
 	MockFile* mfile_;
 };

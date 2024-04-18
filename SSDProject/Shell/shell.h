@@ -17,6 +17,8 @@ public:
 
 	bool write(int LBA, string data);
 
+	bool erase(int LBA, int size);
+
 	void help();
 
 	bool fullWrite(string data);

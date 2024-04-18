@@ -21,6 +21,17 @@ int main()
 			cin >> param1 >> param2;
 			shell.write(stoi(param1), param2);
 		}
+		else if (command == "erase")
+		{
+			cin >> param1 >> param2; // lba, size
+			shell.erase(stoi(param1), stoi(param2));
+		}
+		else if (command == "erase_range")
+		{
+			cin >> param1 >> param2; // slba, elba
+			int size = stoi(param2) - stoi(param1) + 1;
+			shell.erase(stoi(param1), size);
+		}
 		else if (command == "exit")
 		{
 			break;
