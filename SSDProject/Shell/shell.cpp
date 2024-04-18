@@ -20,7 +20,17 @@ bool Shell::write(int LBA, string data)
 
 bool Shell::erase(int LBA, int size)
 {
+	bool result;
 	if (isAddressValid(LBA) == false) return false;
+	while (size > 10)
+	{
+		if (SsdDriver->erase(LBA, 10) == false)
+		{
+			return false;
+		}
+		LBA += 10;
+		size -= 10;
+	}
 	return SsdDriver->erase(LBA, size);
 }
 
