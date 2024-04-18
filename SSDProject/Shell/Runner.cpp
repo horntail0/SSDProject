@@ -29,11 +29,47 @@ void Runner::run()
 	{
 		if (toLower(line) == "testapp1")
 		{
-			cout << "Performing testapp1 " << endl;
+			cout << line << "\t---\tRun...";
+			bool printout = false;
+			if (shell_.testApp1(printout)) cout << "PASS" << endl;
+			else
+			{
+				cout << "FAIL!" << endl;
+				exit(0);
+			}
 		}
 		else if (toLower(line) == "testapp2")
 		{
-			cout << "Performing testapp2 " << endl;
+			cout << line << "\t---\tRun...";
+			bool printout = false;
+			if (shell_.testApp2(printout)) cout << "PASS" << endl;
+			else
+			{
+				cout << "FAIL!" << endl;
+				exit(0);
+			}
+		}
+		else if (toLower(line) == "write10andcompare")
+		{
+			cout << line << "\t---\tRun...";
+			bool printout = false;
+			if (shell_.testWrite10AndCompare(printout)) cout << "PASS" << endl;
+			else
+			{
+				cout << "FAIL!" << endl;
+				exit(0);
+			}
+		}
+		else if (toLower(line) == "loopwriteandreadcompare")
+		{
+			cout << line << "\t---\tRun...";
+			bool printout = false;
+			if (shell_.testLoopWriteAndReadCompare(printout)) cout << "PASS" << endl;
+			else
+			{
+				cout << "FAIL!" << endl;
+				exit(0);
+			}
 		}
 	}
 	file.close();

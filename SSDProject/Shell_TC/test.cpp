@@ -14,6 +14,7 @@ class MockFile : public IFile
 public:
 	MOCK_METHOD(void, read, (int LBA), (override));
 	MOCK_METHOD(void, write, (int LBA, string data), (override));
+	MOCK_METHOD(void, erase, (int LBA, int size), (override));
 };
 
 class MockSSDAdapter : public SSDInterface
@@ -26,7 +27,7 @@ public:
 		mfile_ = mfile;
 	}
 
-	bool read(int LBA) override
+	bool read(int LBA, bool printout) override
 	{
 		mfile_->read(LBA);
 		return true;
@@ -120,18 +121,7 @@ TEST_F(TestShell, TestMockAdapterApp1)
 	EXPECT_CALL(mfile, read(_))
 		.Times(100);
 
-	EXPECT_EQ(shell.testApp1("0x12345678"), true);
-}
-
-TEST_F(TestShell, TestMockAdapterApp1Fail)
-{
-	EXPECT_CALL(mfile, write(_, _))
-		.Times(0);
-
-	EXPECT_CALL(mfile, read(_))
-		.Times(100);
-
-	EXPECT_EQ(shell.testApp1("0x1234567891011121314"), false);
+	EXPECT_EQ(shell.testApp1(true), true);
 }
 
 TEST_F(TestShell, TestMockAdapterApp2)
