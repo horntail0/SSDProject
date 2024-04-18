@@ -130,6 +130,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Runner.cpp" />
     <ClCompile Include="Shell.cpp" />
+    <ClCompile Include="ShellLogger.cpp" />
     <ClCompile Include="SSDAdapter.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="Runner.h" />
     <ClInclude Include="Shell.h" />
+    <ClInclude Include="ShellLogger.h" />
     <ClInclude Include="SSDAdapter.h" />
     <ClInclude Include="SSDInterface.h" />
   </ItemGroup>

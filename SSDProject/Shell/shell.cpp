@@ -1,6 +1,5 @@
 #include "shell.h"
 
-
 Shell::Shell()
 {
 	SsdDriver = new SSDAdapter;
@@ -9,12 +8,14 @@ Shell::Shell()
 bool Shell::read(int LBA, bool printout)
 {
 	if (isAddressValid(LBA) == false) return false;
+	shellLogger.recordLog(__func__, "LBA:" + to_string(LBA));
 	return SsdDriver->read(LBA, printout);
 }
 
 bool Shell::write(int LBA, string data)
 {
 	if (isAddressValid(LBA) == false || isDataValid(data) == false) return false;
+	shellLogger.recordLog(__func__, "LBA:" + to_string(LBA) + " DATA:" + data);
 	return SsdDriver->write(LBA, data);
 }
 
@@ -22,6 +23,9 @@ bool Shell::erase(int LBA, int size)
 {
 	bool result;
 	if (size <= 0) return false;
+
+	shellLogger.recordLog(__func__, "LBA:" + to_string(LBA) + " SIZE:" + to_string(size));
+
 	while (size > ERASE_MAX_NUM)
 	{
 		if (isAddressValid(LBA) == false) return false;
@@ -49,6 +53,7 @@ bool Shell::fullWrite(string data)
 
 	for (int i = 0; i < MAX_NUM; i++)
 	{
+		shellLogger.recordLog(__func__, "LBA: " + to_string(i) + " DATA: " + data);
 		bool result = SsdDriver->write(i, data);
 		if (!result) return false;
 	}
@@ -58,6 +63,8 @@ bool Shell::fullWrite(string data)
 
 bool Shell::fullRead(bool printout)
 {
+	shellLogger.recordLog(__func__, "");
+
 	for (int i = 0; i < MAX_NUM; i++)
 	{
 		bool result = SsdDriver->read(i, printout);
@@ -73,6 +80,8 @@ void Shell::selectSsd(SSDInterface* SsdInterfacePtr)
 
 bool Shell::testApp1(bool printout)
 {
+	shellLogger.recordLog(__func__, "");
+
 	string data = "0x12345678";
 	bool writeOk = fullWrite(data);
 	bool readOk = fullRead(printout);
@@ -83,6 +92,8 @@ bool Shell::testApp1(bool printout)
 
 bool Shell::testApp2(bool printout)
 {
+	shellLogger.recordLog(__func__, "");
+
 	string data = "0xAAAABBBB";
 	for (int i = 0; i < 30; i++)
 	{
@@ -110,6 +121,8 @@ bool Shell::testApp2(bool printout)
 
 bool Shell::testWrite10AndCompare(bool printout)
 {
+	shellLogger.recordLog(__func__, "");
+
 	string data = "0x12345678";
 
 	bool writeOk, readOk;
@@ -125,6 +138,8 @@ bool Shell::testWrite10AndCompare(bool printout)
 
 bool Shell::testLoopWriteAndReadCompare(bool printout)
 {
+	shellLogger.recordLog(__func__, "");
+
 	string data = "0x12345678";
 
 	bool writeOk, readOk;
