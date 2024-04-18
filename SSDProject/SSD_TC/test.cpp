@@ -3,6 +3,8 @@
 #include "../SSD/File.cpp"
 #include "../SSD/SSD.cpp"
 #include <fstream>
+#include <vector>
+#include <string>
 
 using namespace std;
 using namespace testing;
@@ -19,6 +21,8 @@ public:
 	MOCK_METHOD(void, read, (int), (override));
 	MOCK_METHOD(void, write, (int, string), (override));
 	MOCK_METHOD(void, erase, (int, int), (override));
+	MOCK_METHOD(void, writeBufToFile, (string, vector<string>), (override));
+	MOCK_METHOD(vector<string>, readFileToBuf, (string), (override));
 };
 
 class MockFixture : public testing::Test

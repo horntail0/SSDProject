@@ -16,6 +16,8 @@ public:
 	virtual void read(int lba) = 0;
 	virtual void write(int lba, string data) = 0;
 	virtual void erase(int lba, int size) = 0;
+	virtual void writeBufToFile(string, vector<string>) = 0;
+	virtual vector<string> readFileToBuf(string) = 0;
 };
 
 class SSDFile : public IFile
@@ -69,7 +71,8 @@ public:
 
 	vector<string> readFileToBuf(string fileName)
 	{
-
+		vector<string> ret = {};
+		return ret;
 	}
 private:
 	string getLbaData(string fileName, int targetLine)
