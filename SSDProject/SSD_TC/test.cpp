@@ -266,6 +266,30 @@ TEST_F(SSDFixture, EraseBufferTestSize10)
 	EXPECT_NE(fileBefore, fileAfter);
 }
 
+TEST_F(SSDFixture, EraseBufferTest9Times)
+{
+	for (int i = 0; i <= 10; i++)
+		ssd.write(i, NORMAL_DATA);
+	string fileBefore = getFile(NAND_FILE);
+
+	for (int i=0; i<9; i++)
+		ssd.eraseBuffer(i, 1);
+	string fileAfter = getFile(NAND_FILE);
+	EXPECT_EQ(fileBefore, fileAfter);
+}
+
+TEST_F(SSDFixture, EraseBufferTest10Times)
+{
+	for (int i = 0; i <= 10; i++)
+		ssd.write(i, NORMAL_DATA);
+	string fileBefore = getFile(NAND_FILE);
+
+	for (int i = 0; i < 10; i++)
+		ssd.eraseBuffer(i, 1);
+	string fileAfter = getFile(NAND_FILE);
+	EXPECT_NE(fileBefore, fileAfter);
+}
+
 TEST_F(SSDFixture, ReadTestNormalData)
 {
 	ssd.write(1, NORMAL_DATA);
