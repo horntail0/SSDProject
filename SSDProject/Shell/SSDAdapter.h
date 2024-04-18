@@ -11,4 +11,5 @@ public:
 	SSDAdapter();
 	bool read(int LBA) override;
 	bool write(int LBA, string data) override;
+	bool erase(int LBA, int size) override;
 };

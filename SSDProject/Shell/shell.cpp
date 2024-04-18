@@ -18,6 +18,13 @@ bool Shell::write(int LBA, string data)
 	return SsdDriver->write(LBA, data);
 }
 
+bool Shell::erase(int LBA, int size)
+{
+	if (isAddressValid(LBA) == false) return false;
+	return SsdDriver->erase(LBA, size);
+}
+
+
 void Shell::help()
 {
 	cout << "1. Read data from LBA : read { LBA }" << endl
