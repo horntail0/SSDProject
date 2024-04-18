@@ -59,11 +59,6 @@ public:
 		return SUCCESS;
 	}
 
-	void fastRead(int lba)
-	{
-
-	}
-
 	void read(int lba)
 	{
 		if (lba < 0 || lba > 99)
@@ -209,4 +204,5 @@ private:
 		}
 
 		return false;
+	}
 };
