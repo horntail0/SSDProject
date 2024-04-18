@@ -13,11 +13,12 @@ using namespace testing;
 class MockFile : public IFile
 {
 public:
-	MOCK_METHOD(void, read, (int LBA), (override));
-	MOCK_METHOD(void, write, (int LBA, string data), (override));
-	MOCK_METHOD(void, erase, (int LBA, int size), (override));
+	MOCK_METHOD(void, read, (int), (override));
+	MOCK_METHOD(void, write, (int, string), (override));
+	MOCK_METHOD(void, erase, (int, int), (override));
 	MOCK_METHOD(void, writeBufToFile, (string, vector<string>), (override));
 	MOCK_METHOD(vector<string>, readFileToBuf, (string), (override));
+	MOCK_METHOD(void, writeFile, (string, string), (override));
 };
 
 class MockSSDAdapter : public SSDInterface
