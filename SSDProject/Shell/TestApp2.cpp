@@ -1,5 +1,5 @@
 #pragma once
-#include "TestScenario.cpp"
+#include "TestScenario.h"
 #include "shell.h"
 
 class TestApp2 : public TestScenario

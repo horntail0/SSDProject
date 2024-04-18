@@ -1,5 +1,6 @@
 #pragma once
 #include "SSDAdapter.h"
+#include "TestScenario.h"
 #include <string>
 #include <iostream>
 
@@ -8,6 +9,7 @@ using namespace std;
 constexpr int MAX_NUM = 100;
 constexpr int LENGTH_OF_INPUT_DATA = 10;
 constexpr int ERASE_MAX_NUM = 10;
+
 
 class Shell
 {
@@ -28,7 +30,6 @@ public:
 
 	void selectSsd(SSDInterface* SsdInterfacePtr);
 
-public://test
 	bool testApp1(bool printout = true);
 
 	bool testApp2(bool printout = true);
@@ -36,10 +37,15 @@ public://test
 	bool testWrite10AndCompare(bool printout = true);
 
 	bool testLoopWriteAndReadCompare(bool printout = true);
+
+	bool customTest(string testname, bool printout = true);
+
 private:
 	bool isAddressValid(int LBA);
 
 	bool isDataValid(string data);
 
 	SSDInterface* SsdDriver;
+
+	TestScenario* testlist[10];
 };

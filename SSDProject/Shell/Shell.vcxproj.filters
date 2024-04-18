@@ -9,7 +9,7 @@
     <ClCompile Include="Runner.cpp" />
     <ClCompile Include="TestApp1.cpp" />
     <ClCompile Include="TestApp2.cpp" />
-    <ClCompile Include="TestScenario.cpp" />
+    <ClCompile Include="TestScenario.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
