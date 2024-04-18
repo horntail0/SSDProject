@@ -27,6 +27,14 @@ int main(int argc, char* argv[])
 		string data = argv[3];
 		ssd.write(lba, data);
 	}
+	if (cmd == "E")
+	{
+		if (argc != 4)
+			return 0;
+
+		int size = stoi(string(argv[3]));
+		ssd.erase(lba, size);
+	}
 
 	return 0;
 }
