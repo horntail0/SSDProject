@@ -59,11 +59,6 @@ public:
 		return SUCCESS;
 	}
 
-	void fastRead(int lba)
-	{
-
-	}
-
 	void read(int lba)
 	{
 		if (lba < 0 || lba > 99)
@@ -144,5 +139,70 @@ private:
 		}
 
 		return ret;
+	}
+
+	void fastRead(int lba)
+	{
+		for (int i = buf.size() - 1; i >= 0; --i)
+		{
+			if (buf[i].start <= i && i <= buf[i].end) //여기서 바로 읽기
+				return;
+		}
+
+		//기존 read
+	}
+
+	void fastWrite(Buffer buffer)
+	{
+		buf.push_back(buffer);
+
+		if (buf.size() == 1)
+			return;
+
+		const int DELETE = -1;
+		int last = buf.size() - 1;
+		int prev = buf.size() - 2;
+
+		if (isConsecutive(buf[prev], buf[last]))
+			buf[prev].start = DELETE;
+		for (int i = prev; i >= 0; --i)
+		{
+			if (isDuplicated(buf[i], buf[last]))
+				buf[i].start = DELETE;
+		}
+
+		vector<Buffer> tmp;
+		for (int i = 0; i < buf.size(); ++i)
+		{
+			if (buf[i].start != DELETE)
+				tmp.push_back(buf[i]);
+		}
+		swap(tmp, buf);
+	}
+
+	bool isDuplicated(Buffer prev, Buffer last)
+	{
+		if (last.start <= prev.start && prev.end <= last.end)
+			return true;
+		return false;
+	}
+
+	bool isConsecutive(Buffer& prev, Buffer& last)
+	{
+		if (prev.data != last.data)
+			return false;
+
+		if (prev.end + 1 == last.start)
+		{
+			last.start = prev.start;
+			return true;
+		}
+		if (last.end + 1 == prev.start)
+		{
+			last.end = prev.end;
+			return true;
+		}
+
+		return false;
 	}
 };

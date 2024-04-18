@@ -15,6 +15,8 @@ public:
 	MOCK_METHOD(void, read, (int LBA), (override));
 	MOCK_METHOD(void, write, (int LBA, string data), (override));
 	MOCK_METHOD(void, erase, (int LBA, int size), (override));
+	MOCK_METHOD(void, writeBufToFile, (string, vector<string>), (override));
+	MOCK_METHOD(vector<string>, readFileToBuf, (string), (override));
 };
 
 class MockSSDAdapter : public SSDInterface
