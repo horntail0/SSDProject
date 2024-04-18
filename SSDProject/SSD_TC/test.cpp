@@ -3,6 +3,8 @@
 #include "../SSD/File.cpp"
 #include "../SSD/SSD.cpp"
 #include <fstream>
+#include <vector>
+#include <string>
 
 using namespace std;
 using namespace testing;
@@ -19,6 +21,8 @@ public:
 	MOCK_METHOD(void, read, (int), (override));
 	MOCK_METHOD(void, write, (int, string), (override));
 	MOCK_METHOD(void, erase, (int, int), (override));
+	MOCK_METHOD(void, writeBufToFile, (string, vector<string>), (override));
+	MOCK_METHOD(vector<string>, readFileToBuf, (string), (override));
 };
 
 class MockFixture : public testing::Test
@@ -188,6 +192,28 @@ TEST_F(SSDFixture, WriteTestInvalidLBA)
 	ssd.write(100, NORMAL_DATA);
 	fileAfter = getFile(NAND_FILE);
 	EXPECT_EQ(fileBefore, fileAfter);
+}
+
+TEST_F(SSDFixture, WriteBufferTestNormalData)
+{
+	ssd.writeBuffer(0, NORMAL_DATA);
+	ssd.flush();
+
+	ssd.writeBuffer(1, NORMAL_DATA);
+	ssd.flush();
+
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+	ssd.writeBuffer(2, NORMAL_DATA);
+
+
 }
 
 TEST_F(SSDFixture, ReadTestNormalData)
