@@ -7,7 +7,9 @@ string toLower(const string& str)
 	return result;
 }
 
-Runner::Runner() {}
+Runner::Runner() {
+	shell_ = Shell::getInstance();
+}
 
 void Runner::setRunList(string filePath)
 {
@@ -31,7 +33,7 @@ void Runner::run()
 		{
 			cout << line << "\t---\tRun...";
 			bool printout = false;
-			if (shell_.testApp1(printout)) cout << "PASS" << endl;
+			if (shell_->testApp1(printout)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;
@@ -42,7 +44,7 @@ void Runner::run()
 		{
 			cout << line << "\t---\tRun...";
 			bool printout = false;
-			if (shell_.testApp2(printout)) cout << "PASS" << endl;
+			if (shell_->testApp2(printout)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;
@@ -53,7 +55,7 @@ void Runner::run()
 		{
 			cout << line << "\t---\tRun...";
 			bool printout = false;
-			if (shell_.testWrite10AndCompare(printout)) cout << "PASS" << endl;
+			if (shell_->testWrite10AndCompare(printout)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;
@@ -64,7 +66,7 @@ void Runner::run()
 		{
 			cout << line << "\t---\tRun...";
 			bool printout = false;
-			if (shell_.testLoopWriteAndReadCompare(printout)) cout << "PASS" << endl;
+			if (shell_->testLoopWriteAndReadCompare(printout)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;
