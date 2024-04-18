@@ -101,20 +101,31 @@ public:
 	{
 	}
 
-//private:
+private:
 	IFile* file;
 	vector<Buffer> buf;
 	
-	void fastWrite(Buffer now)
+	void fastRead(int lba)
 	{
-		buf.push_back(now);
+		for (int i = buf.size() - 1; i >= 0; --i)
+		{
+			if (buf[i].start <= i && i <= buf[i].end) //여기서 바로 읽기
+				return;
+		}
+
+		//기존 read
+	}
+
+	void fastWrite(Buffer buffer)
+	{
+		buf.push_back(buffer);
 
 		if (buf.size() == 1)
 			return;
 
 		const int DELETE = -1;
-		int prev = buf.size() - 2;
 		int last = buf.size() -1;
+		int prev = buf.size() - 2;
 
 		if(isConsecutive(buf[prev], buf[last]))
 			buf[prev].start = DELETE;
