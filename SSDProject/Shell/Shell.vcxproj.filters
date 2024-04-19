@@ -10,6 +10,7 @@
     <ClCompile Include="ShellLogger.cpp" />
     <ClCompile Include="ShellTestBuilder.cpp" />
     <ClCompile Include="testapp1.cpp" />
+    <ClCompile Include="testapp2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -23,5 +24,6 @@
     <ClInclude Include="ShellTestBuilder.h" />
     <ClInclude Include="TestCase.h" />
     <ClInclude Include="testapp1.h" />
+    <ClInclude Include="testapp2.h" />
   </ItemGroup>
 </Project>

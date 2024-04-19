@@ -134,6 +134,7 @@
     <ClCompile Include="ShellTestBuilder.cpp" />
     <ClCompile Include="SSDAdapter.cpp" />
     <ClCompile Include="testapp1.cpp" />
+    <ClCompile Include="testapp2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -146,6 +147,7 @@
     <ClInclude Include="SSDAdapter.h" />
     <ClInclude Include="SSDInterface.h" />
     <ClInclude Include="testapp1.h" />
+    <ClInclude Include="testapp2.h" />
     <ClInclude Include="TestCase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
