@@ -6,6 +6,7 @@ Shell::Shell()
 {
 	SsdDriver = new SSDAdapter;
 	shellLogger = ShellLogger::getInstance();
+	testBuilder.run(&testlist);
 }
 
 bool Shell::read(int LBA, bool printOut)

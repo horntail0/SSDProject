@@ -1,8 +1,10 @@
 #pragma once
-#include "SSDAdapter.h"
 #include <string>
 #include <iostream>
+#include "SSDAdapter.h"
 #include "ShellLogger.h"
+#include "ShellTestBuilder.h"
+#include "TestCase.h"
 
 using namespace std;
 
@@ -17,6 +19,7 @@ private:
 	Shell();
 
 public:
+
 	static Shell* getInstance()
 	{
 		if (instance == nullptr)
@@ -55,4 +58,6 @@ private:
 
 	SSDInterface* SsdDriver;
 	ShellLogger* shellLogger;
+	ShellTestBuilder testBuilder;
+	TestCase* testlist[10];
 };
