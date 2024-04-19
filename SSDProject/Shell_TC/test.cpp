@@ -7,6 +7,7 @@
 #include "../Shell/ShellLogger.cpp"
 #include "../Shell/ShellTestBuilder.cpp"
 #include "../Shell/testapp1.cpp"
+#include "../Shell/testapp2.cpp"
 #include "../SSD/File.cpp"
 
 using namespace std;

@@ -82,17 +82,6 @@ void Shell::selectSsd(SSDInterface* SsdInterfacePtr)
 	SsdDriver = SsdInterfacePtr;
 };
 
-bool Shell::testApp1(bool printOut)
-{
-	shellLogger->recordLog(__func__, "");
-
-	string data = "0x12345678";
-	bool writeOk = fullWrite(data);
-	bool readOk = fullRead(printOut);
-
-	if (writeOk && readOk) return true;
-	else return false;
-};
 
 bool Shell::testApp2(bool printOut)
 {
