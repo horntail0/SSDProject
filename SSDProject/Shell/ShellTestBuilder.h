@@ -1,9 +1,12 @@
 #pragma once
+#include <string>
 #include "TestCase.h"
-
+using namespace std;
 class ShellTestBuilder
 {
 public:
-	void run(TestCase* (*testlist)[10]);
+	void makeTestList(void);
+	bool run(string comm, bool printOut);
 private:
+	TestCase* testlist[10];
 };

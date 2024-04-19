@@ -60,5 +60,4 @@ private:
 	SSDInterface* SsdDriver;
 	ShellLogger* shellLogger;
 	ShellTestBuilder testBuilder;
-	TestCase* testlist[10];
 };

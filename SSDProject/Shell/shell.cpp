@@ -6,7 +6,7 @@ Shell::Shell()
 {
 	SsdDriver = new SSDAdapter;
 	shellLogger = ShellLogger::getInstance();
-	testBuilder.run(&testlist);
+	testBuilder.makeTestList();
 }
 
 bool Shell::read(int LBA, bool printOut)
@@ -148,11 +148,7 @@ bool Shell::testLoopWriteAndReadCompare(bool printOut)
 
 bool Shell::customTest(string comm, bool printOut)
 {
-	if (comm == "testapp1")
-	{
-		return testlist[0]->run(printOut);
-	}
-	return false;
+	return testBuilder.run(comm, printOut);
 }
 ;
 
