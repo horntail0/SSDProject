@@ -8,6 +8,8 @@
 #include "../Shell/ShellTestBuilder.cpp"
 #include "../Shell/testapp1.cpp"
 #include "../Shell/testapp2.cpp"
+#include "../Shell/write10andcompare.cpp"
+#include "../Shell/LoopWriteAndReadCompare.cpp"
 #include "../SSD/File.cpp"
 
 using namespace std;

@@ -54,7 +54,7 @@ void Runner::run()
 			cout << line << "\t---\tRun...";
 
 			bool printOut = false;
-			if (shell_->testWrite10AndCompare(printOut)) cout << "PASS" << endl;
+			if (shell_->customTest("write10andcompare", printOut)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;
@@ -65,7 +65,7 @@ void Runner::run()
 		{
 			cout << line << "\t---\tRun...";
 			bool printOut = false;
-			if (shell_->testLoopWriteAndReadCompare(printOut)) cout << "PASS" << endl;
+			if (shell_->customTest("loopwriteandreadcompare", printOut)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;

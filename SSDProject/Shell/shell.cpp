@@ -82,23 +82,6 @@ void Shell::selectSsd(SSDInterface* SsdInterfacePtr)
 	SsdDriver = SsdInterfacePtr;
 };
 
-bool Shell::testWrite10AndCompare(bool printOut)
-{
-	shellLogger->recordLog(__func__, "");
-
-	string data = "0x12345678";
-
-	bool writeOk, readOk;
-	for (int i = 0; i < 10; i++)
-	{
-		writeOk = write(0, data);  // 같은 주소에 10번 쓰기, 읽기 테스트
-		readOk = read(0, printOut);
-	}
-
-	if (writeOk && readOk) return true;
-	else return false;
-};
-
 bool Shell::testLoopWriteAndReadCompare(bool printOut)
 {
 	shellLogger->recordLog(__func__, "");

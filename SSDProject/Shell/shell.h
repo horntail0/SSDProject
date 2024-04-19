@@ -43,12 +43,6 @@ public:
 
 	void selectSsd(SSDInterface* SsdInterfacePtr);
 
-	bool testApp1(bool printOut = true);
-
-	bool testApp2(bool printOut = true);
-
-	bool testWrite10AndCompare(bool printOut = true);
-
 	bool testLoopWriteAndReadCompare(bool printOut = true);
 
 	bool customTest(string comm, bool printOut = true);
