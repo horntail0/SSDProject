@@ -8,6 +8,8 @@
     <ClCompile Include="SSDAdapter.cpp" />
     <ClCompile Include="Runner.cpp" />
     <ClCompile Include="ShellLogger.cpp" />
+    <ClCompile Include="ShellTestBuilder.cpp" />
+    <ClCompile Include="testapp1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -18,5 +20,8 @@
     <ClInclude Include="Shell.h" />
     <ClInclude Include="Runner.h" />
     <ClInclude Include="ShellLogger.h" />
+    <ClInclude Include="ShellTestBuilder.h" />
+    <ClInclude Include="TestCase.h" />
+    <ClInclude Include="testapp1.h" />
   </ItemGroup>
 </Project>
