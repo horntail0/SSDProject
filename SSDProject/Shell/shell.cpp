@@ -5,19 +5,20 @@ Shell* Shell::instance = nullptr;
 Shell::Shell()
 {
 	SsdDriver = new SSDAdapter;
+	shellLogger = ShellLogger::getInstance();
 }
 
 bool Shell::read(int LBA, bool printOut)
 {
 	if (isAddressValid(LBA) == false) return false;
-	shellLogger.recordLog(__func__, "LBA:" + to_string(LBA));
+	shellLogger->recordLog(__func__, "LBA:" + to_string(LBA));
 	return SsdDriver->read(LBA, printOut);
 }
 
 bool Shell::write(int LBA, string data)
 {
 	if (isAddressValid(LBA) == false || isDataValid(data) == false) return false;
-	shellLogger.recordLog(__func__, "LBA:" + to_string(LBA) + " DATA:" + data);
+	shellLogger->recordLog(__func__, "LBA:" + to_string(LBA) + " DATA:" + data);
 	return SsdDriver->write(LBA, data);
 }
 
@@ -26,7 +27,7 @@ bool Shell::erase(int LBA, int size)
 	bool result;
 	if (size <= 0) return false;
 
-	shellLogger.recordLog(__func__, "LBA:" + to_string(LBA) + " SIZE:" + to_string(size));
+	shellLogger->recordLog(__func__, "LBA:" + to_string(LBA) + " SIZE:" + to_string(size));
 
 	while (size > ERASE_MAX_NUM)
 	{
@@ -55,7 +56,7 @@ bool Shell::fullWrite(string data)
 
 	for (int i = 0; i < MAX_NUM; i++)
 	{
-		shellLogger.recordLog(__func__, "LBA: " + to_string(i) + " DATA: " + data);
+		shellLogger->recordLog(__func__, "LBA: " + to_string(i) + " DATA: " + data);
 		bool result = SsdDriver->write(i, data);
 		if (!result) return false;
 	}
@@ -65,7 +66,7 @@ bool Shell::fullWrite(string data)
 
 bool Shell::fullRead(bool printOut)
 {
-	shellLogger.recordLog(__func__, "");
+	shellLogger->recordLog(__func__, "");
 
 	for (int i = 0; i < MAX_NUM; i++)
 	{
@@ -82,7 +83,7 @@ void Shell::selectSsd(SSDInterface* SsdInterfacePtr)
 
 bool Shell::testApp1(bool printOut)
 {
-	shellLogger.recordLog(__func__, "");
+	shellLogger->recordLog(__func__, "");
 
 	string data = "0x12345678";
 	bool writeOk = fullWrite(data);
@@ -94,7 +95,7 @@ bool Shell::testApp1(bool printOut)
 
 bool Shell::testApp2(bool printOut)
 {
-	shellLogger.recordLog(__func__, "");
+	shellLogger->recordLog(__func__, "");
 
 	string data = "0xAAAABBBB";
 	for (int i = 0; i < 30; i++)
@@ -123,7 +124,7 @@ bool Shell::testApp2(bool printOut)
 
 bool Shell::testWrite10AndCompare(bool printOut)
 {
-	shellLogger.recordLog(__func__, "");
+	shellLogger->recordLog(__func__, "");
 
 	string data = "0x12345678";
 
@@ -140,7 +141,7 @@ bool Shell::testWrite10AndCompare(bool printOut)
 
 bool Shell::testLoopWriteAndReadCompare(bool printOut)
 {
-	shellLogger.recordLog(__func__, "");
+	shellLogger->recordLog(__func__, "");
 
 	string data = "0x12345678";
 

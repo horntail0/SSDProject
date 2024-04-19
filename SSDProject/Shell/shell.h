@@ -54,5 +54,5 @@ private:
 	bool isDataValid(string data);
 
 	SSDInterface* SsdDriver;
-	ShellLogger shellLogger;
+	ShellLogger* shellLogger;
 };
