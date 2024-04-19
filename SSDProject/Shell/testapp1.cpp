@@ -3,7 +3,6 @@
 static testapp1 app1;
 testapp1::testapp1()
 {
-
 }
 
 testapp1* testapp1::getInstance()

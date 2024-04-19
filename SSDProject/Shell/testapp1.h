@@ -6,5 +6,4 @@ public:
 	testapp1();
 	static testapp1* getInstance();
 	bool run(bool printOut);
-
 };
