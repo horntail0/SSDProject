@@ -155,7 +155,17 @@ bool Shell::testLoopWriteAndReadCompare(bool printOut)
 
 	if (writeOk && readOk) return true;
 	else return false;
-};
+}
+
+bool Shell::customTest(string comm, bool printOut)
+{
+	if (comm == "testapp1")
+	{
+		return testlist[0]->run(printOut);
+	}
+	return false;
+}
+;
 
 
 bool Shell::isAddressValid(int LBA)

@@ -52,7 +52,7 @@ int main()
 		}
 		else if (command == "testapp1")
 		{
-			shell->testApp1();
+			shell->customTest(command);
 		}
 		else if (command == "testapp2")
 		{
