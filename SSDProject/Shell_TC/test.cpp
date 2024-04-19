@@ -127,7 +127,7 @@ TEST_F(TestShell, TestMockAdapterApp1)
 	EXPECT_CALL(mfile, read(_))
 		.Times(100);
 
-	EXPECT_EQ(shell->testApp1(true), true);
+	EXPECT_EQ(shell->customTest("testapp1"), true);
 }
 
 TEST_F(TestShell, TestMockAdapterApp2)
