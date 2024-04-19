@@ -172,7 +172,7 @@ TEST_F(TestShell, TestMockAdapterApp2)
 	EXPECT_CALL(mfile, read(5))
 		.Times(1);
 
-	EXPECT_EQ(shell->testApp2(), true);
+	EXPECT_EQ(shell->customTest("testapp2", true), true);
 }
 
 TEST_F(TestShell, TestReadAbnormalAddress)

@@ -82,36 +82,6 @@ void Shell::selectSsd(SSDInterface* SsdInterfacePtr)
 	SsdDriver = SsdInterfacePtr;
 };
 
-
-bool Shell::testApp2(bool printOut)
-{
-	shellLogger->recordLog(__func__, "");
-
-	string data = "0xAAAABBBB";
-	for (int i = 0; i < 30; i++)
-	{
-		for (int j = 0; j <= 5; j++)
-		{
-			SsdDriver->write(j, data);
-		}
-	}
-
-	data = "0x12345678";
-	for (int i = 0; i <= 5; i++)
-	{
-		SsdDriver->write(i, data);
-	}
-
-
-	for (int i = 0; i <= 5; i++)
-	{
-		bool result = SsdDriver->read(i, printOut);
-		if (!result) return false;
-	}
-
-	return true;
-};
-
 bool Shell::testWrite10AndCompare(bool printOut)
 {
 	shellLogger->recordLog(__func__, "");

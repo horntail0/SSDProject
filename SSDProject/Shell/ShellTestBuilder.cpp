@@ -18,5 +18,9 @@ bool ShellTestBuilder::run(string comm, bool printOut)
 	{
 		return testlist[0]->run(printOut);
 	}
+	else if (comm == "testapp2")
+	{
+		return testlist[1]->run(printOut);
+	}
 	return false;
 }

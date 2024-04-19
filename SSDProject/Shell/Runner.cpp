@@ -30,7 +30,7 @@ void Runner::run()
 			cout << line << "\t---\tRun...";
 
 			bool printOut = false;
-			if (shell_->customTest("testapp1")) cout << "PASS" << endl;
+			if (shell_->customTest("testapp1", printOut)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;
@@ -42,7 +42,7 @@ void Runner::run()
 			cout << line << "\t---\tRun...";
 
 			bool printOut = false;
-			if (shell_->testApp2(printOut)) cout << "PASS" << endl;
+			if (shell_->customTest("testapp2", printOut)) cout << "PASS" << endl;
 			else
 			{
 				cout << "FAIL!" << endl;
