@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <filesystem>
 
 using namespace std;
 using namespace testing;
@@ -46,8 +47,10 @@ public:
 	}
 	void TearDown()
 	{
-		system(("del " + NAND_FILE).c_str());
-		system(("del " + RESULT_FILE).c_str());
+		if (std::filesystem::exists(NAND_FILE))
+			system(("del " + NAND_FILE).c_str());
+		if (std::filesystem::exists(RESULT_FILE))
+			system(("del " + RESULT_FILE).c_str());
 	}
 	string getData(string fileName, int targetLine)
 	{
