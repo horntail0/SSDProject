@@ -5,6 +5,11 @@
 #include "../Shell/shell.cpp"
 #include "../Shell/SSDAdapter.cpp"
 #include "../Shell/ShellLogger.cpp"
+#include "../Shell/ShellTestBuilder.cpp"
+#include "../Shell/testapp1.cpp"
+#include "../Shell/testapp2.cpp"
+#include "../Shell/write10andcompare.cpp"
+#include "../Shell/LoopWriteAndReadCompare.cpp"
 #include "../SSD/File.cpp"
 
 using namespace std;
@@ -125,7 +130,7 @@ TEST_F(TestShell, TestMockAdapterApp1)
 	EXPECT_CALL(mfile, read(_))
 		.Times(100);
 
-	EXPECT_EQ(shell->testApp1(true), true);
+	EXPECT_EQ(shell->customTest("testapp1"), true);
 }
 
 TEST_F(TestShell, TestMockAdapterApp2)
@@ -169,7 +174,7 @@ TEST_F(TestShell, TestMockAdapterApp2)
 	EXPECT_CALL(mfile, read(5))
 		.Times(1);
 
-	EXPECT_EQ(shell->testApp2(), true);
+	EXPECT_EQ(shell->customTest("testapp2", true), true);
 }
 
 TEST_F(TestShell, TestReadAbnormalAddress)

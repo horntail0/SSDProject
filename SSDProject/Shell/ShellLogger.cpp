@@ -1,4 +1,10 @@
 #include "ShellLogger.h"
+static ShellLogger slogger;
+
+ShellLogger* ShellLogger::getInstance()
+{
+	return &slogger;
+}
 
 void ShellLogger::recordLog(string functionName, string log)
 {
@@ -12,6 +18,7 @@ void ShellLogger::recordLog(string functionName, string log)
 
 	recordLogToLatestLog(logToRecord);
 }
+
 
 bool ShellLogger::shouldAddNewLog(const string& logToRecord)
 {

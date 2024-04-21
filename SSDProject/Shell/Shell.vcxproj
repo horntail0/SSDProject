@@ -127,21 +127,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LoopWriteAndReadCompare.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Runner.cpp" />
     <ClCompile Include="Shell.cpp" />
     <ClCompile Include="ShellLogger.cpp" />
+    <ClCompile Include="ShellTestBuilder.cpp" />
     <ClCompile Include="SSDAdapter.cpp" />
+    <ClCompile Include="testapp1.cpp" />
+    <ClCompile Include="testapp2.cpp" />
+    <ClCompile Include="write10andcompare.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LoopWriteAndReadCompare.h" />
     <ClInclude Include="Runner.h" />
     <ClInclude Include="Shell.h" />
     <ClInclude Include="ShellLogger.h" />
+    <ClInclude Include="ShellTestBuilder.h" />
     <ClInclude Include="SSDAdapter.h" />
     <ClInclude Include="SSDInterface.h" />
+    <ClInclude Include="testapp1.h" />
+    <ClInclude Include="testapp2.h" />
+    <ClInclude Include="TestCase.h" />
+    <ClInclude Include="write10andcompare.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

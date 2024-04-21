@@ -1,8 +1,10 @@
 #pragma once
-#include "SSDAdapter.h"
 #include <string>
 #include <iostream>
+#include "SSDAdapter.h"
 #include "ShellLogger.h"
+#include "ShellTestBuilder.h"
+#include "TestCase.h"
 
 using namespace std;
 
@@ -17,6 +19,7 @@ private:
 	Shell();
 
 public:
+
 	static Shell* getInstance()
 	{
 		if (instance == nullptr)
@@ -40,19 +43,15 @@ public:
 
 	void selectSsd(SSDInterface* SsdInterfacePtr);
 
-public://test
-	bool testApp1(bool printOut = true);
-
-	bool testApp2(bool printOut = true);
-
-	bool testWrite10AndCompare(bool printOut = true);
-
 	bool testLoopWriteAndReadCompare(bool printOut = true);
+
+	bool customTest(string comm, bool printOut = true);
 private:
 	bool isAddressValid(int LBA);
 
 	bool isDataValid(string data);
 
 	SSDInterface* SsdDriver;
-	ShellLogger shellLogger;
+	ShellLogger* shellLogger;
+	ShellTestBuilder testBuilder;
 };
