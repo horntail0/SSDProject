@@ -8,7 +8,8 @@ class Runner
 {
 public:
 	Runner(string filePath);
-	void run();
+	bool run(string& line);
+	void runFile();
 
 private:
 	bool checkValidCommand(string command);

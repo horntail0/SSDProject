@@ -124,3 +124,13 @@ bool Shell::isDataValid(string data)
 
 	return true;
 }
+
+bool Shell::checkValidCommand(string command)
+{
+	return testBuilder.checkValidCommand(command);
+}
+
+void Shell::showAvaiableTestScenario()
+{
+	testBuilder.showAvaiableTestScenario();
+}

@@ -6,4 +6,8 @@ public:
 	LoopWriteAndReadCompare();
 	static LoopWriteAndReadCompare* getInstance();
 	bool run(bool printOut);
+	string getTestName() override;
+
+private:
+	string testname;
 };

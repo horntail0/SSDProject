@@ -12,7 +12,17 @@ Runner::Runner(string filePath)
 	shell_ = Shell::getInstance();
 }
 
-void Runner::run()
+bool Runner::run(string& line)
+{
+	if (checkValidCommand(toLower(line)) == true)
+	{
+		doCustomTest(line);
+		return true;
+	}
+	return false;
+}
+
+void Runner::runFile()
 {
 	string line;
 	ifstream file(filePath_);
@@ -25,10 +35,7 @@ void Runner::run()
 
 	while (getline(file, line))
 	{
-		if (checkValidCommand(toLower(line)) == true)
-		{
-			doCustomTest(line);
-		}
+		run(line);
 	}
 
 	file.close();
@@ -36,12 +43,15 @@ void Runner::run()
 
 bool Runner::checkValidCommand(string command)
 {
-	if (command == "testapp1" || command == "testapp2" 
-		|| command == "write10andcompare" || command == "loopwriteandreadcompare")
+	if (shell_->checkValidCommand(command))
 	{
 		return true;
 	}
-	return false;
+	else
+	{
+		shell_->showAvaiableTestScenario();
+		return false;
+	}
 }
 
 void Runner::doCustomTest(string line)

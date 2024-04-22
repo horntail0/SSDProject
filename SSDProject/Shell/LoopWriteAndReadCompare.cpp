@@ -4,6 +4,7 @@
 static LoopWriteAndReadCompare loop1;
 LoopWriteAndReadCompare::LoopWriteAndReadCompare()
 {
+	testname = "loopwriteandreadcompare";
 }
 
 LoopWriteAndReadCompare* LoopWriteAndReadCompare::getInstance()
@@ -28,4 +29,9 @@ bool LoopWriteAndReadCompare::run(bool printOut)
 
 	if (writeOk && readOk) return true;
 	else return false;
+}
+
+string LoopWriteAndReadCompare::getTestName()
+{
+	return testname;
 }

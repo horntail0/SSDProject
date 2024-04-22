@@ -44,6 +44,10 @@ public:
 	void selectSsd(SSDInterface* SsdInterfacePtr);
 
 	bool customTest(string comm, bool printOut = true);
+
+	bool checkValidCommand(string command);
+
+	void showAvaiableTestScenario();
 private:
 	bool isAddressValid(int LBA);
 
