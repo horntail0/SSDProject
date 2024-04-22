@@ -37,33 +37,19 @@ public:
 
 	void write(int lba, string data) override
 	{
-		vector<string> buf;
-		ifstream file(NAND_FILE);
-		string temp;
-
-		if (file.is_open())
-		{
-			while (getline(file, temp))
-			{
-				buf.push_back(temp);
-			}
-			file.close();
-		}
-		else
-		{
-			for (int i = 0; i < DISK_SIZE; i++)
-				buf.push_back(DEFAULT_DATA);
-		}
+		vector<string> buf = readFileToBuf(NAND_FILE);
 		buf[lba] = data;
 		writeBufToFile(NAND_FILE, buf);
 	}
 
 	void erase(int lba, int size) override
 	{
+		vector<string> buf = readFileToBuf(NAND_FILE);
 		for (int i = lba; i < lba + size && i < DISK_SIZE; ++i)
 		{
-			write(i, DEFAULT_DATA);
+			buf[i] = DEFAULT_DATA;
 		}
+		writeBufToFile(NAND_FILE, buf);
 	}
 
 	void writeBufToFile(string fileName, vector<string> buf)
