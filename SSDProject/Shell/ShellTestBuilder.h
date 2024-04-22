@@ -2,6 +2,14 @@
 #include <string>
 #include "TestCase.h"
 using namespace std;
+
+enum TestCaseIndex
+{
+	Index_testapp1 = 0,
+	Index_testapp2,
+	Index_write10andcompare,
+	Index_loopWriteAndReadCompare
+};
 class ShellTestBuilder
 {
 public:
