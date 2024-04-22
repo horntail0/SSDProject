@@ -35,6 +35,8 @@ public:
 
 	bool erase(int LBA, int size);
 
+	bool flush();
+
 	void help();
 
 	bool fullWrite(string data);
