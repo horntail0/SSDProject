@@ -52,26 +52,21 @@ public:
 			return;
 
 		fastWrite(Buffer{ lba, lba, data });
-		cmdCnt++;
 
 		if (cmdCnt >= 10)
-			flush(); //do flush
-
+			flush();
 	}
 
 	void eraseBuffer(int lba, int size)
 	{
 		fastWrite(Buffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT_DATA });
-		cmdCnt++;
 
 		if (cmdCnt >= 10)
-			flush(); //do flush
-
+			flush();
 	}
 
 	void flush()
 	{
-		// do flush
 		vector<string> output = RunCmdBuf(buf);
 
 		file->writeBufToFile(NAND_FILE, output);
@@ -84,6 +79,7 @@ private:
 	IFile* file;
 	vector<Buffer> buf;
 	int cmdCnt = 0;
+	const int DELETE = -1;
 
 	int isHex(char ch)
 	{
@@ -156,12 +152,12 @@ private:
 
 	void fastWrite(Buffer buffer)
 	{
+		cmdCnt++;
 		buf.push_back(buffer);
 
 		if (buf.size() == 1)
 			return;
 
-		const int DELETE = -1;
 		int last = buf.size() - 1;
 		int prev = buf.size() - 2;
 
@@ -172,14 +168,7 @@ private:
 			if (isDuplicated(buf[i], buf[last]))
 				buf[i].start = DELETE;
 		}
-
-		vector<Buffer> tmp;
-		for (int i = 0; i < buf.size(); ++i)
-		{
-			if (buf[i].start != DELETE)
-				tmp.push_back(buf[i]);
-		}
-		swap(tmp, buf);
+		deleteCommand();
 	}
 
 	bool isDuplicated(Buffer prev, Buffer last)
@@ -206,5 +195,16 @@ private:
 		}
 
 		return false;
+	}
+
+	void deleteCommand()
+	{
+		vector<Buffer> tmp;
+		for (int i = 0; i < buf.size(); ++i)
+		{
+			if (buf[i].start != DELETE)
+				tmp.push_back(buf[i]);
+		}
+		swap(tmp, buf);
 	}
 };
