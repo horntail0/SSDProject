@@ -25,53 +25,33 @@ void Runner::run()
 
 	while (getline(file, line))
 	{
-		if (toLower(line) == "testapp1")
+		if (checkValidCommand(toLower(line)) == true)
 		{
-			cout << line << "\t---\tRun...";
-
-			bool printOut = false;
-			if (shell_->customTest("testapp1", printOut)) cout << "PASS" << endl;
-			else
-			{
-				cout << "FAIL!" << endl;
-				exit(0);
-			}
-		}
-		else if (toLower(line) == "testapp2")
-		{
-			cout << line << "\t---\tRun...";
-
-			bool printOut = false;
-			if (shell_->customTest("testapp2", printOut)) cout << "PASS" << endl;
-			else
-			{
-				cout << "FAIL!" << endl;
-				exit(0);
-			}
-		}
-		else if (toLower(line) == "write10andcompare")
-		{
-			cout << line << "\t---\tRun...";
-
-			bool printOut = false;
-			if (shell_->customTest("write10andcompare", printOut)) cout << "PASS" << endl;
-			else
-			{
-				cout << "FAIL!" << endl;
-				exit(0);
-			}
-		}
-		else if (toLower(line) == "loopwriteandreadcompare")
-		{
-			cout << line << "\t---\tRun...";
-			bool printOut = false;
-			if (shell_->customTest("loopwriteandreadcompare", printOut)) cout << "PASS" << endl;
-			else
-			{
-				cout << "FAIL!" << endl;
-				exit(0);
-			}
+			doCustomTest(line);
 		}
 	}
+
 	file.close();
+}
+
+bool Runner::checkValidCommand(string command)
+{
+	if (command == "testapp1" || command == "testapp2" 
+		|| command == "write10andcompare" || command == "loopwriteandreadcompare")
+	{
+		return true;
+	}
+	return false;
+}
+
+void Runner::doCustomTest(string line)
+{
+	cout << line << "\t---\tRun...";
+	bool printOut = false;
+	if (shell_->customTest(toLower(line), printOut)) cout << "PASS" << endl;
+	else
+	{
+		cout << "FAIL!" << endl;
+		exit(0);
+	}
 }

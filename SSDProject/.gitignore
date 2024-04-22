@@ -5,6 +5,9 @@
 
 result.txt
 nand.txt
+logList.txt
+*.zip
+*.log
 
 coverage/
 
