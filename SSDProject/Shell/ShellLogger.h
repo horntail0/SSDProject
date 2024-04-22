@@ -6,11 +6,13 @@
 #include <string>
 
 using namespace std;
+#define RECORD_LOG(...) shellLogger->recordLog(__func__, ##__VA_ARGS__)
 
 class ShellLogger
 {
 public:
 	void recordLog(string functionName, string log);
+	void recordLog(string functionName) { recordLog(functionName, ""); };
 	static ShellLogger* getInstance();
 private:
 	string getCurrentTimeString(const string& timeFormat);

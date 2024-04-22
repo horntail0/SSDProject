@@ -14,7 +14,7 @@ bool testapp2::run(bool printOut)
 {
 	Shell* sh = Shell::getInstance();
 	ShellLogger* shellLogger = ShellLogger::getInstance();
-	shellLogger->recordLog(__func__, "");
+	RECORD_LOG();
 
 	string data = "0xAAAABBBB";
 	for (int i = 0; i < 30; i++)

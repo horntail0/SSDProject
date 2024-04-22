@@ -14,7 +14,7 @@ bool testapp1::run(bool printOut)
 {
 	Shell* sh = Shell::getInstance();
 	ShellLogger* shellLogger = ShellLogger::getInstance();
-	shellLogger->recordLog(__func__, "");
+	RECORD_LOG();
 
 	string data = "0x12345678";
 	bool writeOk = sh->fullWrite(data);
