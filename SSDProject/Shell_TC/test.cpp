@@ -52,6 +52,11 @@ public:
 	{
 		return true;
 	}
+
+	void flush() override
+	{
+		return;
+	}
 private:
 	MockFile* mfile_;
 };

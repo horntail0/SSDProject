@@ -12,4 +12,5 @@ public:
 	bool read(int LBA, bool printOut) override;
 	bool write(int LBA, string data) override;
 	bool erase(int LBA, int size) override;
+	void flush() override;
 };

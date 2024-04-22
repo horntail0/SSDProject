@@ -33,6 +33,13 @@ bool SSDAdapter::write(int LBA, string data)
 	return result == 0 ? true : false;
 }
 
+void SSDAdapter::flush()
+{
+	string cmd = "SSD.exe F";
+	system(cmd.c_str());
+	return;
+}
+
 bool SSDAdapter::erase(int LBA, int size)
 {
 	string cmd = "SSD.exe E " + to_string(LBA) + " " + to_string(size);
