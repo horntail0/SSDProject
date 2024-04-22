@@ -7,6 +7,7 @@ using namespace std;
 const int SUCCESS = 1;
 const int FAIL = -1;
 const int DELETE = -2;
+const int BUFFER_FLUSH_CNT = 10;
 
 struct CmdBuffer
 {
@@ -55,7 +56,7 @@ public:
 		fastWrite(CmdBuffer{ lba, lba, data });
 		cmdCnt++;
 
-		if (cmdCnt >= 10)
+		if (cmdCnt >= BUFFER_FLUSH_CNT)
 			flush();
 	}
 
@@ -64,8 +65,8 @@ public:
 		fastWrite(CmdBuffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT_DATA });
 		cmdCnt++;
 
-		if (cmdCnt >= 10)
-			flush(); //do flush
+		if (cmdCnt >= BUFFER_FLUSH_CNT)
+			flush();
 	}
 
 	void flush()
@@ -145,7 +146,7 @@ private:
 
 	int fastRead(int lba)
 	{
-		for (int i = cmdBuf.size() - 1; i >= 0; --i)
+		for (int i = (int)cmdBuf.size() - 1; i >= 0; --i)
 		{
 			if (cmdBuf[i].start <= lba && lba <= cmdBuf[i].end)
 			{
@@ -164,8 +165,8 @@ private:
 		if (cmdBuf.size() == 1)
 			return;
 
-		int last = cmdBuf.size() - 1;
-		int prev = cmdBuf.size() - 2;
+		int last = (int)cmdBuf.size() - 1;
+		int prev = (int)cmdBuf.size() - 2;
 
 		if (isConsecutive(cmdBuf[prev], cmdBuf[last]))
 			cmdBuf[prev].start = DELETE;
