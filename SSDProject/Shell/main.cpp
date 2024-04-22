@@ -75,6 +75,12 @@ bool isNumber(string& s)
 	return !s.empty() && it == s.end();
 }
 
+void showHelp()
+{
+	cout << "INVALID COMMAND" << endl;
+	shell->help();
+}
+
 
 int main(int argc, char** argv)
 {
@@ -108,8 +114,7 @@ int main(int argc, char** argv)
 			}
 			else
 			{
-				cout << "INVALID COMMAND" << endl;
-				shell->help();
+				showHelp();
 			}
 
 		}
@@ -125,15 +130,13 @@ int main(int argc, char** argv)
 			}
 			else
 			{
-				cout << "INVALID COMMAND" << endl;
-				shell->help();
+				showHelp();
 			}
 
 		}
 	}
 	else
 	{
-		cout << "INVALID COMMAND" << endl;
-		shell->help();
+		showHelp();
 	}
 }
