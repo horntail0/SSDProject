@@ -46,6 +46,7 @@ void runShell(string command, string param1 = "", string param2 = "")
 		if (param1 == "" && param2 == "") cin >> param1 >> param2; // lba, size
 		try
 		{
+			if (stoi(param1) >= 100 || stoi(param1) + stoi(param2) > 100) throw std::invalid_argument("Out of Range");
 			shell->erase(stoi(param1), stoi(param2));
 		}
 		catch (const std::invalid_argument& e)
@@ -59,6 +60,7 @@ void runShell(string command, string param1 = "", string param2 = "")
 		try
 		{
 			int size = stoi(param2) - stoi(param1) + 1;
+			if (stoi(param1) >= 100 || stoi(param2) >= 100) throw std::invalid_argument("Out of Range");
 			shell->erase(stoi(param1), size);
 		}
 		catch (const std::invalid_argument& e)
@@ -128,7 +130,7 @@ int main(int argc, char** argv)
 			command = string(argv[1]);
 			param1 = string(argv[2]);
 
-			if ((command == "read" || command == "fullwrite") && isNumber(param1))
+			if (command == "fullwrite" || (command == "read" && isNumber(param1)))
 			{
 				runShell(command, param1);
 			}
