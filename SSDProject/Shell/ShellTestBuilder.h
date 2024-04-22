@@ -2,7 +2,7 @@
 #include <string>
 #include "TestCase.h"
 using namespace std;
-
+constexpr int MAX_TESTCASE_NUM = 10;
 enum TestCaseIndex
 {
 	Index_testapp1 = 0,
@@ -19,6 +19,6 @@ public:
 	void showAvaiableTestScenario();
 
 private:
-	TestCase* testlist[10];
+	TestCase* testlist[MAX_TESTCASE_NUM];
 	int numTestCase_;
 };
