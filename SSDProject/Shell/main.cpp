@@ -1,6 +1,7 @@
 #include "shell.h"
 #include "SSDAdapter.h"
 #include "Runner.h"
+#include "../Util/util.h"
 
 Shell* shell = Shell::getInstance();
 
@@ -99,13 +100,6 @@ void runShell(string command, string param1 = "", string param2 = "")
 			}
 		}
 	}
-}
-
-bool isNumber(string& s)
-{
-	std::string::const_iterator it = s.begin();
-	while (it != s.end() && std::isdigit(*it)) ++it;
-	return !s.empty() && it == s.end();
 }
 
 int main(int argc, char** argv)
