@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 		if (is_number(argv[3]) == false)
 			return 0;
 
-		int size  = stoi(argv[3]);
+		int size = stoi(argv[3]);
 		//ssd.erase(lba, size);
 		ssd.eraseBuffer(lba, size);
 	}
