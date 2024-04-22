@@ -1,16 +1,9 @@
 #include <iostream>
 #include <string>
 #include "SSD.cpp"
+#include "../Util/util.h"
 
 using namespace std;
-
-bool is_number(const string& s)
-{
-	auto it = s.begin();
-	while (it != s.end() && std::isdigit(*it)) 
-		++it;
-	return !s.empty() && it == s.end();
-}
 
 int main(int argc, char* argv[])
 {
@@ -25,7 +18,7 @@ int main(int argc, char* argv[])
 
 	if (argc >= 3)
 	{
-		if (is_number(argv[2]) == false)
+		if (isNumber(argv[2]) == false)
 			return 0;
 		lba = stoi(argv[2]);
 	}
@@ -47,7 +40,7 @@ int main(int argc, char* argv[])
 	{
 		if (argc != 4)
 			return 0;
-		if (is_number(argv[3]) == false)
+		if (isNumber(argv[3]) == false)
 			return 0;
 
 		int size = stoi(argv[3]);
