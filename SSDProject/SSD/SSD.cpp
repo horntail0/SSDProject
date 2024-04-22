@@ -25,8 +25,8 @@ public:
 
 	void read(int lba)
 	{
-		if (lba < 0 || lba > 99)
-			return;
+		if (checkLba(lba) == FAIL)
+			return ;
 
 		if (fastRead(lba) == SUCCESS)
 			return;
@@ -108,12 +108,19 @@ private:
 
 	int checkInvalidWriteArg(int lba, string data)
 	{
-		if (lba < 0 || lba > 99)
+		if (checkLba(lba) == FAIL)
 			return FAIL;
 
 		if (checkInvalidHexData(data) == FAIL)
 			return FAIL;
 
+		return SUCCESS;
+	}
+
+	int checkLba(int lba)
+	{
+		if (lba < 0 || lba >= DISK_SIZE)
+			return FAIL;
 		return SUCCESS;
 	}
 
