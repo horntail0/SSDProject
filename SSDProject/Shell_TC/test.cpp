@@ -105,6 +105,7 @@ TEST_F(TestShell, TestMockAdapterHelp)
 	helpString += "7. Erase LBA : erase { LBA } { SIZE }\n";
 	helpString += "8. Erase ranged LBA : erase_range { Start_LBA } { End_LBA }\n";
 	helpString += "9. Flush data : flush\n";
+	helpString += "10. Show test scenario list : scenario_list\n";
 
 	std::ostringstream oss;
 	auto oldCoutStreamBuf = std::cout.rdbuf();

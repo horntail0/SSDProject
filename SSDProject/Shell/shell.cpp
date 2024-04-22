@@ -56,7 +56,8 @@ void Shell::help()
 		<< "6. Read full data from all LBA : fullread" << endl
 		<< "7. Erase LBA : erase { LBA } { SIZE }" << endl
 		<< "8. Erase ranged LBA : erase_range { Start_LBA } { End_LBA }" << endl
-		<< "9. Flush data : flush" << endl;
+		<< "9. Flush data : flush" << endl
+		<< "10. Show test scenario list : scenario_list" << endl;
 }
 
 bool Shell::fullWrite(string data)
