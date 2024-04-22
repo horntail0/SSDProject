@@ -123,13 +123,13 @@ private:
 
 		ret = file->readFileToBuf(NAND_FILE);
 
-		for (int j = 0; j < cmdBuf.size(); j++) 
+		for (int j = 0; j < cmdBuf.size(); j++)
 		{
 			int s = cmdBuf[j].start;
 			int e = cmdBuf[j].end;
 			for (int k = s; k <= e; k++)
 			{
-				ret[k] = cmdBuf[j].data; 
+				ret[k] = cmdBuf[j].data;
 			}
 		}
 
