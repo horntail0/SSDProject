@@ -49,7 +49,7 @@ private:
 
 	bool isDataValid(string data);
 
-	SSDInterface* SsdDriver;
+	SSDInterface* ssdDriver;
 	ShellLogger* shellLogger;
 	ShellTestBuilder testBuilder;
 };
