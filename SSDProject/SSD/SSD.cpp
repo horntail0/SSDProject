@@ -52,20 +52,21 @@ public:
 			return;
 
 		fastWrite(Buffer{ lba, lba, data });
-		flush();
+
+		if (cmdCnt >= 10)
+			flush();
 	}
 
 	void eraseBuffer(int lba, int size)
 	{
 		fastWrite(Buffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT_DATA });
-		flush();
+
+		if (cmdCnt >= 10)
+			flush();
 	}
 
 	void flush()
 	{
-		if (cmdCnt < 10)
-			return;
-
 		vector<string> output = RunCmdBuf(buf);
 
 		file->writeBufToFile(NAND_FILE, output);
