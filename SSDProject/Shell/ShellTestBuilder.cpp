@@ -24,22 +24,19 @@ void ShellTestBuilder::makeTestList()
 
 bool ShellTestBuilder::run(string comm, bool printOut)
 {
-	if (comm == "testapp1")
+	int numTestCase = 0;
+	while (numTestCase <= numTestCase_)
 	{
-		return testlist[Index_testapp1]->run(printOut);
+		if (testlist[numTestCase] != nullptr)   // 테스트 시나리오가 존재하고
+		{
+			if (comm == testlist[numTestCase]->getTestName()) // 이름도 일치하면
+			{
+				return testlist[numTestCase]->run(printOut);  // 실행
+			}
+		}
+		numTestCase++;
 	}
-	else if (comm == "testapp2")
-	{
-		return testlist[Index_testapp2]->run(printOut);
-	}
-	else if (comm == "write10andcompare")
-	{
-		return testlist[Index_write10andcompare]->run(printOut);
-	}
-	else if (comm == "loopwriteandreadcompare")
-	{
-		return testlist[Index_loopWriteAndReadCompare]->run(printOut);
-	}
+
 	return false;
 }
 
