@@ -7,7 +7,6 @@ using namespace std;
 class Runner
 {
 public:
-	Runner();
 	Runner(string filePath);
 	bool run(string& line);
 	void runFile();

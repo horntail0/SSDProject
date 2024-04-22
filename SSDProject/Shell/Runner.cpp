@@ -6,11 +6,6 @@ string toLower(string& str)
 	return str;
 }
 
-Runner::Runner()
-{
-	shell_ = Shell::getInstance();
-}
-
 Runner::Runner(string filePath)
 	: filePath_(filePath)
 {
