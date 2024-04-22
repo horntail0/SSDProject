@@ -6,7 +6,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	if (argc < 3)
+	if (argc < 2 || argc > 4)
 		return 0;
 
 	string cmd = argv[1];
@@ -44,5 +44,6 @@ int main(int argc, char* argv[])
 		ssd.flush();
 	}
 
+	ssd.saveFile();
 	return 0;
 }
