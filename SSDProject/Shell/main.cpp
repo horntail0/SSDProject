@@ -64,6 +64,14 @@ void runShell(string command, string param1 = "", string param2 = "")
 	}
 }
 
+bool isNumber(string& s)
+{
+	std::string::const_iterator it = s.begin();
+	while (it != s.end() && std::isdigit(*it)) ++it;
+	return !s.empty() && it == s.end();
+}
+
+
 int main(int argc, char** argv)
 {
 	if (argc == 1)
@@ -89,14 +97,34 @@ int main(int argc, char** argv)
 		{
 			command = string(argv[1]);
 			param1 = string(argv[2]);
-			runShell(command, param1);
+
+			if ((command == "read" || command == "fullwrite") && isNumber(param1))
+			{
+				runShell(command, param1);
+			}
+			else
+			{
+				cout << "INVALID COMMAND" << endl;
+				shell->help();
+			}
+
 		}
 		else if (argc == 4)                       // write, erase, erase_range
 		{
 			command = string(argv[1]);
 			param1 = string(argv[2]);
 			param2 = string(argv[3]);
-			runShell(command, param1, param2);
+
+			if ((command == "write" || command == "erase" || command == "erase_range") && isNumber(param1))
+			{
+				runShell(command, param1, param2);
+			}
+			else
+			{
+				cout << "INVALID COMMAND" << endl;
+				shell->help();
+			}
+
 		}
 	}
 	else
