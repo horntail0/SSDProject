@@ -68,7 +68,7 @@ public:
 	void writeBufToFile(string fileName, vector<string> buf)
 	{
 		string data = "";
-		for (int i = 0; i < 100; i++) 
+		for (int i = 0; i < 100; i++)
 		{
 			data = data + buf[i] + "\n";
 		}

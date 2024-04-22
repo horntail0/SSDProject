@@ -70,7 +70,7 @@ public:
 		vector<string> output = RunCmdBuf(buf);
 
 		file->writeBufToFile(NAND_FILE, output);
-		
+
 		cmdCnt = 0;
 		buf.clear();
 	}

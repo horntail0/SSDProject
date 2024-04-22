@@ -3,7 +3,8 @@
 using namespace std;
 static write10andcompare w10;
 write10andcompare::write10andcompare()
-{}
+{
+}
 
 write10andcompare* write10andcompare::getInstance()
 {
