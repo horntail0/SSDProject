@@ -127,7 +127,7 @@ private:
 		ofstream file(fileName);
 		if (file.is_open())
 		{
-			file << data << endl;
+			file << data;
 			file.close();
 		}
 	}
