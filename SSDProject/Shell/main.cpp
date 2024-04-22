@@ -16,6 +16,10 @@ void runShell(string command, string param1 = "", string param2 = "")
 		if (param1 == "" && param2 == "") cin >> param1 >> param2;
 		shell->write(stoi(param1), param2);
 	}
+	else if (command == "flush")
+	{
+		shell->flush();
+	}
 	else if (command == "erase")
 	{
 		if (param1 == "" && param2 == "") cin >> param1 >> param2; // lba, size
