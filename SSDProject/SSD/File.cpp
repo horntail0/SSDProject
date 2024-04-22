@@ -9,6 +9,7 @@ using namespace std;
 const string NAND_FILE = "nand.txt";
 const string RESULT_FILE = "result.txt";
 const string DEFAULT_DATA = "0x00000000";
+const int DISK_SIZE = 100;
 
 class IFile
 {
@@ -50,7 +51,7 @@ public:
 		}
 		else
 		{
-			for (int i = 0; i < 100; i++)
+			for (int i = 0; i < DISK_SIZE; i++)
 				buf.push_back(DEFAULT_DATA);
 		}
 		buf[lba] = data;
@@ -59,7 +60,7 @@ public:
 
 	void erase(int lba, int size) override
 	{
-		for (int i = lba; i < lba + size && i < 100; ++i)
+		for (int i = lba; i < lba + size && i < DISK_SIZE; ++i)
 		{
 			write(i, DEFAULT_DATA);
 		}
@@ -68,7 +69,7 @@ public:
 	void writeBufToFile(string fileName, vector<string> buf)
 	{
 		string data = "";
-		for (int i = 0; i < 100; i++) 
+		for (int i = 0; i < DISK_SIZE; i++) 
 		{
 			data = data + buf[i] + "\n";
 		}
@@ -92,7 +93,7 @@ public:
 		}
 		else
 		{
-			for (int i = 0; i < 100; i++)
+			for (int i = 0; i < DISK_SIZE; i++)
 				ret.push_back(DEFAULT_DATA);
 		}
 
