@@ -80,7 +80,7 @@ int main(int argc, char** argv)
 	{
 		string command, param1, param2;
 
-		if (argc == 2)                             // exit, help, fullread
+		if (argc == 2)                             // exit, help, fullread, run_list.lst, {test scenario}
 		{
 			command = string(argv[1]);
 			runShell(command);
