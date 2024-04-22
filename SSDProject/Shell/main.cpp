@@ -142,7 +142,6 @@ int main(int argc, char** argv)
 			{
 				showHelp();
 			}
-
 		}
 		else if (argc == 4)                       // write, erase, erase_range
 		{
@@ -158,7 +157,6 @@ int main(int argc, char** argv)
 			{
 				showHelp();
 			}
-
 		}
 	}
 	else

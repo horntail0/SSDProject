@@ -47,7 +47,7 @@ void Shell::flush()
 void Shell::help()
 {
 	RECORD_LOG();
-	cout << "Please check the following help message: " << endl
+	cout << "Please check the following help message:" << endl
 		<< "1. Read data from LBA : read { LBA }" << endl
 		<< "2. Write data to LBA : write { LBA } { Data }" << endl
 		<< "3. Exit program : exit" << endl
@@ -86,7 +86,7 @@ bool Shell::fullRead(bool printOut)
 void Shell::selectSsd(SSDInterface* SsdInterfacePtr)
 {
 	ssdDriver = SsdInterfacePtr;
-};
+}
 
 bool Shell::customTest(string comm, bool printOut)
 {
