@@ -47,12 +47,16 @@ void Shell::flush()
 void Shell::help()
 {
 	RECORD_LOG();
-	cout << "1. Read data from LBA : read { LBA }" << endl
+	cout << "Please check the following help message: " << endl
+		<< "1. Read data from LBA : read { LBA }" << endl
 		<< "2. Write data to LBA : write { LBA } { Data }" << endl
 		<< "3. Exit program : exit" << endl
 		<< "4. Print help description : help" << endl
 		<< "5. Write data to all LBA : fullwrite { Data }" << endl
-		<< "6. Read full data from all LBA : fullread" << endl;
+		<< "6. Read full data from all LBA : fullread" << endl
+		<< "7. Erase LBA : erase { LBA } { SIZE }" << endl
+		<< "8. Erase ranged LBA : erase_range { Start_LBA } { End_LBA }" << endl
+		<< "9. Flush data : flush" << endl;
 }
 
 bool Shell::fullWrite(string data)

@@ -4,17 +4,37 @@
 
 Shell* shell = Shell::getInstance();
 
+void showHelp()
+{
+	cout << "INVALID COMMAND" << endl;
+	shell->help();
+}
+
 void runShell(string command, string param1 = "", string param2 = "")
 {
 	if (command == "read")
 	{
 		if (param1 == "") cin >> param1;
-		shell->read(stoi(param1));
+		try
+		{
+			shell->read(stoi(param1));
+		}
+		catch (const std::invalid_argument& e)
+		{
+			showHelp();
+		}
 	}
 	else if (command == "write")
 	{
 		if (param1 == "" && param2 == "") cin >> param1 >> param2;
-		shell->write(stoi(param1), param2);
+		try
+		{
+			shell->write(stoi(param1), param2);
+		}
+		catch (const std::invalid_argument& e)
+		{
+			showHelp();
+		}
 	}
 	else if (command == "flush")
 	{
@@ -23,13 +43,27 @@ void runShell(string command, string param1 = "", string param2 = "")
 	else if (command == "erase")
 	{
 		if (param1 == "" && param2 == "") cin >> param1 >> param2; // lba, size
-		shell->erase(stoi(param1), stoi(param2));
+		try
+		{
+			shell->erase(stoi(param1), stoi(param2));
+		}
+		catch (const std::invalid_argument& e)
+		{
+			showHelp();
+		}
 	}
 	else if (command == "erase_range")
 	{
 		if (param1 == "" && param2 == "") cin >> param1 >> param2; // slba, elba
-		int size = stoi(param2) - stoi(param1) + 1;
-		shell->erase(stoi(param1), size);
+		try
+		{
+			int size = stoi(param2) - stoi(param1) + 1;
+			shell->erase(stoi(param1), size);
+		}
+		catch (const std::invalid_argument& e)
+		{
+			showHelp();
+		}
 	}
 	else if (command == "exit")
 	{
@@ -61,8 +95,7 @@ void runShell(string command, string param1 = "", string param2 = "")
 		{
 			if (!runner.run(command))
 			{
-				cout << "INVALID COMMAND" << endl;
-				shell->help();
+				showHelp();
 			}
 		}
 	}
@@ -74,13 +107,6 @@ bool isNumber(string& s)
 	while (it != s.end() && std::isdigit(*it)) ++it;
 	return !s.empty() && it == s.end();
 }
-
-void showHelp()
-{
-	cout << "INVALID COMMAND" << endl;
-	shell->help();
-}
-
 
 int main(int argc, char** argv)
 {
