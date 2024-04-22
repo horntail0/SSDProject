@@ -7,8 +7,10 @@ using namespace std;
 class Runner
 {
 public:
+	Runner();
 	Runner(string filePath);
-	void run();
+	bool run(string& line);
+	void runFile();
 
 private:
 	bool checkValidCommand(string command);

@@ -5,5 +5,9 @@ class testapp2 : public TestCase
 public:
 	testapp2();
 	static testapp2* getInstance();
-	bool run(bool printOut);
+	bool run(bool printOut) override;
+	string getTestName() override;
+
+private:
+	string testname;
 };
