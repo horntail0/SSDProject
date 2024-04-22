@@ -3,6 +3,7 @@
 static testapp2 app2;
 testapp2::testapp2()
 {
+	testname = "testapp2";
 }
 
 testapp2* testapp2::getInstance()
@@ -14,7 +15,7 @@ bool testapp2::run(bool printOut)
 {
 	Shell* sh = Shell::getInstance();
 	ShellLogger* shellLogger = ShellLogger::getInstance();
-	shellLogger->recordLog(__func__, "");
+	RECORD_LOG();
 
 	string data = "0xAAAABBBB";
 	for (int i = 0; i < 30; i++)
@@ -39,4 +40,9 @@ bool testapp2::run(bool printOut)
 	}
 
 	return true;
+}
+
+string testapp2::getTestName()
+{
+	return testname;
 }

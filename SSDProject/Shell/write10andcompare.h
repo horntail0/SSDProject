@@ -6,4 +6,8 @@ public:
 	write10andcompare();
 	static write10andcompare* getInstance();
 	bool run(bool printOut);
+	string getTestName() override;
+
+private:
+	string testname;
 };

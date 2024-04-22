@@ -50,21 +50,22 @@ int main()
 			cin >> param1;
 			shell->fullWrite(param1);
 		}
-		else if (command == "testapp1" || command == "testapp2")
-		{
-			shell->customTest(command);
-		}
 		else
 		{
+			string filePath = command;
+			Runner runner(filePath);
+
 			if (command.size() >= 4 && command.substr(command.size() - 4) == ".lst")
 			{
-				Runner runner(command);
-				runner.run();
+				runner.runFile();
 			}
 			else
 			{
-				cout << "INVALID COMMAND" << endl;
-				shell->help();
+				if (!runner.run(command))
+				{
+					cout << "INVALID COMMAND" << endl;
+					shell->help();
+				}
 			}
 		}
 	}

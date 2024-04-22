@@ -4,6 +4,7 @@ using namespace std;
 static write10andcompare w10;
 write10andcompare::write10andcompare()
 {
+	testname = "write10andcompare";
 }
 
 write10andcompare* write10andcompare::getInstance()
@@ -15,7 +16,7 @@ bool write10andcompare::run(bool printOut)
 {
 	Shell* sh = Shell::getInstance();
 	ShellLogger* shellLogger = ShellLogger::getInstance();
-	shellLogger->recordLog(__func__, "");
+	RECORD_LOG();
 
 	string data = "0x12345678";
 
@@ -29,4 +30,9 @@ bool write10andcompare::run(bool printOut)
 	if (writeOk && readOk) return true;
 	else return false;
 	return false;
+}
+
+string write10andcompare::getTestName()
+{
+	return testname;
 }

@@ -4,6 +4,7 @@
 static LoopWriteAndReadCompare loop1;
 LoopWriteAndReadCompare::LoopWriteAndReadCompare()
 {
+	testname = "loopwriteandreadcompare";
 }
 
 LoopWriteAndReadCompare* LoopWriteAndReadCompare::getInstance()
@@ -15,7 +16,7 @@ bool LoopWriteAndReadCompare::run(bool printOut)
 {
 	Shell* sh = Shell::getInstance();
 	ShellLogger* shellLogger = ShellLogger::getInstance();
-	shellLogger->recordLog(__func__, "");
+	RECORD_LOG();
 
 	string data = "0x12345678";
 
@@ -28,4 +29,9 @@ bool LoopWriteAndReadCompare::run(bool printOut)
 
 	if (writeOk && readOk) return true;
 	else return false;
+}
+
+string LoopWriteAndReadCompare::getTestName()
+{
+	return testname;
 }

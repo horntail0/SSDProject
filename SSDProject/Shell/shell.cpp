@@ -4,7 +4,7 @@ Shell* Shell::instance = nullptr;
 
 Shell::Shell()
 {
-	SsdDriver = new SSDAdapter;
+	ssdDriver = new SSDAdapter;
 	shellLogger = ShellLogger::getInstance();
 	testBuilder.makeTestList();
 }
@@ -12,37 +12,36 @@ Shell::Shell()
 bool Shell::read(int LBA, bool printOut)
 {
 	if (isAddressValid(LBA) == false) return false;
-	shellLogger->recordLog(__func__, "LBA:" + to_string(LBA));
-	return SsdDriver->read(LBA, printOut);
+	RECORD_LOG("LBA: " + to_string(LBA));
+	return ssdDriver->read(LBA, printOut);
 }
 
 bool Shell::write(int LBA, string data)
 {
 	if (isAddressValid(LBA) == false || isDataValid(data) == false) return false;
-	shellLogger->recordLog(__func__, "LBA:" + to_string(LBA) + " DATA:" + data);
-	return SsdDriver->write(LBA, data);
+	RECORD_LOG("LBA: " + to_string(LBA) + " DATA: " + data);
+	return ssdDriver->write(LBA, data);
 }
 
 bool Shell::erase(int LBA, int size)
 {
-	bool result;
 	if (size <= 0) return false;
-
-	shellLogger->recordLog(__func__, "LBA:" + to_string(LBA) + " SIZE:" + to_string(size));
+	RECORD_LOG("LBA: " + to_string(LBA) + " SIZE: " + to_string(size));
 
 	while (size > ERASE_MAX_NUM)
 	{
 		if (isAddressValid(LBA) == false) return false;
-		if (SsdDriver->erase(LBA, ERASE_MAX_NUM) == false) return false;
+		if (ssdDriver->erase(LBA, ERASE_MAX_NUM) == false) return false;
 		LBA += ERASE_MAX_NUM;
 		size -= ERASE_MAX_NUM;
 	}
-	return SsdDriver->erase(LBA, size);
+	return ssdDriver->erase(LBA, size);
 }
 
 
 void Shell::help()
 {
+	RECORD_LOG();
 	cout << "1. Read data from LBA : read { LBA }" << endl
 		<< "2. Write data to LBA : write { LBA } { Data }" << endl
 		<< "3. Exit program : exit" << endl
@@ -54,11 +53,10 @@ void Shell::help()
 bool Shell::fullWrite(string data)
 {
 	if (isDataValid(data) == false) return false;
-
+	RECORD_LOG("DATA: " + data);
 	for (int i = 0; i < MAX_NUM; i++)
 	{
-		shellLogger->recordLog(__func__, "LBA: " + to_string(i) + " DATA: " + data);
-		bool result = SsdDriver->write(i, data);
+		bool result = ssdDriver->write(i, data);
 		if (!result) return false;
 	}
 
@@ -67,11 +65,10 @@ bool Shell::fullWrite(string data)
 
 bool Shell::fullRead(bool printOut)
 {
-	shellLogger->recordLog(__func__, "");
-
+	RECORD_LOG();
 	for (int i = 0; i < MAX_NUM; i++)
 	{
-		bool result = SsdDriver->read(i, printOut);
+		bool result = ssdDriver->read(i, printOut);
 		if (!result) return false;
 	}
 	return true;
@@ -79,15 +76,14 @@ bool Shell::fullRead(bool printOut)
 
 void Shell::selectSsd(SSDInterface* SsdInterfacePtr)
 {
-	SsdDriver = SsdInterfacePtr;
+	ssdDriver = SsdInterfacePtr;
 };
 
 bool Shell::customTest(string comm, bool printOut)
 {
+	RECORD_LOG(comm);
 	return testBuilder.run(comm, printOut);
 }
-;
-
 
 bool Shell::isAddressValid(int LBA)
 {
@@ -127,4 +123,14 @@ bool Shell::isDataValid(string data)
 	}
 
 	return true;
+}
+
+bool Shell::checkValidCommand(string command)
+{
+	return testBuilder.checkValidCommand(command);
+}
+
+void Shell::showAvaiableTestScenario()
+{
+	testBuilder.showAvaiableTestScenario();
 }
