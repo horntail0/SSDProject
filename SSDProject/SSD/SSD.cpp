@@ -203,7 +203,7 @@ private:
 		for (int i = 0; i < cmdBuf.size(); ++i)
 		{
 			if (cmdBuf[i].start != DELETE)
-				tmp.push_back(buf[i]);
+				tmp.push_back(cmdBuf[i]);
 		}
 		swap(tmp, cmdBuf);
 	}
