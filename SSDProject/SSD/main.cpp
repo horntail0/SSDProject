@@ -27,7 +27,8 @@ int main(int argc, char* argv[])
 			return 0;
 
 		string data = argv[3];
-		ssd.write(lba, data);
+		//ssd.write(lba, data);
+		ssd.writeBuffer(lba, data);
 	}
 	if (cmd == "E")
 	{
@@ -35,27 +36,12 @@ int main(int argc, char* argv[])
 			return 0;
 
 		int size = stoi(string(argv[3]));
-		ssd.erase(lba, size);
+		//ssd.erase(lba, size);
+		ssd.eraseBuffer(lba, size);
 	}
 	if (cmd == "F")
 	{
 		ssd.flush();
-	}
-	if (cmd == "WB")
-	{
-		if (argc != 4)
-			return 0;
-
-		string data = argv[3];
-		ssd.writeBuffer(lba, data);
-	}
-	if (cmd == "EB")
-	{
-		if (argc != 4)
-			return 0;
-
-		int size = stoi(string(argv[3]));
-		ssd.eraseBuffer(lba, size);
 	}
 
 	return 0;
