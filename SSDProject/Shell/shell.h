@@ -43,8 +43,6 @@ public:
 
 	void selectSsd(SSDInterface* SsdInterfacePtr);
 
-	bool testLoopWriteAndReadCompare(bool printOut = true);
-
 	bool customTest(string comm, bool printOut = true);
 private:
 	bool isAddressValid(int LBA);
