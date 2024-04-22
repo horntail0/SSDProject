@@ -95,12 +95,16 @@ TEST_F(TestShell, TestMockAdapterWrite)
 
 TEST_F(TestShell, TestMockAdapterHelp)
 {
-	string helpString = "1. Read data from LBA : read { LBA }\n";
+	string helpString = "Please check the following help message:\n";
+	helpString += "1. Read data from LBA : read { LBA }\n";
 	helpString += "2. Write data to LBA : write { LBA } { Data }\n";
 	helpString += "3. Exit program : exit\n";
 	helpString += "4. Print help description : help\n";
 	helpString += "5. Write data to all LBA : fullwrite { Data }\n";
 	helpString += "6. Read full data from all LBA : fullread\n";
+	helpString += "7. Erase LBA : erase { LBA } { SIZE }\n";
+	helpString += "8. Erase ranged LBA : erase_range { Start_LBA } { End_LBA }\n";
+	helpString += "9. Flush data : flush\n";
 
 	std::ostringstream oss;
 	auto oldCoutStreamBuf = std::cout.rdbuf();
