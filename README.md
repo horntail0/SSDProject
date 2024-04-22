@@ -2,6 +2,10 @@
 
 https://docs.google.com/spreadsheets/d/1C4wgnd7N1jhjAJzDQxLApnpnB-jsfAwERMy3Vl8z0XE/edit#gid=0
 
+# 발표 자료 link
+
+https://docs.google.com/presentation/d/19tFGnG6YUY-WSsP-w9LtK_zofu0uQxzmZd14bAQ3qck/edit#slide=id.g2cd64d09bb0_0_7
+
 # Commit 생성 시 
 
 # 말머리: 제목 꼭 지켜주세요!
