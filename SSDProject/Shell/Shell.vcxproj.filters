@@ -8,6 +8,11 @@
     <ClCompile Include="SSDAdapter.cpp" />
     <ClCompile Include="Runner.cpp" />
     <ClCompile Include="ShellLogger.cpp" />
+    <ClCompile Include="ShellTestBuilder.cpp" />
+    <ClCompile Include="testapp1.cpp" />
+    <ClCompile Include="testapp2.cpp" />
+    <ClCompile Include="write10andcompare.cpp" />
+    <ClCompile Include="LoopWriteAndReadCompare.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -18,5 +23,11 @@
     <ClInclude Include="Shell.h" />
     <ClInclude Include="Runner.h" />
     <ClInclude Include="ShellLogger.h" />
+    <ClInclude Include="ShellTestBuilder.h" />
+    <ClInclude Include="TestCase.h" />
+    <ClInclude Include="testapp1.h" />
+    <ClInclude Include="testapp2.h" />
+    <ClInclude Include="write10andcompare.h" />
+    <ClInclude Include="LoopWriteAndReadCompare.h" />
   </ItemGroup>
 </Project>

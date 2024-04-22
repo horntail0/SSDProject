@@ -10,7 +10,7 @@ using namespace std;
 class ShellLogger {
 public:
 	void recordLog(string functionName, string log);
-
+	static ShellLogger* getInstance();
 private:
 	string getCurrentTimeString(const string& timeFormat);
 	int getSizeOfLatestLog();
