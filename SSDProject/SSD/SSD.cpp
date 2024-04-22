@@ -6,8 +6,9 @@ using namespace std;
 
 const int SUCCESS = 1;
 const int FAIL = -1;
+const int DELETE = -2;
 
-struct Buffer
+struct CmdBuffer
 {
 	int start;
 	int end;
@@ -51,7 +52,8 @@ public:
 		if (checkInvalidWriteArg(lba, data) == FAIL)
 			return;
 
-		fastWrite(Buffer{ lba, lba, data });
+		fastWrite(CmdBuffer{ lba, lba, data });
+		cmdCnt++;
 
 		if (cmdCnt >= 10)
 			flush();
@@ -59,27 +61,26 @@ public:
 
 	void eraseBuffer(int lba, int size)
 	{
-		fastWrite(Buffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT_DATA });
+		fastWrite(CmdBuffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT_DATA });
+		cmdCnt++;
 
 		if (cmdCnt >= 10)
-			flush();
+			flush(); //do flush
 	}
 
 	void flush()
 	{
-		vector<string> output = RunCmdBuf(buf);
-
+		vector<string> output = RunCmdBuf();
 		file->writeBufToFile(NAND_FILE, output);
-		
+    
 		cmdCnt = 0;
-		buf.clear();
+		cmdBuf.clear();
 	}
 
 private:
 	IFile* file;
-	vector<Buffer> buf;
+	vector<CmdBuffer> cmdBuf;
 	int cmdCnt = 0;
-	const int DELETE = -1;
 
 	int isHex(char ch)
 	{
@@ -117,7 +118,7 @@ private:
 		return SUCCESS;
 	}
 
-	vector<string> RunCmdBuf(vector<Buffer> cmdBuf)
+	vector<string> RunCmdBuf()
 	{
 		vector<string> ret;
 
@@ -138,11 +139,11 @@ private:
 
 	int fastRead(int lba)
 	{
-		for (int i = buf.size() - 1; i >= 0; --i)
+		for (int i = cmdBuf.size() - 1; i >= 0; --i)
 		{
-			if (buf[i].start <= lba && lba <= buf[i].end)
+			if (cmdBuf[i].start <= lba && lba <= cmdBuf[i].end)
 			{
-				file->read(buf[i].data);
+				file->read(cmdBuf[i].data);
 				return SUCCESS;
 			}
 		}
@@ -150,35 +151,35 @@ private:
 		return FAIL;
 	}
 
-	void fastWrite(Buffer buffer)
+	void fastWrite(CmdBuffer buffer)
 	{
-		cmdCnt++;
-		buf.push_back(buffer);
+		cmdBuf.push_back(buffer);
 
-		if (buf.size() == 1)
+		if (cmdBuf.size() == 1)
 			return;
 
-		int last = buf.size() - 1;
-		int prev = buf.size() - 2;
+		int last = cmdBuf.size() - 1;
+		int prev = cmdBuf.size() - 2;
 
-		if (isConsecutive(buf[prev], buf[last]))
-			buf[prev].start = DELETE;
+		if (isConsecutive(cmdBuf[prev], cmdBuf[last]))
+			cmdBuf[prev].start = DELETE;
 		for (int i = prev; i >= 0; --i)
 		{
-			if (isDuplicated(buf[i], buf[last]))
-				buf[i].start = DELETE;
+			if (isDuplicated(cmdBuf[i], cmdBuf[last]))
+				cmdBuf[i].start = DELETE;
 		}
+    
 		deleteCommand();
 	}
 
-	bool isDuplicated(Buffer prev, Buffer last)
+	bool isDuplicated(CmdBuffer prev, CmdBuffer last)
 	{
 		if (last.start <= prev.start && prev.end <= last.end)
 			return true;
 		return false;
 	}
 
-	bool isConsecutive(Buffer& prev, Buffer& last)
+	bool isConsecutive(CmdBuffer& prev, CmdBuffer& last)
 	{
 		if (prev.data != last.data)
 			return false;
@@ -199,12 +200,12 @@ private:
 
 	void deleteCommand()
 	{
-		vector<Buffer> tmp;
-		for (int i = 0; i < buf.size(); ++i)
+		vector<CmdBuffer> tmp;
+		for (int i = 0; i < cmdBuf.size(); ++i)
 		{
-			if (buf[i].start != DELETE)
+			if (cmdBuf[i].start != DELETE)
 				tmp.push_back(buf[i]);
 		}
-		swap(tmp, buf);
+		swap(tmp, cmdBuf);
 	}
 };
