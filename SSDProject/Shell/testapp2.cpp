@@ -2,7 +2,8 @@
 #include "shell.h"
 static testapp2 app2;
 testapp2::testapp2()
-{}
+{
+}
 
 testapp2* testapp2::getInstance()
 {

@@ -72,7 +72,6 @@ public:
 	{
 		vector<string> output = RunCmdBuf();
 		file->writeBufToFile(NAND_FILE, output);
-    
 		cmdCnt = 0;
 		cmdBuf.clear();
 	}

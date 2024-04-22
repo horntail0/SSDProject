@@ -14,7 +14,7 @@ bool SSDAdapter::read(int LBA, bool printOut)
 	if (inputFile.is_open())
 	{
 		if (!printOut) return true;
-		
+
 		string line;
 		while (getline(inputFile, line))
 			cout << line << endl;

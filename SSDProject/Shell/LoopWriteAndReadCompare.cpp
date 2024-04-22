@@ -3,7 +3,8 @@
 
 static LoopWriteAndReadCompare loop1;
 LoopWriteAndReadCompare::LoopWriteAndReadCompare()
-{}
+{
+}
 
 LoopWriteAndReadCompare* LoopWriteAndReadCompare::getInstance()
 {

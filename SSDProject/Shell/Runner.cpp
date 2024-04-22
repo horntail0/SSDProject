@@ -6,8 +6,8 @@ string toLower(string& str)
 	return str;
 }
 
-Runner::Runner(string filePath) 
-	: filePath_(filePath) 
+Runner::Runner(string filePath)
+	: filePath_(filePath)
 {
 	shell_ = Shell::getInstance();
 }

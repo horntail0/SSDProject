@@ -17,10 +17,12 @@ int main(int argc, char* argv[])
 	SSD ssd;
 	ssd.setFile(&file);
 
-	if (cmd == "R") {
+	if (cmd == "R")
+	{
 		ssd.read(lba);
 	}
-	if (cmd == "W") {
+	if (cmd == "W")
+	{
 		if (argc != 4)
 			return 0;
 
