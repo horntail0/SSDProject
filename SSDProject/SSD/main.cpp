@@ -6,12 +6,17 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	if (argc < 3)
+	if (argc < 2)
 		return 0;
 
 	string cmd = argv[1];
-	string index = argv[2];
-	int lba = stoi(index);
+	int lba = 0;
+
+	if (argc == 3)
+	{
+		string index = argv[2];
+		lba = stoi(index);
+	}
 
 	SSDFile file;
 	SSD ssd;
