@@ -52,17 +52,20 @@ public:
 			return;
 
 		fastWrite(Buffer{ lba, lba, data });
-
+		flush();
 	}
 
 	void eraseBuffer(int lba, int size)
 	{
 		fastWrite(Buffer{ lba, (lba + size - 1) > 99 ? 99 : (lba + size - 1), DEFAULT_DATA });
+		flush();
 	}
 
 	void flush()
 	{
-		// do flush
+		if (cmdCnt < 10)
+			return;
+
 		vector<string> output = RunCmdBuf(buf);
 
 		file->writeBufToFile(NAND_FILE, output);
@@ -148,7 +151,9 @@ private:
 
 	void fastWrite(Buffer buffer)
 	{
+		cmdCnt++;
 		buf.push_back(buffer);
+
 		if (buf.size() == 1)
 			return;
 
@@ -163,10 +168,6 @@ private:
 				buf[i].start = DELETE;
 		}
 		deleteCommand();
-
-		cmdCnt++;
-		if (cmdCnt >= 10)
-			flush(); //do flush
 	}
 
 	bool isDuplicated(Buffer prev, Buffer last)
