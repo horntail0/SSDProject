@@ -66,7 +66,7 @@ public:
 	{
 		vector<string> ret;
 
-		ifstream file(NAND_FILE);
+		ifstream file(fileName);
 		string temp;
 
 		if (file.is_open())
