@@ -49,7 +49,6 @@ bool Runner::checkValidCommand(string command)
 	}
 	else
 	{
-		shell_->showAvaiableTestScenario();
 		return false;
 	}
 }

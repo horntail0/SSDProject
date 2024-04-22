@@ -83,6 +83,10 @@ void runShell(string command, string param1 = "", string param2 = "")
 		if (param1 == "") cin >> param1;
 		shell->fullWrite(param1);
 	}
+	else if (command == "scenario_list")
+	{
+		shell->showAvaiableTestScenario();
+	}
 	else
 	{
 		string filePath = command;
