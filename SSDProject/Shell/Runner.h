@@ -11,6 +11,8 @@ public:
 	void run();
 
 private:
+	bool checkValidCommand(string command);
+	void doCustomTest(string command);
 	string filePath_;
 	Shell* shell_;
 };
