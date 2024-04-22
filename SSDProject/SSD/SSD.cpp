@@ -146,7 +146,7 @@ private:
 
 	int fastRead(int lba)
 	{
-		for (int i = cmdBuf.size() - 1; i >= 0; --i)
+		for (int i = (int)cmdBuf.size() - 1; i >= 0; --i)
 		{
 			if (cmdBuf[i].start <= lba && lba <= cmdBuf[i].end)
 			{
@@ -165,8 +165,8 @@ private:
 		if (cmdBuf.size() == 1)
 			return;
 
-		int last = cmdBuf.size() - 1;
-		int prev = cmdBuf.size() - 2;
+		int last = (int)cmdBuf.size() - 1;
+		int prev = (int)cmdBuf.size() - 2;
 
 		if (isConsecutive(cmdBuf[prev], cmdBuf[last]))
 			cmdBuf[prev].start = DELETE;
