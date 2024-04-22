@@ -6,6 +6,7 @@ using namespace std;
 
 const int SUCCESS = 1;
 const int FAIL = -1;
+const int DELETE = -2;
 
 struct CmdBuffer
 {
@@ -55,8 +56,7 @@ public:
 		cmdCnt++;
 
 		if (cmdCnt >= 10)
-			flush(); //do flush
-
+			flush();
 	}
 
 	void eraseBuffer(int lba, int size)
@@ -72,7 +72,7 @@ public:
 	{
 		vector<string> output = RunCmdBuf();
 		file->writeBufToFile(NAND_FILE, output);
-		
+    
 		cmdCnt = 0;
 		cmdBuf.clear();
 	}
@@ -158,7 +158,6 @@ private:
 		if (cmdBuf.size() == 1)
 			return;
 
-		const int DELETE = -1;
 		int last = cmdBuf.size() - 1;
 		int prev = cmdBuf.size() - 2;
 
@@ -169,14 +168,8 @@ private:
 			if (isDuplicated(cmdBuf[i], cmdBuf[last]))
 				cmdBuf[i].start = DELETE;
 		}
-
-		vector<CmdBuffer> tmp;
-		for (int i = 0; i < cmdBuf.size(); ++i)
-		{
-			if (cmdBuf[i].start != DELETE)
-				tmp.push_back(cmdBuf[i]);
-		}
-		swap(tmp, cmdBuf);
+    
+		deleteCommand();
 	}
 
 	bool isDuplicated(CmdBuffer prev, CmdBuffer last)
@@ -203,5 +196,16 @@ private:
 		}
 
 		return false;
+	}
+
+	void deleteCommand()
+	{
+		vector<CmdBuffer> tmp;
+		for (int i = 0; i < cmdBuf.size(); ++i)
+		{
+			if (cmdBuf[i].start != DELETE)
+				tmp.push_back(buf[i]);
+		}
+		swap(tmp, cmdBuf);
 	}
 };

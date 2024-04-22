@@ -61,6 +61,8 @@ public:
 	Shell *shell = Shell::getInstance();
 	MockFile mfile;
 	MockSSDAdapter mssd;
+
+	const int ZERO = 0;
 private:
 	void SetUp() override
 	{
@@ -71,7 +73,7 @@ private:
 
 TEST_F(TestShell, TestMockAdapterRead)
 {
-	EXPECT_CALL(mfile, read(0))
+	EXPECT_CALL(mfile, read(ZERO))
 		.Times(1);
 
 	EXPECT_EQ(shell->read(0), true);
@@ -108,7 +110,7 @@ TEST_F(TestShell, TestMockAdapterHelp)
 
 TEST_F(TestShell, TestMockAdapterFullRead)
 {
-	EXPECT_CALL(mfile, read(_))
+	EXPECT_CALL(mfile, read(An<int>()))
 		.Times(100);
 
 	EXPECT_EQ(shell->fullRead(), true);
@@ -127,7 +129,7 @@ TEST_F(TestShell, TestMockAdapterApp1)
 	EXPECT_CALL(mfile, write(_, "0x12345678"))
 		.Times(100);
 
-	EXPECT_CALL(mfile, read(_))
+	EXPECT_CALL(mfile, read(An<int>()))
 		.Times(100);
 
 	EXPECT_EQ(shell->customTest("testapp1"), true);
@@ -161,7 +163,7 @@ TEST_F(TestShell, TestMockAdapterApp2)
 	EXPECT_CALL(mfile, write(5, "0x12345678"))
 		.Times(1);
 
-	EXPECT_CALL(mfile, read(0))
+	EXPECT_CALL(mfile, read(ZERO))
 		.Times(1);
 	EXPECT_CALL(mfile, read(1))
 		.Times(1);
