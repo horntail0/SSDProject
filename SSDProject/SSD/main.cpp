@@ -14,7 +14,7 @@ bool is_number(const string& s)
 
 int main(int argc, char* argv[])
 {
-	if (argc < 2 || argc > 4) 
+	if (argc < 2 || argc > 4)
 		return 0;
 
 	SSDFile file;
@@ -59,5 +59,6 @@ int main(int argc, char* argv[])
 		ssd.flush();
 	}
 
+	ssd.saveFile();
 	return 0;
 }

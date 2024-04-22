@@ -38,7 +38,7 @@ bool Shell::erase(int LBA, int size)
 	return ssdDriver->erase(LBA, size);
 }
 
-bool Shell::flush()
+void Shell::flush()
 {
 	RECORD_LOG();
 	return ssdDriver->flush();

@@ -35,7 +35,7 @@ public:
 
 	bool erase(int LBA, int size);
 
-	bool flush();
+	void flush();
 
 	void help();
 

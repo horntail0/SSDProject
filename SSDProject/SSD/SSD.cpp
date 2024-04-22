@@ -22,12 +22,18 @@ public:
 	void setFile(IFile* file_)
 	{
 		file = file_;
+		openCmdBuffer();
+	}
+
+	void saveFile()
+	{
+		saveCmdBuffer();
 	}
 
 	void read(int lba)
 	{
 		if (checkLba(lba) == FAIL)
-			return ;
+			return;
 
 		if (fastRead(lba) == SUCCESS)
 			return;
@@ -214,5 +220,59 @@ private:
 				tmp.push_back(cmdBuf[i]);
 		}
 		swap(tmp, cmdBuf);
+	}
+
+	vector<string> splitBySpace(const string& str)
+	{
+		vector<string> words;
+		string word;
+		for (char ch : str)
+		{
+			if (ch == ' ')
+			{
+				if (!word.empty())
+				{
+					words.push_back(word);
+					word.clear();
+				}
+			}
+			else
+			{
+				word += ch;
+			}
+		}
+		if (!word.empty())
+		{
+			words.push_back(word);
+		}
+		return words;
+	}
+
+	void openCmdBuffer()
+	{
+		ifstream file("CmdBuffer.txt");
+		string line;
+		if (file.is_open())
+		{
+			if (getline(file, line))
+				cmdCnt = stoi(line);
+
+			while (getline(file, line))
+			{
+				vector<string> words = splitBySpace(line);
+				cmdBuf.push_back(CmdBuffer{ stoi(words[0]), stoi(words[1]), words[2]});
+			}
+			file.close();
+		}
+	}
+
+	void saveCmdBuffer()
+	{
+		string data = to_string(cmdCnt) + "\n";
+		for (int i = 0; i < cmdBuf.size(); ++i)
+		{
+			data = data + to_string(cmdBuf[i].start) + " " + to_string(cmdBuf[i].end) + " " + cmdBuf[i].data + "\n";
+		}
+		file->writeFile("CmdBuffer.txt", data);
 	}
 };
