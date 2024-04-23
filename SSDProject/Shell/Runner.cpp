@@ -49,6 +49,7 @@ bool Runner::checkValidCommand(string command)
 	}
 	else
 	{
+		cout << "INVALID TEST NAME : " << command << endl;
 		return false;
 	}
 }
